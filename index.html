@@ -364,7 +364,94 @@ body {
 .stage-2 { background: linear-gradient(135deg, #e6f0f5, #d0e0f0); color: #1a608b; }
 .stage-3 { background: linear-gradient(135deg, #efe6f5, #e0d0f0); color: #6b1a8b; }
 
-/* ===== 知识栏增强 ===== */
+/* ===== 统计仪表板 ===== */
+.stats-dashboard {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #fefdfb, #fdf8f2);
+}
+.stat-item {
+  text-align: center; padding: 10px 4px; border-radius: 10px;
+  background: #fff; border: 1px solid var(--border);
+  transition: all 0.2s ease; cursor: default;
+}
+.stat-item:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.stat-item .stat-num {
+  font-size: 1.2rem; font-weight: 800; color: var(--clay-dark);
+}
+.stat-item .stat-label {
+  font-size: 0.62rem; color: var(--text-light); margin-top: 2px;
+}
+.stat-item:nth-child(1) .stat-num { color: #c67b4b; }
+.stat-item:nth-child(2) .stat-num { color: #5b8c85; }
+.stat-item:nth-child(3) .stat-num { color: #d4534a; }
+
+/* ===== 工具箱 Widget ===== */
+.toolbox-widget {
+  background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  border: 1px solid var(--border); overflow: hidden;
+}
+.toolbox-header {
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  font-weight: 700; font-size: 0.9rem;
+  background: linear-gradient(180deg, #fdfaf6, #fff);
+  display: flex; align-items: center; gap: 8px;
+}
+.toolbox-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px;
+  background: var(--border);
+}
+.toolbox-col {
+  background: #fff; padding: 14px 12px;
+}
+.toolbox-col h4 {
+  font-size: 0.72rem; color: var(--clay-dark); margin-bottom: 8px;
+  font-weight: 700; display: flex; align-items: center; gap: 4px;
+}
+.tb-stat-row {
+  display: flex; justify-content: space-between; padding: 4px 0;
+  font-size: 0.72rem; border-bottom: 1px dotted var(--border);
+}
+.tb-stat-row:last-child { border-bottom: none; }
+.tb-stat-row .tb-val { font-weight: 700; color: var(--clay); }
+.tb-hot-item {
+  font-size: 0.7rem; padding: 4px 0; cursor: pointer; color: var(--text);
+  transition: color 0.15s; border-bottom: 1px dotted var(--border);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tb-hot-item:last-child { border-bottom: none; }
+.tb-hot-item:hover { color: var(--clay-dark); font-weight: 600; }
+.tb-tool-chip {
+  display: inline-block; padding: 3px 8px; margin: 2px; border-radius: 6px;
+  background: #fdf7f0; font-size: 0.68rem; color: var(--clay-dark);
+  border: 1px solid var(--clay-light);
+}
+
+/* ===== 流程列表 hover 预览 ===== */
+.process-preview {
+  display: none; position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  padding: 12px 14px; width: 200px; z-index: 50; font-size: 0.78rem;
+  color: var(--text-light); line-height: 1.5; border: 1px solid var(--border);
+  pointer-events: none;
+}
+.process-item:hover .process-preview { display: block; }
+
+/* ===== 详情卡片相关步骤 ===== */
+.related-steps {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;
+  padding-top: 14px; border-top: 1px dashed var(--border);
+}
+.related-steps .rs-label {
+  font-size: 0.74rem; color: var(--text-light); font-weight: 600;
+  width: 100%; margin-bottom: 2px;
+}
+.rs-chip {
+  padding: 5px 12px; border-radius: 16px; font-size: 0.74rem;
+  background: #fdf7f0; border: 1px solid var(--clay-light);
+  cursor: pointer; transition: all 0.2s ease; font-weight: 500;
+}
+.rs-chip:hover { background: var(--clay-warm); border-color: var(--clay); }
 .knowledge-bar {
   padding: 16px 18px; border-top: 2px solid var(--clay-light);
   background: linear-gradient(180deg, #fefdfb, #faf5ef);
@@ -616,6 +703,11 @@ body::before {
   <!-- Sidebar: Process Flow -->
   <aside class="sidebar">
     <div class="sidebar-header">拉坯全流程导航</div>
+    <div class="stats-dashboard">
+      <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">核心流程</div></div>
+      <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">专业问答</div></div>
+      <div class="stat-item"><div class="stat-num">25</div><div class="stat-label">错误纠正</div></div>
+    </div>
     <div class="kiln-gallery">
       <div class="kg-title">🏛️ 五大名窑</div>
       <div class="kiln-row" id="kilnRow"></div>
@@ -634,6 +726,24 @@ body::before {
   <div class="content">
     <!-- Detail Card -->
     <div class="detail-card visible" id="detailCard"></div>
+    <!-- Toolbox Widget -->
+    <div class="toolbox-widget" id="toolboxWidget">
+      <div class="toolbox-header">🧰 快捷工具箱</div>
+      <div class="toolbox-grid">
+        <div class="toolbox-col">
+          <h4>📊 学习进度</h4>
+          <div id="tbStats"></div>
+        </div>
+        <div class="toolbox-col">
+          <h4>🔥 热门问题</h4>
+          <div id="tbHotQs"></div>
+        </div>
+        <div class="toolbox-col">
+          <h4>🛠️ 常用工具</h4>
+          <div id="tbTools"></div>
+        </div>
+      </div>
+    </div>
     <!-- Chat Panel -->
     <div class="chat-panel">
       <div class="chat-header">
@@ -853,6 +963,9 @@ function init() {
   // Knowledge bar click to refresh
   document.getElementById('knowledgeBar').addEventListener('click', renderKnowledgeBar);
 
+  // Render toolbox
+  renderToolbox();
+
   // Bind chat input Enter key
   document.getElementById('chatInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') sendMessage();
@@ -956,6 +1069,16 @@ function renderDetailCard(index) {
   const culture = CULTURE.stepCulture[step.id];
   if (culture) {
     html += `<div class="culture-card"><h4>📖 文化延伸：${culture.title}</h4><p>${culture.text}</p></div>`;
+  }
+
+  // Related steps
+  const related = [];
+  if (index > 0) related.push({name: '← ' + KB.process[index-1].name, idx: index-1});
+  if (index < KB.process.length-1) related.push({name: KB.process[index+1].name + ' →', idx: index+1});
+  if (related.length) {
+    html += '<div class="related-steps"><span class="rs-label">📎 相关步骤</span>';
+    related.forEach(r => { html += '<span class="rs-chip" onclick="setActiveStep(' + r.idx + ')">' + r.name + '</span>'; });
+    html += '</div>';
   }
 
   card.innerHTML = html;
@@ -1129,6 +1252,30 @@ function renderKnowledgeBar() {
     refresh.textContent = '🔄 点击刷新';
     bar.appendChild(refresh);
   }
+}
+
+// ==================== Toolbox ====================
+function renderToolbox() {
+  // Learning progress
+  const exploredSteps = new Set();
+  document.getElementById('tbStats').innerHTML = KB.process.map((s, i) => {
+    return '<div class="tb-stat-row"><span>' + (i + 1) + '. ' + s.name + '</span><span class="tb-val">' + s.qa.length + 'QA</span></div>';
+  }).join('');
+
+  // Hot questions
+  const hotQs = [
+    {q:'揉泥有什么技巧？',step:0},{q:'定中心总是晃怎么办？',step:1},
+    {q:'修坯应该修多薄？',step:5},{q:'上釉前要注意什么？',step:8},
+    {q:'釉烧和素烧有什么区别？',step:9}
+  ];
+  document.getElementById('tbHotQs').innerHTML = hotQs.map(hq =>
+    '<div class="tb-hot-item" onclick="setActiveStep(' + hq.step + ');document.getElementById(\'chatInput\').value=\'' + hq.q.replace(/'/g,'&#39;') + '\';sendMessage();">' + hq.q + '</div>'
+  ).join('');
+
+  // Tool reference
+  document.getElementById('tbTools').innerHTML = KB.tools.map(t =>
+    '<span class="tb-tool-chip">' + t + '</span>'
+  ).join('');
 }
 
 // ==================== Mobile Sidebar ====================
