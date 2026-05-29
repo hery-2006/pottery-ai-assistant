@@ -1,0 +1,384 @@
+{
+  "errors": [
+    {
+      "id": "err_safety_01",
+      "category": "safety",
+      "step_id": "step_01",
+      "symptom_keywords": ["头发", "披散", "长发", "散着头发", "没扎头发"],
+      "symptom_display": "长发未扎、戴首饰操作",
+      "severity": "critical",
+      "immediate_action": "立即停止操作",
+      "correction": {
+        "title": "安全第一：整理个人防护",
+        "steps": ["立即停止转盘并关闭电源", "将长发扎成马尾或盘起", "摘下戒指、手链等所有首饰", "收紧袖口，确保宽松衣物不会靠近转盘", "检查无误后重新开始操作"],
+        "teacher_prompt": "同学，麻烦把头发扎好哦，首饰先摘下来收起来～松散的头发和首饰容易被转盘勾住，特别危险！"
+      }
+    },
+    {
+      "id": "err_safety_02",
+      "category": "safety",
+      "step_id": "step_02",
+      "symptom_keywords": ["水洒", "电机", "电源", "短路", "底部", "水漏"],
+      "symptom_display": "水洒到电机 / 电源接口",
+      "severity": "critical",
+      "immediate_action": "立即断电，擦干水渍",
+      "correction": {
+        "title": "防止电机短路",
+        "steps": ["立即关闭电源", "用干布完全擦干电机和电源接口区域", "检查无水后再通电测试", "操作时注意水不要往机器底部洒"],
+        "teacher_prompt": "小心点呀，水别往机器底部洒～电机和电源碰水会短路，不仅坏机器还可能触电呢！"
+      }
+    },
+    {
+      "id": "err_safety_03",
+      "category": "safety",
+      "step_id": "step_02",
+      "symptom_keywords": ["手疼", "磨破", "擦伤", "皮破了", "刮伤"],
+      "symptom_display": "手部擦伤 / 皮肤磨损",
+      "severity": "high",
+      "immediate_action": "停止操作，处理伤口",
+      "correction": {
+        "title": "处理手部擦伤",
+        "steps": ["停止操作并关闭电源", "用清水冲洗伤口", "使用创可贴或其他包扎物处理", "检查拉坯机转盘边缘是否光滑，如有毛刺需要打磨", "操作时保持双手湿润减少摩擦"],
+        "teacher_prompt": "手磨破了先别继续了，去冲一下水处理下伤口。记得保持手湿润，干手和泥摩擦很容易磨破的。"
+      }
+    },
+    {
+      "id": "err_operation_01",
+      "category": "operation",
+      "step_id": "step_01",
+      "symptom_keywords": ["粘手", "干", "粘", "摩擦力大", "扯", "拉扯"],
+      "symptom_display": "双手干燥接触泥料，粘手",
+      "severity": "medium",
+      "immediate_action": "立即润手",
+      "correction": {
+        "title": "保持双手湿润",
+        "steps": ["将双手浸入水中完全润湿", "操作过程中手指保持湿润但不滴水", "在旁边准备一碗清水随时润手", "注意水量不宜过多，避免泥料过软"],
+        "teacher_prompt": "先把手沾湿再碰泥料，不然会粘手哦～力度轻一点、均匀一点，别使劲压！"
+      }
+    },
+    {
+      "id": "err_operation_02",
+      "category": "operation",
+      "step_id": "step_01",
+      "symptom_keywords": ["太硬", "太干", "揉不动", "硬", "干裂"],
+      "symptom_display": "泥料太硬 / 太干，揉不动",
+      "severity": "medium",
+      "immediate_action": "适当加水调软",
+      "correction": {
+        "title": "调整泥料干湿度",
+        "steps": ["将泥团放入水盆中快速蘸水", "取出后在台面上揉压使水分均匀渗入", "重复蘸水+揉压直到泥料变软但不粘手", "注意每次加水要少，避免泥料过软"],
+        "teacher_prompt": "泥有点干，稍微蘸点水揉一揉～一点点加，别加太多，不然泥就太软没法拉了。"
+      }
+    },
+    {
+      "id": "err_operation_03",
+      "category": "operation",
+      "step_id": "step_02",
+      "symptom_keywords": ["转速", "太快", "太慢", "速度", "调速度", "不会调"],
+      "symptom_display": "转速不当（太快或太慢）",
+      "severity": "medium",
+      "immediate_action": "调整转速至合适档位",
+      "correction": {
+        "title": "选择合适的转速",
+        "steps": ["定中心和揉泥：低速 80-150 RPM", "开孔和拉高：中速 150-250 RPM", "造型和修坯：中高速 200-350 RPM", "初学者全程建议偏低速，熟练后再提速"],
+        "teacher_prompt": "新手刚开始别追求快，低速稳着来最重要～先把中心定好，后面熟练了再提速也不迟。"
+      }
+    },
+    {
+      "id": "err_centering_01",
+      "category": "centering",
+      "step_id": "step_02",
+      "symptom_keywords": ["晃动", "不稳", "晃", "跑偏", "偏移", "甩", "飞"],
+      "symptom_display": "泥团晃动 / 不稳定 / 偏心",
+      "severity": "high",
+      "immediate_action": "停止拉高，回归定中心",
+      "correction": {
+        "title": "重新定中心",
+        "steps": ["降低转速至低速（80-150 RPM）", "确认手臂有稳定支撑（大腿或托盘）", "用掌根从侧面轻推泥团向中心", "观察泥团顶部是否完全静止不动", "若多次尝试仍晃动，可能是泥料有气泡——需重新揉泥"],
+        "teacher_prompt": "先别急着塑形呀！你看泥料还在晃，说明中心没定好～再用侧面的手轻轻往中心推，等不晃了再往下做！"
+      }
+    },
+    {
+      "id": "err_centering_02",
+      "category": "centering",
+      "step_id": "step_01",
+      "symptom_keywords": ["气泡", "裂纹", "裂开", "没揉", "揉泥不够", "空气"],
+      "symptom_display": "泥料未揉泥排气，直接上机器",
+      "severity": "high",
+      "immediate_action": "取下来重新揉泥",
+      "correction": {
+        "title": "揉泥排气处理",
+        "steps": ["取下泥料，回到工作台", "用羊头式揉泥法揉制3-5分钟", "用割线切开检查确认无气泡", "揉至软硬均匀后重新放上转盘", "再次定中心"],
+        "teacher_prompt": "泥料要先揉透排气呀！里面有气泡的话，定中心时会晃，拉坯的时候还会开裂，烧的时候甚至会炸坯，快回去揉一揉～"
+      }
+    },
+    {
+      "id": "err_centering_03",
+      "category": "centering",
+      "step_id": "step_02",
+      "symptom_keywords": ["手臂", "不稳", "抖", "没力气", "支撑", "累"],
+      "symptom_display": "手臂不稳 / 没有支撑点",
+      "severity": "medium",
+      "immediate_action": "找好支撑点再继续",
+      "correction": {
+        "title": "稳定手臂支撑",
+        "steps": ["将双臂固定在大腿上或拉坯机托盘边缘", "身体稍微前倾，重心稳定", "用手掌根部而非手指尖施力", "保持肩膀放松，不要耸肩", "如果长时间操作疲劳就休息一下"],
+        "teacher_prompt": "手臂放在腿上靠着，别悬空～找好支撑点就不抖了，手也会稳很多。拉坯靠的是巧劲不是蛮力。"
+      }
+    },
+    {
+      "id": "err_centering_04",
+      "category": "centering",
+      "step_id": "step_02",
+      "symptom_keywords": ["太高", "太矮", "坐姿", "不舒服", "腰疼"],
+      "symptom_display": "坐姿不当 / 高度不合适",
+      "severity": "medium",
+      "immediate_action": "调整座椅高度或站姿",
+      "correction": {
+        "title": "调整操作姿势",
+        "steps": ["转盘高度应略低于手肘", "坐姿时大腿与地面平行", "身体距转盘约20-30cm", "保持背部直立不驼背", "长时间操作每隔30分钟起身活动"],
+        "teacher_prompt": "座椅调一调，转盘最好比你手肘低一点，这样发力才舒服。坐久了记得站一站，不然腰受不了。"
+      }
+    },
+    {
+      "id": "err_opening_01",
+      "category": "opening",
+      "step_id": "step_03",
+      "symptom_keywords": ["开偏", "歪", "不正", "偏了", "斜"],
+      "symptom_display": "开孔位置偏斜",
+      "severity": "high",
+      "immediate_action": "停止开孔，回到定中心步骤",
+      "correction": {
+        "title": "修正开孔位置",
+        "steps": ["如果孔已经开偏，说明中心没定好", "将泥团重新揉圆后重新定中心", "双手拇指并拢垂直向下开孔", "保持转速适中，拇指均匀施力", "开孔过程中时刻观察是否垂直"],
+        "teacher_prompt": "孔开偏了说明中心没定好～再揉一下重新来过。开孔的时候两个拇指并拢，直直往下压，别歪了。"
+      }
+    },
+    {
+      "id": "err_opening_02",
+      "category": "opening",
+      "step_id": "step_03",
+      "symptom_keywords": ["穿底", "开透", "到底了", "穿透了", "底破了"],
+      "symptom_display": "开孔过深穿透底部",
+      "severity": "high",
+      "immediate_action": "停止开孔，评估是否可以补救",
+      "correction": {
+        "title": "开孔穿底补救",
+        "steps": ["如果孔刚穿透且面积小：压回泥料重新开孔", "底部留出1-1.5cm厚度为最佳", "开孔时用另一只手在底部外侧感受厚度", "若无法补救则重新揉泥从定中心开始"],
+        "teacher_prompt": "到底了！开孔的时候感觉差不多了就慢一点，或者在泥团外侧用手感受一下底部的厚度。"
+      }
+    },
+    {
+      "id": "err_pulling_01",
+      "category": "pulling",
+      "step_id": "step_04",
+      "symptom_keywords": ["塌", "塌陷", "软", "倒了", "垮", "太湿", "太薄"],
+      "symptom_display": "拉高过程中泥壁塌陷",
+      "severity": "high",
+      "immediate_action": "停止操作，取下泥料重新调整",
+      "correction": {
+        "title": "泥壁塌陷修复方案",
+        "steps": ["取下泥料，在手中揉压挤出多余水分", "放置片刻让泥料稍干（皮革硬度70%左右）", "重新揉泥使软硬均匀", "降低提拉速度，每次提拉幅度减小", "保持泥壁厚度在0.5-0.8cm之间", "分段提拉：先拉下半段再拉上半段"],
+        "teacher_prompt": "可能的原因：泥太软（水分过多）、提拉太快、或泥壁太薄。重新揉泥调整干湿度，控制好提拉节奏和力度。"
+      }
+    },
+    {
+      "id": "err_pulling_02",
+      "category": "pulling",
+      "step_id": "step_04",
+      "symptom_keywords": ["不匀", "厚薄不一", "一边厚", "不均匀", "凹凸"],
+      "symptom_display": "泥壁厚薄不均",
+      "severity": "medium",
+      "immediate_action": "调整手法，均匀施力",
+      "correction": {
+        "title": "均匀泥壁厚度",
+        "steps": ["检查手指间距是否保持一致", "从底部开始均匀向上提拉", "每提拉一次后检查壁厚是否均匀", "用拉坯针测量关键位置的厚度", "放慢速度，确保每次提拉的力度和幅度一致"],
+        "teacher_prompt": "提拉的时候手指间距要一致，从底到顶均匀用力。如果发现哪里厚了，下一次提拉时补回来。"
+      }
+    },
+    {
+      "id": "err_shaping_01",
+      "category": "shaping",
+      "step_id": "step_05",
+      "symptom_keywords": ["不对称", "歪了", "一边大", "偏心", "变形了"],
+      "symptom_display": "造型不对称",
+      "severity": "medium",
+      "immediate_action": "停止造型，检查中心",
+      "correction": {
+        "title": "修正造型对称性",
+        "steps": ["检查泥团中心是否还稳定", "降低转速，缓慢调整不对称部位", "双手力度保持均衡", "在对称位置施加同等力量", "严重不对称需重新定中心"],
+        "teacher_prompt": "两边不对称呀～先看一下中心还在不在，然后降低点速度，慢慢把不对称的地方调回来。"
+      }
+    },
+    {
+      "id": "err_shaping_02",
+      "category": "shaping",
+      "step_id": "step_05",
+      "symptom_keywords": ["口部开裂", "裂口", "干了", "口沿裂"],
+      "symptom_display": "口部边缘开裂",
+      "severity": "medium",
+      "immediate_action": "补水修整",
+      "correction": {
+        "title": "修补口部开裂",
+        "steps": ["用海绵蘸少量水润湿开裂部位", "用手指轻轻按压使裂纹闭合", "如果裂纹较大，用少量湿泥填补", "降低操作速度，口部水分蒸发快需要及时补水", "完成后用海绵将口沿修整光滑"],
+        "teacher_prompt": "口沿太干了容易裂，用海绵沾点水补一补。操作的时候注意口沿别吹到风。"
+      }
+    },
+    {
+      "id": "err_trimming_01",
+      "category": "trimming",
+      "step_id": "step_06",
+      "symptom_keywords": ["穿", "穿透", "破", "洞", "修穿", "底部穿了"],
+      "symptom_display": "修坯修穿了底",
+      "severity": "medium",
+      "immediate_action": "停止修坯，评估作品",
+      "correction": {
+        "title": "修穿底的应对方案",
+        "steps": ["停止修坯操作", "评估穿孔大小：小孔可尝试用湿泥填补", "若穿孔较大：花盆是你的归宿——改做花盆", "若无法补救：保留作为学习经验", "预防：修坯时不要追求太薄，初学者保留足够厚度", "使用修坯桶等辅助工具感知厚度"],
+        "teacher_prompt": "花盆是你的归宿！修穿底的器物可以改做花盆。下次修坯时不要太追求薄，慢慢来。"
+      }
+    },
+    {
+      "id": "err_trimming_02",
+      "category": "trimming",
+      "step_id": "step_06",
+      "symptom_keywords": ["甩飞", "飞出", "掉落", "脱手", "固定不住"],
+      "symptom_display": "修坯时作品甩飞破损",
+      "severity": "medium",
+      "immediate_action": "停止转盘，评估损坏程度",
+      "correction": {
+        "title": "作品甩飞后补救方法",
+        "steps": ["停止转盘，检查作品损坏程度", "补救方法一（切）：直接刀切异形部位", "补救方法二（填）：填补破损处", "补救方法三（挡）：遮挡缺陷部位", "前提：保证可以安全烧制", "预防：下次使用泥粉固定法（牢固但可能伤口沿）或湿泥三点式固定法（不伤口沿）"],
+        "teacher_prompt": "不要气馁！几种补救方法：切（直接刀切异形部位）、填（填补破损）、挡（遮挡缺陷）。只要保证可以安全烧制就行。"
+      }
+    },
+    {
+      "id": "err_trimming_03",
+      "category": "trimming",
+      "step_id": "step_06",
+      "symptom_keywords": ["太厚", "修不动", "太硬", "干透了", "干坯"],
+      "symptom_display": "坯体太干修不动",
+      "severity": "medium",
+      "immediate_action": "适当补水软化",
+      "correction": {
+        "title": "干坯修整方案",
+        "steps": ["用海绵蘸水轻轻擦拭坯体表面", "等待1-2分钟让水分渗入", "选择锋利的板刀等铁质工具（传统修干坯工具）", "建议下次修70%皮革硬度的湿坯，更容易掌握"],
+        "teacher_prompt": "坯太干了不好修，稍微用湿海绵擦一下表面再修。不过初学者建议修湿坯（70%干），没那么硬容易上手。"
+      }
+    },
+    {
+      "id": "err_drying_01",
+      "category": "drying",
+      "step_id": "step_07",
+      "symptom_keywords": ["裂", "裂纹", "开裂", "干燥裂", "风干裂"],
+      "symptom_display": "干燥过程中坯体开裂",
+      "severity": "medium",
+      "immediate_action": "检查裂纹深度，评估可修复性",
+      "correction": {
+        "title": "干燥开裂处理方案",
+        "steps": ["表面细小裂纹：用泥浆填补后压实", "贯穿性裂纹：检查是否裂穿（裂穿无法补救）", "预防措施一：放置阴凉通风处慢干", "预防措施二：干燥到不会变形时倒置防裂", "预防措施三：保持底部吸水托板", "预防措施四：空心作品务必打孔排气"],
+        "teacher_prompt": "表面细小裂纹可修补（填补泥浆后压实）；贯穿性裂纹需要检查是否裂穿。阴凉处慢干、倒置干燥可有效预防开裂。"
+      }
+    },
+    {
+      "id": "err_drying_02",
+      "category": "drying",
+      "step_id": "step_07",
+      "symptom_keywords": ["不干", "没干", "还湿", "晾多久", "多久干"],
+      "symptom_display": "不确定坯体是否干透",
+      "severity": "low",
+      "immediate_action": "用触感和颜色判断",
+      "correction": {
+        "title": "判断干燥程度的方法",
+        "steps": ["触感法：手指触碰坯体，凉感→未干，常温→已干", "颜色法：深色→含水，颜色明显变浅→已干", "重量法：干透的坯体明显更轻", "小件一般2-3天，大中型3-7天完全干透", "未干透千万不能入窑，否则必定炸坯"],
+        "teacher_prompt": "摸一摸感觉不到凉就差不多干了，颜色也会变浅。一定等完全干透再烧，不然会炸的！"
+      }
+    },
+    {
+      "id": "err_bisque_01",
+      "category": "bisque",
+      "step_id": "step_08",
+      "symptom_keywords": ["炸", "炸裂", "碎了", "爆炸", "炸坯"],
+      "symptom_display": "素烧时坯体炸裂",
+      "severity": "critical",
+      "immediate_action": "停止窑炉，降温后清理",
+      "correction": {
+        "title": "炸坯原因排查与预防",
+        "steps": ["立即停止窑炉运行，等待自然降温", "降温后清理碎片，完好的作品重新入窑", "五大原因排查：①作品内有气泡 ②没有干透 ③实心部分超过3cm ④空心作品忘记打洞 ⑤烧制升温过快", "下次装窑前逐项检查以上五点"],
+        "teacher_prompt": "炸坯了先停窑降温！降温后清理碎片。记住炸坯五大原因：气泡、没干透、太厚实心、没打孔、升温太快。下次逐项排查。"
+      }
+    },
+    {
+      "id": "err_bisque_02",
+      "category": "bisque",
+      "step_id": "step_08",
+      "symptom_keywords": ["窑门", "留缝", "关窑", "300度", "什么时候关"],
+      "symptom_display": "不确定窑门何时关闭",
+      "severity": "low",
+      "immediate_action": "按标准流程操作",
+      "correction": {
+        "title": "窑炉操作标准流程",
+        "steps": ["300℃之前：窑门留5-10cm缝隙，窑盖不盖（排水分）", "250-300℃时：打开窑门检查有无炸裂", "无炸裂：关窑门、盖盖子，窑炉自动运行至结束", "有炸裂：停止运行，降温后清理重新入窑", "升温时间：8-10小时", "降温：自然降温至200℃以下再开窑门10公分", "150℃以下戴高温手套取作品"],
+        "teacher_prompt": "300度之前门留个缝，让水汽跑出来。到了250-300度检查一下有没有炸的，没炸就关上门让它自己烧了。"
+      }
+    },
+    {
+      "id": "err_glazing_01",
+      "category": "glazing",
+      "step_id": "step_09",
+      "symptom_keywords": ["太浓", "太稀", "酸奶", "牛奶", "浓度", "稠"],
+      "symptom_display": "釉料浓度不合适",
+      "severity": "medium",
+      "immediate_action": "调整釉料浓度",
+      "correction": {
+        "title": "调整釉料浓稠度",
+        "steps": ["手感测试法：手伸入釉中取出观察", "如酸奶般不易流动→太浓，加水调和", "如水一般立即流走→太稀，沉淀后倒掉上面的水", "最佳状态：如纯牛奶般丝滑流动", "透明釉厚度≈小拇指指甲盖，其他釉≈大拇指指甲盖"],
+        "teacher_prompt": "用手试一下釉的浓稠度，像牛奶的质地刚刚好。太浓加点水，太稀等沉淀后倒掉点水。"
+      }
+    },
+    {
+      "id": "err_glazing_02",
+      "category": "glazing",
+      "step_id": "step_09",
+      "symptom_keywords": ["忘擦底", "粘板", "粘住", "底部有釉", "流釉"],
+      "symptom_display": "上釉后忘记擦底部（接触硼板处）",
+      "severity": "high",
+      "immediate_action": "烧制前擦干净底部",
+      "correction": {
+        "title": "务必擦净底部釉料",
+        "steps": ["上釉完成后立即检查底部", "用湿海绵将接触硼板部分的釉料擦干净", "圈足器型只擦圈足，平底器型擦整个底面", "有流动性的釉要特别注意：上在外面不要超过1/3高度", "万一已烧制粘连：用大同砂加水修复棚板"],
+        "teacher_prompt": "上完釉一定要擦底！有釉的地方碰到棚板烧出来就粘住了，作品就废了还会损坏棚板。"
+      }
+    },
+    {
+      "id": "err_glaze_firing_01",
+      "category": "glaze_firing",
+      "step_id": "step_10",
+      "symptom_keywords": ["缩釉", "橘皮", "不光滑", "针孔", "起泡", "滚釉"],
+      "symptom_display": "釉烧后釉面缺陷（缩釉/橘皮/针孔）",
+      "severity": "medium",
+      "immediate_action": "分析原因，下次调整",
+      "correction": {
+        "title": "釉面缺陷原因分析",
+        "steps": ["缩釉/滚釉：喷釉距离太近/旋转太慢/坯体补水过度", "橘皮：透明釉喷太薄", "朦胧不清：透明釉喷太厚", "针孔：升温过快气体未排出", "下次调整：喷釉距离15cm/匀速旋转/控制釉层厚度"],
+        "teacher_prompt": "釉面不好看通常就是施釉的问题～距离15cm匀速转着喷，厚度参照手指甲盖，多练几次就好了。"
+      }
+    }
+  ],
+  "meta": {
+    "total_errors": 26,
+    "categories": {
+      "safety": 3,
+      "operation": 3,
+      "centering": 4,
+      "opening": 2,
+      "pulling": 2,
+      "shaping": 2,
+      "trimming": 3,
+      "drying": 2,
+      "bisque": 2,
+      "glazing": 2,
+      "glaze_firing": 1
+    }
+  }
+}

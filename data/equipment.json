@@ -1,0 +1,126 @@
+{
+  "wheel": {
+    "speed_levels": {
+      "low": { "rpm": [80, 150], "label": "低速", "use_case": "定中心、揉泥后初始启动" },
+      "medium": { "rpm": [150, 250], "label": "中速", "use_case": "开孔、拉高" },
+      "high": { "rpm": [250, 400], "label": "高速", "use_case": "精修造型、修坯" }
+    },
+    "models": [
+      { "name": "传统拉坯机", "type": "kick-wheel", "speed_control": "脚蹬 / 手动", "note": "速度不稳定，初学者不建议使用" },
+      { "name": "进阶式拉坯机", "type": "electric-pedal", "speed_control": "脚踏调速", "note": "有踏板调速，手感反馈好" },
+      { "name": "现代拉坯机", "type": "electric-panel", "speed_control": "面板调速 + 刹车", "note": "当前教学标准配置，推荐使用" }
+    ]
+  },
+  "step_parameters": [
+    {
+      "step_id": "step_01",
+      "name": "揉泥",
+      "wheel_speed": null,
+      "rpm_range": null,
+      "water_usage": "保持手部微湿",
+      "tools": ["割线"],
+      "duration_estimate": "新手5-10分钟",
+      "key_measurement": "切开检查：无气泡、软硬均匀",
+      "posture_tip": "站立操作台前，双脚与肩同宽"
+    },
+    {
+      "step_id": "step_02",
+      "name": "定中心",
+      "wheel_speed": "low",
+      "rpm_range": [80, 150],
+      "water_usage": "适量润手，泥面光滑即可",
+      "tools": [],
+      "duration_estimate": "新手5-15分钟",
+      "key_measurement": "泥团顶部完全静止不晃动",
+      "posture_tip": "双臂固定在大腿或拉坯机托盘上"
+    },
+    {
+      "step_id": "step_03",
+      "name": "开孔",
+      "wheel_speed": "low_to_medium",
+      "rpm_range": [100, 180],
+      "water_usage": "保持手指湿润但不滴水",
+      "tools": ["拉坯针（辅助大器型）"],
+      "duration_estimate": "1-2分钟",
+      "key_measurement": "底部保留1-1.5cm厚度",
+      "posture_tip": "双手拇指并拢垂直向下"
+    },
+    {
+      "step_id": "step_04",
+      "name": "拉高",
+      "wheel_speed": "medium",
+      "rpm_range": [150, 250],
+      "water_usage": "适量，避免泥过湿塌陷",
+      "tools": ["拉坯针（测量高度）"],
+      "duration_estimate": "3-8分钟",
+      "key_measurement": "泥壁厚度保持0.5-0.8cm",
+      "posture_tip": "左手在内支撑，右手在外配合，从底向上均匀提拉"
+    },
+    {
+      "step_id": "step_05",
+      "name": "造型",
+      "wheel_speed": "medium_to_high",
+      "rpm_range": [150, 300],
+      "water_usage": "少量，保持光滑",
+      "tools": ["刮片", "修形工具", "拉坯针"],
+      "duration_estimate": "5-15分钟",
+      "key_measurement": "整体对称、造型符合预期",
+      "posture_tip": "创意建立在掌控能力之上，手法要稳"
+    },
+    {
+      "step_id": "step_06",
+      "name": "修坯",
+      "wheel_speed": "medium_to_high",
+      "rpm_range": [200, 350],
+      "water_usage": "干修为主，过干可少量刷水",
+      "tools": ["修坯刀", "修坯桶", "海绵", "钢刷"],
+      "duration_estimate": "新手10-20分钟",
+      "key_measurement": "壁厚均匀、底足规整、表面光滑",
+      "posture_tip": "修坯前找稳中心，初学者修70%皮革硬度湿坯"
+    },
+    {
+      "step_id": "step_07",
+      "name": "干燥",
+      "wheel_speed": null,
+      "rpm_range": null,
+      "water_usage": "不再加水",
+      "tools": ["吸水托板"],
+      "duration_estimate": "小件2-3天，大件3-7天",
+      "key_measurement": "完全干透：触感常温、颜色变浅",
+      "posture_tip": "阴凉通风处放置，倒置防裂"
+    },
+    {
+      "step_id": "step_08",
+      "name": "素烧",
+      "wheel_speed": null,
+      "rpm_range": null,
+      "water_usage": null,
+      "tools": ["棚板", "马脚", "高温手套"],
+      "duration_estimate": "升温8-10小时 + 自然降温",
+      "key_measurement": "500-800℃，300℃前窑门留缝5-10cm",
+      "posture_tip": "装窑三点或四点支撑，保证安全前提下节省空间"
+    },
+    {
+      "step_id": "step_09",
+      "name": "上釉",
+      "wheel_speed": "medium",
+      "rpm_range": [150, 250],
+      "water_usage": "上釉前补水除尘（釉下彩绘作品除外）",
+      "tools": ["喷釉壶/喷枪", "釉夹", "海绵", "搅拌棒", "筛网（100目）"],
+      "duration_estimate": "单件5-15分钟",
+      "key_measurement": "透明釉厚度≈小拇指指甲盖；其他釉≈大拇指指甲盖",
+      "posture_tip": "喷釉距坯体15cm，一手喷一手均匀转动转盘"
+    },
+    {
+      "step_id": "step_10",
+      "name": "釉烧",
+      "wheel_speed": null,
+      "rpm_range": null,
+      "water_usage": null,
+      "tools": ["棚板", "马脚", "氧化铝粉/饼", "高温手套"],
+      "duration_estimate": "升温8-10小时 + 自然降温至200℃以下",
+      "key_measurement": "1200-1300℃，降至150℃以下可戴手套取作品",
+      "posture_tip": "釉烧前必擦底（与硼板接触处），防粘连"
+    }
+  ]
+}

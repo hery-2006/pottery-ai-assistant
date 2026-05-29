@@ -1,0 +1,109 @@
+{
+  "clay_types": [
+    {
+      "id": "earthenware",
+      "name": "陶泥",
+      "full_name": "陶土 / 粗陶泥",
+      "color": "红褐色 / 黄褐色",
+      "plasticity": "中",
+      "shrinkage_rate": "8-12%",
+      "firing_temp": { "bisque": "500-700℃", "glaze": "1000-1150℃" },
+      "water_absorption": "高",
+      "wheel_behavior": {
+        "centering": "较容易，质地稍粗",
+        "pulling": "支撑力一般，不宜拉太高",
+        "cracking_risk": "较低，宽容度高",
+        "recommended_rpm_modifier": 0.85,
+        "recommended_moisture": "适中即可",
+        "beginner_suitability": "high",
+        "beginner_note": "陶泥宽容度高，是最适合零基础初学者的泥料，成本低、不易开裂"
+      },
+      "common_issues": ["含沙粒较多可能划手", "拉高能力有限", "素烧后吸水率高需注意施釉"],
+      "best_for": ["碗", "盘", "花盆", "粗犷风格器型", "教学练习"],
+      "avoid_for": ["极高器型", "透光薄胎"],
+      "beginner_rating": 5
+    },
+    {
+      "id": "fine_earthenware",
+      "name": "精陶泥",
+      "full_name": "精陶泥 / 细陶泥",
+      "color": "浅黄 / 浅褐",
+      "plasticity": "中高",
+      "shrinkage_rate": "12-15%",
+      "firing_temp": { "bisque": "600-750℃", "glaze": "1100-1200℃" },
+      "water_absorption": "中",
+      "wheel_behavior": {
+        "centering": "容易",
+        "pulling": "支撑力中等",
+        "cracking_risk": "中低",
+        "recommended_rpm_modifier": 0.95,
+        "recommended_moisture": "适中偏湿",
+        "beginner_suitability": "high",
+        "beginner_note": "精陶泥兼有陶泥的宽容度和瓷泥的细腻感，推荐初学者进阶使用"
+      },
+      "common_issues": ["成本略高于普通陶泥", "收缩率中等需注意尺寸预留"],
+      "best_for": ["日用器皿", "装饰品", "教学练习", "中大型器型"],
+      "avoid_for": [],
+      "beginner_rating": 4
+    },
+    {
+      "id": "porcelain",
+      "name": "瓷泥",
+      "full_name": "高岭土 / 瓷泥",
+      "color": "白色 / 灰白",
+      "plasticity": "中高",
+      "shrinkage_rate": "16-18%",
+      "firing_temp": { "bisque": "700-800℃", "glaze": "1200-1300℃" },
+      "water_absorption": "低",
+      "wheel_behavior": {
+        "centering": "较容易，质地细腻",
+        "pulling": "支撑力较好，可拉较高器型",
+        "cracking_risk": "干燥易开裂，需慢干",
+        "recommended_rpm_modifier": 1.0,
+        "recommended_moisture": "稍偏湿操作",
+        "beginner_suitability": "medium",
+        "beginner_note": "瓷泥细腻好用，可做出精致薄胎作品，但干燥阶段需更多耐心和技巧"
+      },
+      "common_issues": ["干燥过快导致开裂", "修坯时过于干硬难修", "釉烧收缩明显需预留尺寸"],
+      "best_for": ["杯子", "碗", "花瓶", "精细器型", "薄胎器皿"],
+      "avoid_for": ["大型厚重器型"],
+      "beginner_rating": 3
+    },
+    {
+      "id": "zisha",
+      "name": "紫砂泥",
+      "full_name": "紫砂泥 / 五色土",
+      "color": "紫色 / 红色 / 黄色 / 绿色 / 黑色",
+      "plasticity": "高",
+      "shrinkage_rate": "10-12%",
+      "firing_temp": { "bisque": "600-750℃", "glaze": "1100-1180℃（通常不施釉）" },
+      "water_absorption": "中",
+      "wheel_behavior": {
+        "centering": "较容易，质地特殊",
+        "pulling": "支撑力较好",
+        "cracking_risk": "中等",
+        "recommended_rpm_modifier": 0.9,
+        "recommended_moisture": "偏湿操作",
+        "beginner_suitability": "low",
+        "beginner_note": "紫砂泥价格较高，建议有一定拉坯基础后再使用，避免浪费"
+      },
+      "common_issues": ["价格高浪费成本大", "不同颜色收缩率有差异", "不适合施釉（会掩盖紫砂质感）"],
+      "best_for": ["茶壶", "茶杯", "茶具套装"],
+      "avoid_for": ["施釉作品（传统紫砂不施釉）"],
+      "beginner_rating": 2
+    }
+  ],
+  "selection_guide": {
+    "beginner_first_choice": "earthenware",
+    "beginner_alternative": "fine_earthenware",
+    "for_delicate_work": "porcelain",
+    "for_tea_ware": "zisha",
+    "budget_friendly": "earthenware",
+    "quick_compare": {
+      "beginner_score": { "earthenware": 5, "fine_earthenware": 4, "porcelain": 3, "zisha": 2 },
+      "delicacy_score": { "porcelain": 5, "zisha": 4, "fine_earthenware": 3, "earthenware": 2 },
+      "forgiveness_score": { "earthenware": 5, "fine_earthenware": 4, "zisha": 3, "porcelain": 2 },
+      "cost_score": { "earthenware": 5, "fine_earthenware": 4, "porcelain": 3, "zisha": 1 }
+    }
+  }
+}

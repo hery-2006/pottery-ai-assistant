@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陶艺拉坯全流程 AI知识库与智能问答系统</title>
+<style>
+:root {
+  --clay: #c67b4b;
+  --clay-light: #e8c9a0;
+  --clay-dark: #8b4513;
+  --clay-warm: #faf0e6;
+  --glaze: #5b8c85;
+  --glaze-light: #a8d8d0;
+  --fire: #d4534a;
+  --fire-light: #f4a8a0;
+  --bg: #fdfaf6;
+  --card: #ffffff;
+  --text: #3d3226;
+  --text-light: #7a6f64;
+  --border: #e8ddd0;
+  --shadow-sm: 0 1px 3px rgba(61,50,38,0.06), 0 1px 2px rgba(61,50,38,0.04);
+  --shadow: 0 4px 16px rgba(61,50,38,0.07), 0 1px 4px rgba(61,50,38,0.04);
+  --shadow-lg: 0 8px 32px rgba(61,50,38,0.1), 0 2px 8px rgba(61,50,38,0.05);
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --glass: rgba(255,255,255,0.65);
+  --glass-border: rgba(255,255,255,0.5);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Header ===== */
+.header {
+  background: linear-gradient(135deg, #4a2a10 0%, #7a4a24 35%, #9a6a44 65%, #b0805a 100%);
+  color: #fff;
+  padding: 22px 0;
+  box-shadow: 0 4px 24px rgba(61,50,38,0.18), 0 1px 0 rgba(255,255,255,0.08) inset;
+  position: sticky; top: 0; z-index: 100;
+}
+.header::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: linear-gradient(90deg, transparent, rgba(232,201,160,0.5), transparent);
+}
+.header-inner {
+  max-width: 1400px; margin: 0 auto; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.header-icon {
+  width: 42px; height: 42px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.12); display: flex; align-items: center;
+  justify-content: center; font-size: 1.5rem; flex-shrink: 0;
+  backdrop-filter: blur(4px);
+}
+.header h1 { font-size: 1.35rem; font-weight: 700; letter-spacing: 0.03em; line-height: 1.2; }
+.header .subtitle { font-size: 0.8rem; opacity: 0.75; margin-top: 1px; font-weight: 400; }
+.badge {
+  background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+  padding: 8px 16px; border-radius: 24px; font-size: 0.76rem; font-weight: 500;
+  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.badge .dot { width: 9px; height: 9px; background: #7dff7d; border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 6px rgba(125,255,125,0.5); }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+
+/* ===== Layout ===== */
+.main { max-width: 1400px; margin: 0 auto; padding: 24px 28px; display: grid; grid-template-columns: 350px 1fr; gap: 24px; min-height: calc(100vh - 150px); }
+
+/* ===== Sidebar ===== */
+.sidebar {
+  background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  overflow: hidden; display: flex; flex-direction: column; border: 1px solid var(--border);
+}
+.sidebar-header {
+  padding: 18px 22px; border-bottom: 1px solid var(--border);
+  font-weight: 700; font-size: 1rem; letter-spacing: 0.02em;
+  background: linear-gradient(180deg, #fdfaf5, #faf5ef);
+  display: flex; align-items: center; gap: 8px;
+}
+.sidebar-header::before { content: '📋'; font-size: 1.1rem; }
+.process-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+.process-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 22px; cursor: pointer; transition: all 0.2s ease;
+  border-left: 4px solid transparent; position: relative; margin: 2px 0;
+}
+.process-item:hover { background: #fdfaf5; transform: translateX(2px); }
+.process-item.active {
+  background: linear-gradient(90deg, rgba(198,123,75,0.1) 0%, rgba(198,123,75,0.03) 50%, transparent 100%);
+  border-left-color: var(--clay);
+}
+.process-num {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--clay-light); color: var(--clay-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+  transition: all 0.25s ease; box-shadow: 0 2px 6px rgba(198,123,75,0.15);
+}
+.process-item.active .process-num {
+  background: linear-gradient(135deg, var(--clay), var(--clay-dark));
+  color: #fff; box-shadow: 0 4px 12px rgba(198,123,75,0.35);
+  transform: scale(1.08);
+}
+.process-info h4 { font-size: 0.9rem; line-height: 1.2; font-weight: 600; }
+.process-info span { font-size: 0.7rem; color: var(--text-light); }
+.stage-badge {
+  margin-left: auto; padding: 3px 10px; border-radius: 12px;
+  font-size: 0.66rem; font-weight: 600; letter-spacing: 0.02em;
+}
+.stage-1 { background: #faf0e6; color: #a07020; }
+.stage-2 { background: #e6f0f5; color: #1a608b; }
+.stage-3 { background: #efe6f5; color: #6b1a8b; }
+
+/* ===== Content ===== */
+.content { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+/* ===== Chat Panel ===== */
+.chat-panel {
+  background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  display: flex; flex-direction: column; flex: 1; min-height: 520px;
+  border: 1px solid var(--border); overflow: hidden;
+}
+.chat-header {
+  padding: 16px 22px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(180deg, #fdfaf6, #fff);
+}
+.chat-header .icon { font-size: 1.4rem; }
+.chat-header h3 { font-size: 0.95rem; font-weight: 700; }
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 14px;
+  background: linear-gradient(180deg, #fefdfb, #fdfaf6);
+}
+.message { display: flex; gap: 10px; max-width: 88%; animation: msgIn 0.3s ease; }
+@keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.message.user { align-self: flex-end; flex-direction: row-reverse; }
+.message.assistant { align-self: flex-start; }
+.message .avatar {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 0.82rem;
+  font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.message.user .avatar { background: linear-gradient(135deg, var(--clay), var(--clay-dark)); color: #fff; }
+.message.assistant .avatar { background: linear-gradient(135deg, var(--glaze), #3d6a64); color: #fff; }
+.message .bubble {
+  padding: 12px 16px; border-radius: 18px; font-size: 0.88rem; line-height: 1.6;
+  box-shadow: var(--shadow-sm); position: relative;
+}
+.message.user .bubble {
+  background: linear-gradient(135deg, var(--clay), #b87040);
+  color: #fff; border-bottom-right-radius: 6px;
+}
+.message.assistant .bubble {
+  background: #f8f4ee; color: var(--text); border-bottom-left-radius: 6px;
+  border: 1px solid #f0e8dc;
+}
+.message .bubble strong { color: var(--clay-dark); }
+.message .bubble em { color: var(--glaze); font-style: normal; font-weight: 600; }
+
+.quick-questions {
+  display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 22px;
+  border-top: 1px solid var(--border); background: #fefdfb;
+}
+.quick-q {
+  padding: 7px 16px; border-radius: 20px; border: 1.5px solid var(--border);
+  background: #fff; cursor: pointer; font-size: 0.8rem; transition: all 0.2s ease;
+  white-space: nowrap; font-weight: 500;
+}
+.quick-q:hover {
+  border-color: var(--clay); background: var(--clay-warm);
+  color: var(--clay-dark); transform: translateY(-1px); box-shadow: 0 2px 8px rgba(198,123,75,0.12);
+}
+.quick-q:active { transform: scale(0.96); }
+
+.chat-input-wrap {
+  display: flex; gap: 10px; padding: 16px 22px; border-top: 1px solid var(--border);
+  background: #fff;
+}
+.chat-input-wrap input {
+  flex: 1; padding: 11px 18px; border-radius: 26px; border: 2px solid var(--border);
+  font-size: 0.9rem; outline: none; transition: all 0.25s ease; font-family: inherit;
+  background: #fdfaf6;
+}
+.chat-input-wrap input:focus {
+  border-color: var(--clay); background: #fff;
+  box-shadow: 0 0 0 4px rgba(198,123,75,0.08);
+}
+.chat-input-wrap button {
+  padding: 11px 26px; border-radius: 26px; border: none;
+  background: linear-gradient(135deg, var(--clay), #b87040);
+  color: #fff; font-weight: 700; cursor: pointer; font-size: 0.9rem;
+  transition: all 0.25s ease; font-family: inherit; box-shadow: 0 4px 14px rgba(198,123,75,0.3);
+  letter-spacing: 0.02em;
+}
+.chat-input-wrap button:hover {
+  background: linear-gradient(135deg, var(--clay-dark), #7a3a15);
+  box-shadow: 0 6px 20px rgba(139,69,19,0.4); transform: translateY(-1px);
+}
+.chat-input-wrap button:active { transform: scale(0.96); }
+
+/* ===== Detail Card ===== */
+.detail-card {
+  background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  padding: 28px; display: none; border: 1px solid var(--border);
+  animation: fadeSlide 0.35s ease;
+}
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+.detail-card.visible { display: block; }
+.detail-card h2 {
+  font-size: 1.35rem; margin-bottom: 6px; display: flex; align-items: center; gap: 12px;
+  font-weight: 700;
+}
+.detail-card .en {
+  font-size: 0.82rem; color: var(--text-light); margin-bottom: 14px;
+  font-style: italic; letter-spacing: 0.02em;
+}
+.detail-card .desc { font-size: 0.95rem; margin-bottom: 20px; color: var(--text-light); line-height: 1.7; }
+.detail-section { margin-bottom: 20px; }
+.detail-section h4 {
+  font-size: 0.9rem; color: var(--clay-dark); margin-bottom: 10px;
+  padding-bottom: 8px; border-bottom: 2px solid var(--clay-light);
+  font-weight: 700; display: flex; align-items: center; gap: 6px;
+}
+.detail-section h4::before { content: ''; width: 4px; height: 16px; background: var(--clay); border-radius: 2px; display: inline-block; }
+.technique-card {
+  background: #fdfaf5; border-radius: var(--radius-sm); padding: 14px 16px;
+  margin-bottom: 10px; border-left: 3px solid var(--clay-light);
+  transition: all 0.2s ease;
+}
+.technique-card:hover { border-left-color: var(--clay); background: #faf5ef; }
+.technique-card h5 { font-size: 0.88rem; margin-bottom: 4px; font-weight: 600; }
+.technique-card p { font-size: 0.84rem; color: var(--text-light); }
+.tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  padding: 6px 12px; border-radius: 8px; font-size: 0.76rem; font-weight: 500;
+  transition: transform 0.15s ease;
+}
+.tag:hover { transform: translateY(-1px); }
+.tag-point { background: #fef3e5; color: #c5600a; }
+.tag-method { background: #eaf5ee; color: #2e7d32; }
+.tag-warn { background: #fdefef; color: #c62828; }
+.tag-info { background: #e9f1fd; color: #1565c0; }
+
+/* ===== Search ===== */
+.search-wrap {
+  padding: 14px 22px; border-bottom: 1px solid var(--border);
+  background: #fefdfb;
+}
+.search-wrap input {
+  width: 100%; padding: 10px 16px; border-radius: 22px;
+  border: 2px solid var(--border); font-size: 0.86rem;
+  outline: none; transition: all 0.25s ease; font-family: inherit;
+  background: #fdfaf6;
+}
+.search-wrap input:focus {
+  border-color: var(--clay); background: #fff;
+  box-shadow: 0 0 0 4px rgba(198,123,75,0.08);
+}
+
+/* ===== Mobile toggle button ===== */
+.mobile-sidebar-toggle {
+  display: none; position: fixed; bottom: 24px; right: 24px; z-index: 200;
+  width: 52px; height: 52px; border-radius: 50%; border: none;
+  background: linear-gradient(135deg, var(--clay), var(--clay-dark));
+  color: #fff; font-size: 1.4rem; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(139,69,19,0.4);
+  transition: all 0.25s ease; align-items: center; justify-content: center;
+}
+.mobile-sidebar-toggle:active { transform: scale(0.9); }
+
+/* ===== Mobile Sidebar Overlay ===== */
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0; z-index: 150;
+  background: rgba(0,0,0,0.35); backdrop-filter: blur(2px);
+}
+.sidebar-overlay.open { display: block; }
+
+/* ===== 陶瓷文化装饰 ===== */
+/* 冰裂纹 header 装饰线 */
+.header::before {
+  content: ''; position: absolute; bottom: 2px; left: 0; right: 0; height: 4px;
+  background: repeating-linear-gradient(90deg,
+    transparent, transparent 6px,
+    rgba(255,255,255,0.25) 6px, rgba(255,255,255,0.25) 7px,
+    transparent 7px, transparent 12px,
+    rgba(255,255,255,0.15) 12px, rgba(255,255,255,0.15) 14px
+  );
+  z-index: 1;
+}
+
+/* 侧边栏回纹顶边 */
+.sidebar-header::after {
+  content: ''; display: block; height: 3px; margin-top: 10px;
+  background: repeating-linear-gradient(90deg,
+    var(--clay) 0px, var(--clay) 12px,
+    transparent 12px, transparent 16px,
+    var(--clay) 16px, var(--clay) 24px,
+    transparent 24px, transparent 28px
+  );
+  border-radius: 2px; opacity: 0.5;
+}
+
+/* ===== 五大名窑色卡画廊 ===== */
+.kiln-gallery {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #fefdfb, #fdf8f2);
+}
+.kiln-gallery .kg-title {
+  font-size: 0.72rem; font-weight: 700; color: var(--clay-dark);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 5px;
+}
+.kiln-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.kiln-chip {
+  flex: 1; min-width: 52px; text-align: center; cursor: pointer;
+  padding: 8px 4px 6px; border-radius: 10px; background: #fff;
+  border: 1px solid var(--border); transition: all 0.25s ease;
+  position: relative; overflow: hidden;
+}
+.kiln-chip:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(61,50,38,0.1); }
+.kiln-chip:active { transform: scale(0.94); }
+.kiln-chip .glaze-swatch {
+  width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.kiln-chip .k-name {
+  font-size: 0.65rem; font-weight: 600; color: var(--text);
+}
+.kiln-chip .k-era {
+  font-size: 0.58rem; color: var(--text-light);
+}
+/* 五大名窑釉色 */
+.swatch-ru { background: linear-gradient(135deg, #a8d8ea, #7ec8e3, #b8e8f8); }
+.swatch-guan { background: linear-gradient(135deg, #c8dcc8, #a8c8a8, #d8e8d0); }
+.swatch-ge { background: linear-gradient(135deg, #e8d8b8, #d8c898, #f0e8d0); }
+.swatch-jun { background: linear-gradient(135deg, #c8a8d8, #a880c8, #d8c8e8, #e8b8c8); }
+.swatch-ding { background: linear-gradient(135deg, #f8f0e8, #f0e8d8, #fefdf8); border: 1.5px solid #e0d5c7 !important; }
+
+/* ===== 流程列表增强 ===== */
+.process-item { position: relative; overflow: hidden; }
+.process-item::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.5s ease;
+}
+.process-item:hover::after { left: 100%; }
+.process-icon {
+  font-size: 0.9rem; width: 20px; text-align: center; flex-shrink: 0;
+}
+.stage-badge { transition: all 0.25s ease; }
+.stage-1 { background: linear-gradient(135deg, #faf0e6, #f5e0c8); color: #a07020; }
+.stage-2 { background: linear-gradient(135deg, #e6f0f5, #d0e0f0); color: #1a608b; }
+.stage-3 { background: linear-gradient(135deg, #efe6f5, #e0d0f0); color: #6b1a8b; }
+
+/* ===== 知识栏增强 ===== */
+.knowledge-bar {
+  padding: 16px 18px; border-top: 2px solid var(--clay-light);
+  background: linear-gradient(180deg, #fefdfb, #faf5ef);
+  cursor: pointer; transition: all 0.25s ease;
+  position: relative;
+}
+.knowledge-bar:hover { background: linear-gradient(180deg, #fdf8f2, #f8f0e6); }
+.knowledge-bar::before {
+  content: ''; position: absolute; top: 0; left: 16px; right: 16px; height: 1px;
+  background: repeating-linear-gradient(90deg, var(--clay-light) 0px, var(--clay-light) 4px, transparent 4px, transparent 8px);
+}
+.knowledge-bar .k-title {
+  font-size: 0.74rem; color: var(--clay-dark); font-weight: 700;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+.knowledge-bar .k-text {
+  font-size: 0.78rem; color: var(--text-light); line-height: 1.6;
+  font-style: italic;
+}
+.knowledge-bar .k-refresh {
+  font-size: 0.64rem; color: var(--text-light); margin-top: 8px;
+  text-align: right; opacity: 0.6;
+}
+
+/* 文化延伸卡片 */
+.culture-card {
+  margin-top: 20px; padding: 16px 18px;
+  background: linear-gradient(135deg, #fefdfb, #fdf7f0);
+  border-radius: var(--radius); border: 1px dashed var(--clay-light);
+  position: relative; overflow: hidden;
+}
+.culture-card::before {
+  content: '🏺'; position: absolute; right: 14px; top: 50%;
+  transform: translateY(-50%); font-size: 2.5rem; opacity: 0.12;
+}
+.culture-card h4 {
+  font-size: 0.82rem; color: var(--clay-dark); margin-bottom: 6px;
+  font-weight: 700; display: flex; align-items: center; gap: 6px;
+}
+.culture-card p { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; position: relative; z-index: 1; }
+
+/* 侧边栏陶瓷小知识 */
+.knowledge-bar {
+  padding: 14px 18px; border-top: 1px solid var(--border);
+  background: linear-gradient(180deg, #fdfaf5, #faf5ef);
+}
+.knowledge-bar .k-title {
+  font-size: 0.72rem; color: var(--clay-dark); font-weight: 700;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 5px;
+}
+.knowledge-bar .k-text {
+  font-size: 0.76rem; color: var(--text-light); line-height: 1.55;
+  font-style: italic;
+}
+
+/* 欢迎区古诗引用 */
+.welcome-quote {
+  margin-top: 12px; padding: 10px 14px;
+  background: rgba(91,140,133,0.06); border-radius: 10px;
+  font-size: 0.85rem; color: var(--glaze); text-align: center;
+  font-style: italic; border-left: 3px solid var(--glaze-light);
+}
+
+/* 详情卡片步骤文化标注 */
+.step-culture-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 12px;
+  background: #fdf4e8; color: #b87040; font-size: 0.72rem;
+  font-weight: 600; margin-left: 8px;
+}
+
+/* ===== 欢迎面板 ===== */
+.welcome-panel {
+  display: flex; flex-direction: column; gap: 16px; padding: 4px 0;
+}
+.welcome-hero {
+  padding: 20px 22px; border-radius: var(--radius);
+  background: linear-gradient(135deg, #fefdfb 0%, #fdf5ec 50%, #fdfaf5 100%);
+  border: 2px solid var(--clay-light); text-align: center;
+}
+.welcome-hero .hero-quote {
+  font-size: 1.1rem; color: var(--clay-dark); font-style: italic;
+  line-height: 1.7; margin-bottom: 4px;
+}
+.welcome-hero .hero-author {
+  font-size: 0.76rem; color: var(--text-light);
+}
+.welcome-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.welcome-card {
+  padding: 14px 16px; background: #fff; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); cursor: pointer;
+  transition: all 0.25s ease; display: flex; align-items: flex-start; gap: 10px;
+}
+.welcome-card:hover {
+  border-color: var(--clay); box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.welcome-card:active { transform: scale(0.96); }
+.welcome-card .wc-icon {
+  font-size: 1.5rem; flex-shrink: 0; width: 36px; text-align: center;
+}
+.welcome-card .wc-text { font-size: 0.82rem; color: var(--text); line-height: 1.45; font-weight: 500; }
+.welcome-nav {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.welcome-nav-chip {
+  padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s ease; border: 1.5px solid var(--border);
+  background: #fff;
+}
+.welcome-nav-chip:hover { border-color: var(--clay); background: var(--clay-warm); }
+.welcome-nav-chip:active { transform: scale(0.95); }
+.welcome-nav-chip.wn-s1 { color: #a07020; }
+.welcome-nav-chip.wn-s2 { color: #1a608b; }
+.welcome-nav-chip.wn-s3 { color: #6b1a8b; }
+
+/* ===== 釉色色卡 ===== */
+.glaze-spectrum {
+  display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0;
+}
+.glaze-spec-item {
+  flex: 1; min-width: 70px; text-align: center; padding: 10px 8px;
+  border-radius: var(--radius-sm); background: #fff; border: 1px solid var(--border);
+  cursor: pointer; transition: all 0.2s ease;
+}
+.glaze-spec-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.glaze-spec-item .gsi-swatch {
+  width: 36px; height: 36px; border-radius: 50%; margin: 0 auto 5px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+.glaze-spec-item .gsi-label {
+  font-size: 0.68rem; font-weight: 600; color: var(--text);
+}
+.gsi-transparent { background: linear-gradient(135deg, #e8f0f0, #d0e8e8, #f0f8f8); }
+.gsi-matte { background: linear-gradient(135deg, #e0d8c8, #d0c8b8, #e8e0d0); }
+.gsi-celadon { background: linear-gradient(135deg, #b8d8c0, #a8c8b0, #d0e8d0); }
+.gsi-crackle { background: linear-gradient(135deg, #f0e8d8, #e8d8c0, #f8f0e8); }
+.gsi-crystalline { background: linear-gradient(135deg, #c8b8e0, #b0a0d0, #d8d0f0); }
+.gsi-flambe { background: linear-gradient(135deg, #d84040, #c83060, #e86080, #a840c0); }
+
+/* ===== 技法卡片增强 ===== */
+.technique-card {
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.technique-card .tc-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--clay-light); color: var(--clay-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.75rem; flex-shrink: 0;
+  margin-top: 2px;
+}
+.technique-card .tc-body { flex: 1; }
+
+/* ===== 聊天消息增强 ===== */
+.message.assistant .bubble {
+  border-left: 3px solid var(--glaze-light); padding-left: 14px;
+}
+.msg-pill {
+  display: inline-block; padding: 2px 8px; border-radius: 6px;
+  background: var(--clay-warm); color: var(--clay-dark);
+  font-weight: 600; font-size: 0.82rem;
+}
+
+/* ===== 全局背景纹样 ===== */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.025;
+  background:
+    radial-gradient(circle at 15% 25%, var(--clay) 1px, transparent 1px),
+    radial-gradient(circle at 85% 25%, var(--clay) 1px, transparent 1px),
+    radial-gradient(circle at 15% 75%, var(--clay) 1px, transparent 1px),
+    radial-gradient(circle at 85% 75%, var(--clay) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, var(--clay) 2px, transparent 2px);
+  background-size: 200px 200px;
+}
+
+/* ===== 标签 icon 增强 ===== */
+.tag::before { margin-right: 3px; }
+.tag-point::before { content: '💡'; }
+.tag-method::before { content: '🔧'; }
+.tag-warn::before { content: '⚠️'; }
+.tag-info::before { content: '📌'; }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .header { padding: 16px 0; }
+  .header-inner { padding: 0 16px; }
+  .header-icon { width: 36px; height: 36px; font-size: 1.2rem; }
+  .header h1 { font-size: 1.1rem; }
+  .header .subtitle { display: none; }
+  .badge { padding: 6px 12px; font-size: 0.7rem; }
+  .badge .subtitle-text { display: none; }
+
+  .main { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+
+  .sidebar {
+    position: fixed; left: -100%; top: 0; bottom: 0; width: 300px; z-index: 160;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    transition: left 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.open { left: 0; }
+  .mobile-sidebar-toggle { display: flex; }
+
+  .chat-panel { min-height: 400px; }
+  .chat-messages { padding: 14px 14px; }
+  .message { max-width: 92%; }
+  .chat-input-wrap { padding: 12px 14px; gap: 8px; }
+  .quick-questions { padding: 10px 14px; }
+  .detail-card { padding: 18px; }
+  .detail-card h2 { font-size: 1.15rem; }
+}
+
+@media (max-width: 480px) {
+  .header h1 { font-size: 1rem; }
+  .main { padding: 12px; gap: 12px; }
+  .chat-messages { padding: 12px 10px; gap: 10px; }
+  .message .bubble { padding: 10px 12px; font-size: 0.84rem; }
+  .quick-q { padding: 6px 12px; font-size: 0.75rem; }
+  .chat-input-wrap input { padding: 10px 14px; font-size: 0.84rem; }
+  .chat-input-wrap button { padding: 10px 18px; font-size: 0.84rem; }
+}
+
+.highlight { background: #fff3cd; padding: 2px 6px; border-radius: 4px; }
+.empty-state { text-align: center; padding: 48px 20px; color: var(--text-light); }
+.empty-state .icon { font-size: 3.5rem; margin-bottom: 14px; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-icon">🏺</div>
+      <div>
+        <h1>陶艺拉坯全流程 AI知识库</h1>
+        <div class="subtitle">《中国陶瓷艺术赏析与创作基础》课程 · 标准化智能问答交互原型</div>
+      </div>
+    </div>
+    <div class="badge"><span class="dot"></span> <span class="subtitle-text">AI知识库已就绪 | 10个流程节点 | 50+问答对</span></div>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<button class="mobile-sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">📋</button>
+
+<div class="main">
+  <!-- Sidebar: Process Flow -->
+  <aside class="sidebar">
+    <div class="sidebar-header">拉坯全流程导航</div>
+    <div class="kiln-gallery">
+      <div class="kg-title">🏛️ 五大名窑</div>
+      <div class="kiln-row" id="kilnRow"></div>
+    </div>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="搜索知识库...">
+    </div>
+    <div class="process-list" id="processList"></div>
+    <div class="knowledge-bar" id="knowledgeBar">
+      <div class="k-title">📚 陶瓷小知识</div>
+      <div class="k-text" id="kText"></div>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Detail Card -->
+    <div class="detail-card visible" id="detailCard"></div>
+    <!-- Chat Panel -->
+    <div class="chat-panel">
+      <div class="chat-header">
+        <span class="icon">&#128172;</span>
+        <h3>智能问答</h3>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="quick-questions" id="quickQuestions"></div>
+      <div class="chat-input-wrap">
+        <input type="text" id="chatInput" placeholder="输入你的问题，如：揉泥有什么技巧？">
+        <button id="sendBtn">发送</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== Knowledge Base ====================
+const KB = {
+  process: [
+    {
+      id: "step_01", name: "揉泥", en: "Clay Kneading / Wedging", order: 1, stage: null,
+      desc: "揉泥是拉坯前的准备工序，通过手工揉制排除泥中气泡并使泥料软硬均匀。两个目的：泥里不能有气泡；泥软硬要均匀。",
+      techniques: [{ name: "羊头式", desc: "双手交替推压泥料，形似羊头，相对适合初学者" }, { name: "菊花式", desc: "旋转揉压泥料成菊花状纹理，相对难掌握但更轻松" }],
+      points: ["揉泥要揉透，直到泥料均匀无气泡", "保持泥料适当湿度，不宜过干或过湿", "揉好的泥团应呈圆球状，便于后续定中心"],
+      qa: [
+        { q: "为什么揉泥很重要？", a: "揉泥有两个目的：一是排除泥中的气泡，防止烧制时炸坯；二是使泥料软硬均匀，确保拉坯时受力一致。如果泥料不均匀，拉坯时会出现变形、厚薄不一等问题。" },
+        { q: "羊头式和菊花式揉泥有什么区别？", a: "羊头式相对适合初学者，通过双手交替推压的方式揉泥；菊花式旋转揉压效率更高，但相对难掌握。建议初学者先掌握羊头式，熟练后再尝试菊花式。" },
+        { q: "新买的泥需要揉吗？", a: "需要。新泥虽然没有气泡，但软硬不均匀，必须通过揉泥使其均匀才能拉坯。" },
+        { q: "揉泥到什么标准才算合格？", a: "切开泥团检查内部无气泡，泥料软硬均匀一致，手感柔韧适中。" }
+      ]
+    },
+    {
+      id: "step_02", name: "定中心", en: "Centering", order: 2, stage: null,
+      desc: "将揉好的泥团放置在拉坯机转盘中央，利用旋转之力使泥团稳定在正中心位置。这是拉坯最关键的基本功。",
+      techniques: [{ name: "双手定中心法", desc: "左手扶泥，右手推压，双臂固定在大腿或托盘上保持稳定，用手掌根部施力" }, { name: "敲击找中心法（修坯用）", desc: "独特且古老的找中心方法，通过敲击感受底部震动判断中心，熟练后既便利又快捷" }],
+      points: ["拉坯时越稳越好找中心", "手臂要有支撑点保持稳定", "转速适中，初学者宜用中低速", "泥团完全稳定不晃动才可进入下一步"],
+      qa: [
+        { q: "定中心是拉坯最关键的一步吗？", a: "是的。中心定不稳，后续所有步骤都会受影响。泥团晃动会导致器型不对称、厚薄不均，甚至整团泥甩飞。学习拉坯需要专心和不厌其烦的练习，定中心是最需要反复练习的基本功。" },
+        { q: "定中心时转速应该多少？", a: "初学者建议用中低速，能够保持泥团稳定不晃动即可。熟练后可以适当提高转速以提高效率。" },
+        { q: "为什么我的泥总是在转盘上晃？", a: "通常是因为手臂没有支撑点导致施力不稳定。将手臂固定在大腿或拉坯机托盘上，用手掌根部稳定施压。" }
+      ]
+    },
+    {
+      id: "step_03", name: "开孔", en: "Opening", order: 3, stage: null,
+      desc: "在定好中心的泥团顶部用手指或工具压出开口，形成坯体的内部空间。底部留出约1-1.5cm厚度。",
+      techniques: [{ name: "拇指开孔法", desc: "双手拇指并拢，在泥团中心垂直向下压入，保持压力均匀直到接近底部留出适当厚度" }, { name: "工具辅助开孔", desc: "使用拉坯工具辅助开孔，适合较大器型或特殊造型" }],
+      points: ["开孔时要保持垂直，不可偏斜", "底部留出约1-1.5cm厚度", "手指保持湿润防止粘连", "开孔深度决定器物的高度基础"],
+      qa: [
+        { q: "开孔开多深合适？", a: "底部要留出约1-1.5cm的厚度。开孔深度直接影响后续拉高的空间，一般开到离转盘1-2cm处。注意不要开透底部。" },
+        { q: "开孔偏了怎么办？", a: "如果孔开偏了，说明定中心可能没定好。需要重新揉泥定中心。开孔一定要保持垂直向下，双手拇指并拢同时施压。" },
+        { q: "开孔时泥粘手怎么办？", a: "保持双手湿润，使用适量水或泥浆润滑。但水不要太多，否则泥会过软塌陷。" }
+      ]
+    },
+    {
+      id: "step_04", name: "拉高", en: "Pulling Up / Raising", order: 4, stage: null,
+      desc: "从底部向上提拉泥壁，使坯体增高并初步成型。直筒是拉坯最关键的基本功训练。泥壁厚度控制在0.5-0.8cm。",
+      techniques: [{ name: "双手对压提拉法", desc: "左手在内部支撑，右手在外部配合，从底部开始均匀向上提拉" }, { name: "分段提拉法", desc: "对于较高器型，分2-3段逐步提拉，先拉下半部分再拉上半部分" }],
+      points: ["提拉要均匀，速度一致", "每次提拉从底部开始", "保持泥壁厚薄均匀", "直筒是关键，造型决定难易程度"],
+      qa: [
+        { q: "拉高时为什么泥壁总是不均匀？", a: "提拉时手指间距要保持一致，从底部到顶部均匀施力。练习拉直筒是最有效的基本功训练，直筒能拉好，其他造型就容易多了。" },
+        { q: "拉高到一半泥塌了怎么办？", a: "可能的原因：泥太软（水分过多），提拉太快，或泥壁太薄。这时需要重新揉泥调整干湿度，控制好提拉节奏和力度。" },
+        { q: "能拉多高的器型？", a: "段位一（1公斤泥）：20cm以下简单器型如杯子、碗、花瓶。段位二（2.5公斤泥）：30cm以下器型如茶壶、罐子。段位三（4公斤泥）：35cm以上器型。" }
+      ]
+    },
+    {
+      id: "step_05", name: "造型", en: "Shaping", order: 5, stage: null,
+      desc: "在拉高的基础上利用工具和手法塑造器物的最终形态，包括收口、扩腹、做足等。创意要建立在掌控能力之下。",
+      techniques: [
+        { name: "直筒造型", desc: "最基础的造型，保持圆柱形，适合做杯子、笔筒等" },
+        { name: "收口造型", desc: "从内部向外推压使口部向内收拢，适合做瓶、罐等" },
+        { name: "扩腹造型", desc: "从内部向外推压使腹部扩张，适合做碗、盘等" },
+        { name: "绞胎技法", desc: "两种及以上颜色的泥绞在一起，出效果速度快，适合体验课" },
+        { name: "肌理技法", desc: "在坯体表面制造纹理效果，增加艺术表现力" },
+        { name: "变形技法", desc: "对圆器进行有控制的变形处理，创造非对称造型" }
+      ],
+      points: ["造型要建立在掌控能力之上", "根据器型选择合适的手法", "花瓶造型关键位置决定难易程度"],
+      qa: [
+        { q: "初学者应该先学什么造型？", a: "直筒是拉坯的关键基本功，建议从直筒杯开始练习。学会拉直筒后再尝试碗（扩腹+收口）、花瓶（多种造型组合）。造型决定难易程度，先从简单器型开始。" },
+        { q: "绞胎怎么做？", a: "将两种或以上颜色的泥绞合在一起揉制，然后在拉坯机上拉制。绞胎出效果速度快，非常适合体验课和体验活动。注意不同泥料的收缩率要一致。" }
+      ]
+    },
+    {
+      id: "step_06", name: "修坯", en: "Trimming / Finishing", order: 6, stage: null,
+      desc: "拉坯后的修整工序，对坯体的整体造型、厚薄和表面光洁度做进一步处理。主要目的：好看、安全。",
+      techniques: [
+        { name: "传统修坯", desc: "'三分拉七分修'，追求修得薄、足底均匀、干净。修干坯用锋利板刀。难度较大不适合初学者。" },
+        { name: "现代修坯", desc: "追求尽可能多拉、充分利用泥土、尽可能少修。修70%皮革硬度的湿坯，不易变形且容易掌握。" }
+      ],
+      points: ["初学者尽可能修湿坯（70%左右干）", "修坯过程中切勿用力过大", "在修坯之前一定要找稳中心", "修穿底了——花盆是你的归宿"],
+      qa: [
+        { q: "修坯应该在什么干湿度进行？", a: "初学者建议修70%左右干燥程度（皮革硬度）的湿坯。此时坯体不易变形且容易掌握。过干的坯可适当刷水。" },
+        { q: "'三分拉七分修'是什么意思？", a: "这是传统修坯观念，强调修坯的重要性——拉坯出的粗坯只占三成功夫，七成要靠修坯来完善。但现代理念趋向于多拉少修，充分利用泥土，保留手工痕迹。" },
+        { q: "修坯时作品甩飞破损了怎么办？", a: "不要气馁！几种补救方法：切（直接刀切异形部位）、填（填补破损）、挡（遮挡缺陷）。修穿底的可以改做花盆。前提是保证可以安全烧制。" }
+      ]
+    },
+    {
+      id: "step_07", name: "干燥", en: "Drying", order: 7, stage: null,
+      desc: "将修整好的坯体在阴凉通风处自然干燥，使其完全脱水以便入窑烧制。干燥不能过快，防止开裂。",
+      techniques: [],
+      points: ["放置在阴凉通风处自然阴干", "干燥过程中底部托板必须吸水", "干燥到不会变形的情况下倒置更易防止开裂", "完全干透后才能入窑", "空心作品记得打孔排气", "实心部分不超过3cm"],
+      qa: [
+        { q: "坯体干燥需要多长时间？", a: "取决于坯体大小、厚度和天气。一般小型器物2-3天，大中型需3-7天。关键是完全干透——可通过触感（凉→常温）和颜色（深→浅）判断。" },
+        { q: "干燥时开裂了怎么办？", a: "表面细小裂纹可修补（填补泥浆后压实）；贯穿性裂纹需要检查是否裂穿。预防措施：阴凉处慢干、倒置干燥、保持底部吸水托板。" },
+        { q: "为什么要在坯上打孔？", a: "空心作品和密封造型必须打孔，否则烧制时内部空气膨胀会导致炸坯。另外实心部分不超过3cm也是为了防止炸裂。" }
+      ]
+    },
+    {
+      id: "step_08", name: "素烧", en: "Bisque Firing", order: 8, stage: null,
+      desc: "将干燥后的生坯入窑进行第一次低温烧制（500-800℃），增强坯体强度，为施釉做准备。",
+      techniques: [
+        { name: "素烧流程", desc: "装窑→300℃前留缝→250-300℃观察→关窑运行→8-10小时升温→自然降温至200℃以下→150℃以下取作品" }
+      ],
+      points: ["装窑采用三点或四点支撑", "300℃之前窑门留5-10cm缝", "250-300℃是炸坯高发温度段", "正常升温8-10小时", "降至200℃以下再开窑门，150℃以下戴高温手套取作品"],
+      qa: [
+        { q: "为什么300℃前窑门要留缝？", a: "这是为了让坯体中残余的水分以蒸汽形式排出。如果密封加热，水蒸气无法排出会导致坯体炸裂。250-300℃是炸坯的高发温度段。" },
+        { q: "炸坯的原因有哪些？", a: "六大原因：作品内有气泡、没有干透、实心部分超过3cm、空心作品忘记打洞、烧制升温过快。预防为主，规范操作。" }
+      ]
+    },
+    {
+      id: "step_09", name: "上釉", en: "Glazing", order: 9, stage: null,
+      desc: "在素烧后的坯体表面施加釉料。釉是熔融在陶瓷制品表面上一层光滑均匀的玻璃质层，是陶艺作品的霓衣云裳。",
+      techniques: [
+        { name: "喷釉法", desc: "万金油，适用所有类型。喷壶距坯体15cm，一手喷釉一手均匀转动转盘" },
+        { name: "浸釉法", desc: "拉坯类作品居多，坯体浸入釉中约3秒取出" },
+        { name: "荡釉法", desc: "拉坯作品内部上釉，釉浆浇入缓慢旋转约3秒倒出" },
+        { name: "刷釉法", desc: "几乎适用所有类型，但可能留下笔触感" }
+      ],
+      points: ["上釉时搅匀釉料（透明釉、单色釉、无光釉需过滤）", "釉料浓稠度应如纯牛奶一般", "上釉后与硼板接触处用海绵擦干净", "没烧的作品轻拿轻放"],
+      qa: [
+        { q: "釉到底是什么？", a: "釉是熔融在陶瓷制品表面上一层光滑均匀的玻璃质层，基本由土质原料、矿物原料、化工原料组成。釉的作用：提高艺术欣赏价值+改善制品性能（防污性、抗菌性、增加强度等）。" },
+        { q: "怎么选择适合的釉？", a: "选釉四原则：1.考虑釉料的预测效果（看试片）；2.根据不同年龄段人的心理特征；3.自主选择个人喜好；4.把握釉料特性考虑实际可操作性。" },
+        { q: "釉料太浓或太稀怎么办？", a: "手感测试法：手伸入釉中取出，如酸奶般不易流动则太浓（加水）；如水一般立即流走则太稀（沉淀后倒掉上面水分）。最佳状态如纯牛奶。" }
+      ]
+    },
+    {
+      id: "step_10", name: "釉烧", en: "Glaze Firing", order: 10, stage: null,
+      desc: "施釉后的坯体入窑高温烧制（1200-1300℃），釉料熔融成光滑的玻璃质层，完成从泥到瓷的最终转变。原料是基础，工艺是前提，烧成是关键。",
+      techniques: [
+        { name: "电窑烧制", desc: "成本低、操作简单、安全性高、使用广泛。正常升温8-10小时。" }
+      ],
+      points: ["釉烧温度1200-1300℃", "电窑是目前最广泛使用的窑炉类型", "窑炉安放在独立空间，远离易燃易爆物品"],
+      qa: [
+        { q: "釉烧和素烧温度为什么差这么多？", a: "素烧（500-800℃）仅使坯体获得强度但不致密化，保留吸水性便于施釉。釉烧（1200-1300℃）使坯体致密化（烧结）同时釉料熔融流平。" },
+        { q: "电窑有什么优势？", a: "相比柴窑和气窑，电窑成本低、操作简单、安全性高、使用广泛。适合学校教学和个人工作室。" },
+        { q: "釉烧后作品粘连棚板怎么办？", a: "通常是因为上釉后忘记擦底或有流动性釉流到棚板上。预防：上釉后必须将与硼板接触处擦干净。补救：用大同砂修复棚板或使用氧化铝饼防止下次粘连。" }
+      ]
+    }
+  ],
+  learningStages: [
+    { stage: 1, name: "段位一", req: "1公斤泥拉制20cm以下简单器型（杯子、碗、花瓶）", insight: "直筒是关键，造型决定难易程度" },
+    { stage: 2, name: "段位二", req: "2.5公斤泥拉制30cm以下器型，掌握绞胎/切割/肌理/变形等创意技法", insight: "创意要建立在你的掌控能力之下" },
+    { stage: 3, name: "段位三", req: "4公斤泥拉制35cm以上器型", insight: "拉坯最终段：团队" }
+  ],
+  tools: ["修坯刀", "割线", "海绵", "刮片", "针锥", "修形工具", "钢刷", "拉坯针"],
+  teacher_notes: "拉坯看似好玩，实际上初步接触挫败感很强。它只是作为一种成型技法出现，不是全部也不是唯一。注意利用它的优势探索多形式的作品表现。"
+};
+
+// ==================== 陶瓷文化数据 ====================
+const CULTURE = {
+  facts: [
+    "中国最早的陶器可追溯到约2万年前，江西万年仙人洞遗址出土的陶片是世界上最早的陶器之一。",
+    "青花瓷的蓝色颜料——苏麻离青（钴料），在元代从波斯传入中国，成就了元青花的辉煌。",
+    "宋代五大名窑：汝、官、哥、钧、定。其中汝窑存世不足百件，有\"纵有家财万贯，不如汝瓷一片\"之说。",
+    "釉里红与青花瓷同属釉下彩，但因铜红料在高温下极易挥发，成功率极低，故\"十窑九不成\"。",
+    "景德镇原名昌南镇，宋真宗景德元年（1004年）因瓷业兴盛赐名\"景德\"，成为千年瓷都。",
+    "唐代\"秘色瓷\"是越窑青瓷的极品，唐代诗人陆龟蒙赞曰：\"九秋风露越窑开，夺得千峰翠色来。\"",
+    "紫砂壶产自江苏宜兴，始于明代正德年间。其独特的双气孔结构能使茶汤\"透气不透水\"，被誉为\"世间茶具称为首\"。",
+    "冰裂纹原是宋代哥窑的烧成缺陷，却因纹理如冰裂般自然奇美，成为独特的审美追求。",
+    "祭红（霁红）是景德镇最难烧的颜色釉之一，有\"千窑一宝\"之说。配方中加入了黄金、珊瑚等名贵材料。",
+    "日本\"曜变天目\"茶碗（建盏）存世仅三件，全部在日本被定为国宝，产自中国福建建阳。",
+    "唐三彩虽是明器（陪葬品），但其斑斓的釉彩流动效果开创了低温彩釉的先河。",
+    "\"China\"一词的来源之一即是中国瓷器（china ware），可见陶瓷在中国文化中的代表性地位。"
+  ],
+  quotes: [
+    { text: "九秋风露越窑开，夺得千峰翠色来。", author: "陆龟蒙《秘色越器》" },
+    { text: "雨过天青云破处，这般颜色做将来。", author: "传为周世宗柴荣对柴窑的形容" },
+    { text: "白釉青花一火成，花从釉里透分明。", author: "龚轼《陶歌》" },
+    { text: "陶尽门前土，屋上无片瓦。", author: "梅尧臣《陶者》" },
+    { text: "白玉金边素瓷胎，雕龙描凤巧安排。", author: "乾隆《咏白玉金边瓷》" },
+    { text: "素瓷雪色缥沫香，何似诸仙琼蕊浆。", author: "皎然《饮茶歌》" }
+  ],
+  kilns: [
+    { name: "汝窑", loc: "河南汝州", era: "北宋", trait: "天青釉、玛瑙入釉、蝉翼纹开片", rank: "五大名窑之首" },
+    { name: "官窑", loc: "河南开封/浙江杭州", era: "北宋—南宋", trait: "紫口铁足、粉青釉色、大开片", rank: "五大名窑之一" },
+    { name: "哥窑", loc: "浙江龙泉", era: "南宋", trait: "金丝铁线、冰裂纹、米黄/灰青", rank: "五大名窑之一" },
+    { name: "钧窑", loc: "河南禹州", era: "北宋—金元", trait: "窑变釉色、蚯蚓走泥纹、\"入窑一色出窑万彩\"", rank: "五大名窑之一" },
+    { name: "定窑", loc: "河北曲阳", era: "北宋", trait: "白釉印花、刻花、覆烧芒口", rank: "五大名窑之一" }
+  ],
+  stepCulture: {
+    "step_01": { title: "牛毛揉的由来", text: "传统制瓷中揉泥讲究\"三揉九摔\"，老艺人揉泥时泥料纹理细如牛毛，故称\"牛毛揉\"。景德镇有谚语：\"揉泥不过关，拉坯拉上天\"——泥揉不好，后面全是白搭。" },
+    "step_02": { title: "辘轳与轮制法", text: "拉坯机古称\"辘轳\"或\"陶车\"。新石器时代晚期中国人就发明了慢轮，到汉代已广泛使用快轮。\"轮制\"是陶瓷史上一次重大技术革命。" },
+    "step_03": { title: "器型之始", text: "开孔的深浅决定了器物的基本形制。古代工匠通过控制开孔来区分\"碗\"（浅腹）、\"钵\"（深腹）、\"瓶\"（更深）。\"孔为器之始\"是千年经验总结。" },
+    "step_04": { title: "直筒功", text: "景德镇拉坯师傅收徒，第一关就是拉\"直筒\"——圆柱体是最能检验基本功的造型。学三年，拉三年直筒。师父说：\"直筒不过关，别想碰花瓶。\"" },
+    "step_05": { title: "器以载道", text: "中国传统器型讲究\"器以载道\"。梅瓶之秀美、玉壶春之端庄、天球瓶之饱满，都蕴含着东方的美学法则——\"形而上者谓之道，形而下者谓之器。\"" },
+    "step_06": { title: "三分拉七分修", text: "老艺人说\"三分拉七分修\"，修坯是体现功力的工序。宋代官窑瓷器修坯极薄，有\"薄如纸\"之美誉。但明代以后审美趋向厚重温润，修坯也得\"适度\"。" },
+    "step_07": { title: "天工与人工", text: "干燥看似被动等待，实则是\"天工与人工的配合\"。景德镇有\"看天吃饭\"之说——梅雨季干燥慢，老师傅会根据天气灵活调整工序，这正是手工艺的智慧。" },
+    "step_08": { title: "窑火的驯化", text: "人类掌握火的使用已有百万年历史，但把火\"关进窑里\"精准控温却是文明的一次飞跃。中国早在商代就建成了1200℃以上的高温窑，领先世界。" },
+    "step_09": { title: "霓衣云裳——釉的奥秘", text: "釉的发明是陶瓷史上最伟大的发现之一。商代出现原始青釉，汉代出现铅釉。釉色之变如同\"土与火的化学反应诗\"，每一件都是不可复制的孤品。" },
+    "step_10": { title: "浴火涅槃", text: "釉烧是\"从泥到瓷\"的最后升华。景德镇窑工烧窑前要祭拜\"窑神\"童宾——明代万历年间，他为烧成大龙缸而纵身投入窑火，被尊为\"风火仙师\"。" }
+  }
+};
+
+// ==================== App State ====================
+let activeStep = 0;
+let chatHistory = [];
+
+// ==================== Init ====================
+function init() {
+  renderProcessList();
+  renderKilnGallery();
+  renderDetailCard(0);
+  renderQuickQuestions(0);
+  setActiveStep(0);
+  renderKnowledgeBar();
+
+  // Knowledge bar click to refresh
+  document.getElementById('knowledgeBar').addEventListener('click', renderKnowledgeBar);
+
+  // Bind chat input Enter key
+  document.getElementById('chatInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') sendMessage();
+  });
+  // Bind send button
+  document.getElementById('sendBtn').addEventListener('click', sendMessage);
+
+  // Delegate process list clicks
+  document.getElementById('processList').addEventListener('click', function(e) {
+    const item = e.target.closest('.process-item');
+    if (item) {
+      const idx = parseInt(item.id.replace('processItem', ''));
+      setActiveStep(idx);
+    }
+  });
+
+  // Bind search
+  document.getElementById('searchInput').addEventListener('input', function(e) {
+    handleSearch(e.target.value);
+  });
+}
+
+function renderProcessList() {
+  const list = document.getElementById('processList');
+  const stageLabels = {1: '段位一', 2: '段位二', 3: '段位三'};
+  const stepIcons = ['🤲','🎯','👇','⬆️','🏺','🔧','💨','🔥','🎨','✨'];
+
+  KB.process.forEach((step, i) => {
+    if (i <= 4) step.stage = 1;
+    else if (i <= 6) step.stage = 2;
+    else step.stage = 3;
+  });
+
+  list.innerHTML = KB.process.map((step, i) => `
+    <div class="process-item" id="processItem${i}">
+      <span class="process-icon">${stepIcons[i]||'●'}</span>
+      <div class="process-num">${i + 1}</div>
+      <div class="process-info">
+        <h4>${step.name}</h4>
+        <span>${step.en}</span>
+      </div>
+      <span class="stage-badge stage-${step.stage}">${stageLabels[step.stage]}</span>
+    </div>
+  `).join('');
+}
+
+function setActiveStep(index) {
+  activeStep = index;
+  document.querySelectorAll('.process-item').forEach(el => el.classList.remove('active'));
+  const item = document.getElementById('processItem' + index);
+  if (item) { item.classList.add('active'); item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  renderDetailCard(index);
+  renderQuickQuestions(index);
+}
+
+function renderDetailCard(index) {
+  const step = KB.process[index];
+  const card = document.getElementById('detailCard');
+  card.className = 'detail-card visible';
+
+  let html = `<h2><span class="process-num" style="width:36px;height:36px;background:var(--clay);color:#fff;">${index + 1}</span> ${step.name}</h2>`;
+  html += `<div class="en">${step.en}</div>`;
+  html += `<div class="desc">${step.desc}</div>`;
+
+  if (step.techniques.length > 0) {
+    html += `<div class="detail-section"><h4>技法要点</h4>`;
+    step.techniques.forEach((t, ti) => {
+      html += `<div class="technique-card"><div class="tc-num">${ti + 1}</div><div class="tc-body"><h5>${t.name}</h5><p>${t.desc}</p></div></div>`;
+    });
+    html += `</div>`;
+  }
+
+  // Glaze spectrum for 上釉 step
+  if (step.id === 'step_09') {
+    html += `<div class="detail-section"><h4>常见釉色类型</h4><div class="glaze-spectrum">`;
+    const glazes = [
+      {cls:'gsi-transparent',label:'透明釉'},{cls:'gsi-matte',label:'无光釉'},
+      {cls:'gsi-celadon',label:'青釉'},{cls:'gsi-crackle',label:'裂纹釉'},
+      {cls:'gsi-crystalline',label:'结晶釉'},{cls:'gsi-flambe',label:'窑变花釉'}
+    ];
+    glazes.forEach(g => {
+      html += `<div class="glaze-spec-item"><div class="gsi-swatch ${g.cls}"></div><div class="gsi-label">${g.label}</div></div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (step.points.length > 0) {
+    html += `<div class="detail-section"><h4>注意事项</h4><div class="tag-list">`;
+    step.points.forEach(p => html += `<span class="tag tag-point">${p}</span>`);
+    html += `</div></div>`;
+  }
+
+  html += `<div class="detail-section"><h4>常见问答</h4>`;
+  step.qa.slice(0, 2).forEach(qa => {
+    html += `<div class="technique-card"><h5>Q: ${qa.q}</h5><p>A: ${qa.a}</p></div>`;
+  });
+  html += `<p style="font-size:0.8rem;color:var(--text-light);margin-top:8px;"><em>点击下方"常见问题"或输入文字获取更多智能问答</em></p>`;
+  html += `</div>`;
+
+  // Add culture extension card
+  const culture = CULTURE.stepCulture[step.id];
+  if (culture) {
+    html += `<div class="culture-card"><h4>📖 文化延伸：${culture.title}</h4><p>${culture.text}</p></div>`;
+  }
+
+  card.innerHTML = html;
+}
+
+function renderQuickQuestions(index) {
+  const step = KB.process[index];
+  const container = document.getElementById('quickQuestions');
+  const qs = step.qa.map(q => q.q).slice(0, 4);
+  container.innerHTML = qs.map(q => `<span class="quick-q" data-question="${q.replace(/"/g, '&quot;').replace(/'/g, '&#39;')}">${q}</span>`).join('');
+  container.querySelectorAll('.quick-q').forEach(el => {
+    el.addEventListener('click', function() { sendQuick(this.dataset.question); });
+  });
+}
+
+// ==================== Search ====================
+function handleSearch(query) {
+  if (!query.trim()) { setActiveStep(activeStep); return; }
+  const q = query.toLowerCase();
+  let found = -1;
+  for (let i = 0; i < KB.process.length; i++) {
+    const step = KB.process[i];
+    const haystack = step.name + step.desc + step.en + step.qa.map(x => x.q + x.a).join(' ') + step.points.join(' ') + step.techniques.map(t => t.name + t.desc).join(' ');
+    if (haystack.toLowerCase().includes(q)) { found = i; break; }
+  }
+  if (found >= 0) setActiveStep(found);
+}
+
+// ==================== Chat ====================
+function addMessage(role, text) {
+  chatHistory.push({ role, text });
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'message ' + role;
+  div.innerHTML = `
+    <div class="avatar">${role === 'user' ? '我' : 'AI'}</div>
+    <div class="bubble">${text}</div>
+  `;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function findBestAnswer(query) {
+  const q = query.toLowerCase();
+  let bestMatch = null;
+  let bestScore = 0;
+
+  // Search all QA pairs
+  for (const step of KB.process) {
+    for (const qa of step.qa) {
+      const score = matchScore(q, qa.q.toLowerCase());
+      if (score > bestScore) { bestScore = score; bestMatch = { step, qa }; }
+    }
+  }
+
+  // If no good QA match, search in descriptions and keywords
+  if (bestScore < 3) {
+    for (const step of KB.process) {
+      const descScore = matchScore(q, (step.name + step.desc + step.points.join(' ')).toLowerCase());
+      if (descScore > bestScore) {
+        bestScore = descScore;
+        bestMatch = { step, qa: null, descMatch: true };
+      }
+    }
+  }
+  return bestMatch;
+}
+
+function matchScore(query, target) {
+  let score = 0;
+  const qWords = query.split(/[\s,，、。？?！!]+/).filter(w => w.length >= 2);
+  for (const word of qWords) {
+    if (target.includes(word)) score += word.length;
+  }
+  // Bonus for exact phrase match
+  if (target.includes(query)) score += 10;
+  return score;
+}
+
+function generateAnswer(query) {
+  const result = findBestAnswer(query);
+  if (!result) {
+    return `抱歉，我在知识库中没有找到关于"${query}"的匹配信息。请尝试以下方式：<br><br>
+    <strong>1.</strong> 使用更简洁的关键词（如：揉泥、修坯、上釉）<br>
+    <strong>2.</strong> 点击左侧流程导航查看各环节详情<br>
+    <strong>3.</strong> 点击下方推荐问题快速提问`;
+  }
+
+  if (result.qa) {
+    // Direct QA match
+    setActiveStep(KB.process.indexOf(result.step));
+    return `<strong>【${result.step.name}】</strong><br><br>${result.qa.a}<br><br><em>相关知识点已在右侧面板显示。</em>`;
+  }
+
+  // Description match - give a summary
+  setActiveStep(KB.process.indexOf(result.step));
+  let ans = `<strong>【${result.step.name}】</strong><br><br>${result.step.desc}<br><br><strong>相关要点：</strong><br>`;
+  result.step.points.forEach(p => ans += `· ${p}<br>`);
+  if (result.step.qa.length > 0) {
+    ans += `<br><em>该环节还有 ${result.step.qa.length} 个常见问答，可在推荐问题中查看。</em>`;
+  }
+  return ans;
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const query = input.value.trim();
+  if (!query) return;
+  addMessage('user', query);
+  input.value = '';
+  setTimeout(() => {
+    const answer = generateAnswer(query);
+    addMessage('assistant', answer);
+  }, 300);
+}
+
+function sendQuick(q) {
+  addMessage('user', q);
+  setTimeout(() => {
+    const answer = generateAnswer(q);
+    addMessage('assistant', answer);
+  }, 300);
+}
+
+// ==================== Welcome ====================
+function showWelcome() {
+  const rq = CULTURE.quotes[Math.floor(Math.random() * CULTURE.quotes.length)];
+  const featuredQs = [
+    {q:'揉泥有什么技巧？',icon:'🤲',step:0},
+    {q:'定中心总是晃怎么办？',icon:'🎯',step:1},
+    {q:'修坯应该修多薄？',icon:'🔧',step:5},
+    {q:'上釉前要注意什么？',icon:'🎨',step:8}
+  ];
+  let html = '<div class="welcome-panel">';
+  html += '<div class="welcome-hero"><div class="hero-quote">"' + rq.text + '"</div><div class="hero-author">—— ' + rq.author + '</div></div>';
+  html += '<div class="welcome-grid">';
+  featuredQs.forEach(fq => {
+    html += '<div class="welcome-card" onclick="document.getElementById(\'chatInput\').value=\'' + fq.q.replace(/'/g,'&#39;') + '\';sendMessage();"><div class="wc-icon">' + fq.icon + '</div><div class="wc-text">' + fq.q + '</div></div>';
+  });
+  html += '</div>';
+  html += '<div class="welcome-nav"><span class="welcome-nav-chip wn-s1" onclick="setActiveStep(0)">段位一 · 基础成型</span><span class="welcome-nav-chip wn-s2" onclick="setActiveStep(5)">段位二 · 精修提升</span><span class="welcome-nav-chip wn-s3" onclick="setActiveStep(7)">段位三 · 烧成艺术</span></div>';
+  html += '</div>';
+
+  addMessage('assistant', `
+    <strong>欢迎使用陶艺拉坯全流程AI知识库！</strong><br><br>
+    本系统基于《中国陶瓷艺术赏析与创作基础》课程体系构建，覆盖拉坯成型的<strong>10个核心环节</strong>。<br><br>
+    <em>"拉坯需要专心和不厌其烦的练习"</em>
+  `);
+  addMessage('assistant', html);
+}
+
+function renderKilnGallery() {
+  const kilns = CULTURE.kilns;
+  const swatches = ['swatch-ru','swatch-guan','swatch-ge','swatch-jun','swatch-ding'];
+  document.getElementById('kilnRow').innerHTML = kilns.map((k, i) => `
+    <div class="kiln-chip" title="${k.trait}">
+      <div class="glaze-swatch ${swatches[i]}"></div>
+      <div class="k-name">${k.name}</div>
+      <div class="k-era">${k.era}</div>
+    </div>
+  `).join('');
+}
+
+function renderKnowledgeBar() {
+  const fact = CULTURE.facts[Math.floor(Math.random() * CULTURE.facts.length)];
+  document.getElementById('kText').textContent = fact;
+  const bar = document.getElementById('knowledgeBar');
+  if (!bar.querySelector('.k-refresh')) {
+    const refresh = document.createElement('div');
+    refresh.className = 'k-refresh';
+    refresh.textContent = '🔄 点击刷新';
+    bar.appendChild(refresh);
+  }
+}
+
+// ==================== Mobile Sidebar ====================
+function toggleSidebar() {
+  const sb = document.querySelector('.sidebar');
+  const ov = document.getElementById('sidebarOverlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('open');
+}
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+// Start
+init();
+showWelcome();
+</script>
+</body>
+</html>
