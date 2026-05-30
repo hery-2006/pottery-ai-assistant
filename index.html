@@ -1118,7 +1118,7 @@ function renderDetailCard(index) {
   const card = document.getElementById('detailCard');
   card.className = 'detail-card visible';
 
-  let html = `<h2><span class="process-num" style="font-size:1.2rem;margin-right:4px;">' + cat.icon + '</span> <span class="process-num" style="width:36px;height:36px;background:var(--clay);color:#fff;">${index + 1}</span> ${cat.name}</h2>`;
+  let html = `<h2><span>${cat.icon}</span> <span class="process-num" style="width:36px;height:36px;background:var(--clay);color:#fff;">${index + 1}</span> ${cat.name}</h2>`;
   html += `<div class="en">${cat.en}</div>`;
   html += `<div class="desc">${cat.desc}</div>`;
 
