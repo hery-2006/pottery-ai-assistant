@@ -1091,7 +1091,7 @@ function renderProcessList() {
     else cat.stage = 4;
   });
 
-  list.innerHTML = KB.process.map((cat, i) => `
+  list.innerHTML = KB.categories.map((cat, i) => `
     <div class="process-item" id="processItem${i}">
       <span class="process-icon">${catIcons[i]||'●'}</span>
       <div class="process-num">${i + 1}</div>
@@ -1165,8 +1165,8 @@ function renderDetailCard(index) {
 
   // Related steps
   const related = [];
-  if (index > 0) related.push({name: '← ' + KB.process[index-1].name, idx: index-1});
-  if (index < KB.categories.length-1) related.push({name: KB.process[index+1].name + ' →', idx: index+1});
+  if (index > 0) related.push({name: '← ' + KB.categories[index-1].name, idx: index-1});
+  if (index < KB.categories.length-1) related.push({name: KB.categories[index+1].name + ' →', idx: index+1});
   if (related.length) {
     html += '<div class="related-steps"><span class="rs-label">📎 相关步骤</span>';
     related.forEach(r => { html += '<span class="rs-chip" onclick="setActiveStep(' + r.idx + ')">' + r.name + '</span>'; });
@@ -1354,7 +1354,7 @@ function renderKnowledgeBar() {
 function renderToolbox() {
   // Learning progress
   const exploredSteps = new Set();
-  document.getElementById('tbStats').innerHTML = KB.process.map((s, i) => {
+  document.getElementById('tbStats').innerHTML = KB.categories.map((s, i) => {
     return '<div class="tb-stat-row"><span>' + (i + 1) + '. ' + s.name + '</span><span class="tb-val">' + s.qa.length + 'QA</span></div>';
   }).join('');
 
