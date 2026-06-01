@@ -426,6 +426,9 @@ body::before {
 .culture-celebration .celeb-quote { font-size: 0.9rem; color: var(--clay-dark); font-style: italic; line-height: 1.7; margin-bottom: 4px; }
 .culture-celebration .celeb-author { font-size: 0.76rem; color: var(--text-light); }
 
+/* ===== 视频播放器 ===== */
+.video-wrap { margin: 12px 0; border-radius: 10px; overflow: hidden; background: #000; }
+
 /* 欢迎页陶瓷装饰 */
 .welcome-culture-tip {
   margin-top: 16px; padding: 12px 14px;
@@ -566,7 +569,7 @@ steps: [
       {q:"泥团在转盘上是不是完全不晃动了？",opts:[{t:"✅ 完全静止",g:1},{t:"😰 还在晃动",g:0},{t:"😰 晃得快甩飞了",g:0}],bad:"中心还没定稳！降到80-100 RPM，手臂靠大腿做支撑，掌根从侧面轻推。多次失败→泥可能有气泡→重新揉泥。",good:"中心定得很稳！这是拉坯最重要的基本功。"}
     ]
   },
-  {id:"s03",n:3,name:"开孔",tagline:"打开坯体内部空间",icon:"👇",video:"videos/step-pulling.mp4",
+  {id:"s03",n:3,name:"开孔",tagline:"打开坯体内部空间",icon:"👇",video:"videos/step-opening.mp4",
     subs:[
       {a:"双手拇指并拢",d:"手指保持湿润"},
       {a:"泥团顶部中心垂直向下压入",d:"匀速施力，保持垂直不可偏斜"},
@@ -579,7 +582,7 @@ steps: [
       {q:"开孔后孔是不是在正中心？底部有没有留够厚度？",opts:[{t:"✅ 居中，底部够厚",g:1},{t:"😰 孔偏了",g:0},{t:"😰 快穿底了",g:0}],bad:"孔偏→中心没定好需重来。快穿底→立即停止，底部留至少1cm。",good:"开孔很好！居中垂直，底部留有足够厚度。"}
     ]
   },
-  {id:"s04",n:4,name:"拉高",tagline:"从底部向上提拉，增高坯体",icon:"⬆️",video:"videos/step-pulling.mp4",
+  {id:"s04",n:4,name:"拉高",tagline:"从底部向上提拉，增高坯体",icon:"⬆️",video:"videos/step-raising.mp4",
     subs:[
       {a:"左手入孔支撑，右手外部配合",d:"转速中速150-250 RPM"},
       {a:"从底部向上均匀提拉",d:"手指内外夹住泥壁，每次提拉高度一致"},
@@ -592,7 +595,7 @@ steps: [
       {q:"拉高后泥壁均匀吗？有没有塌陷？",opts:[{t:"✅ 均匀，达到了高度",g:1},{t:"😰 某处特别薄",g:0},{t:"😰 塌陷了",g:0}],bad:"不均匀→手指间距保持一致。塌陷→泥太软或提拉太快，取下重新揉泥调整。",good:"拉高很均匀！厚度一致，高度到位。"}
     ]
   },
-  {id:"s05",n:5,name:"造型",tagline:"塑造器物的最终形态",icon:"🏺",video:"videos/step-pulling.mp4",
+  {id:"s05",n:5,name:"造型",tagline:"塑造器物的最终形态",icon:"🏺",video:"videos/step-shaping.mp4",
     subs:[
       {a:"确定目标器型",d:"初学者从直筒杯开始——直筒是关键"},
       {a:"运用造型手法",d:"收口：内侧推压收拢。扩腹：内部推压扩张"},
@@ -790,7 +793,7 @@ s0.innerHTML='<div class="step-card"><div class="step-icon">👋</div><h2>欢迎
     h+='<button class="ai-guide-btn" onclick="openAITutor('+i+')">🤖 进入AI面对面指导模式</button>';
     if(step.video){
       h+='<div style="margin:12px 0;border-radius:10px;overflow:hidden;background:#000">';
-      h+='<video controls playsinline preload="none" style="width:100%;max-height:200px;display:block" poster="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22360%22 height=%22200%22><rect fill=%22%231a1a2e%22 width=%22360%22 height=%22200%22/><text fill=%22%23fff%22 x=%22180%22 y=%22100%22 text-anchor=%22middle%22 font-size=%2216%22>'+step.name+'教学视频</text></svg>">';
+      h+='<video controls playsinline preload="metadata" style="width:100%;max-height:220px;display:block" poster="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22360%22 height=%22200%22><rect fill=%22%231a1a2e%22 width=%22360%22 height=%22200%22/><text fill=%22%23fff%22 x=%22180%22 y=%22100%22 text-anchor=%22middle%22 font-size=%2216%22>'+step.name+'教学视频</text></svg>">';
       h+='<source src="'+step.video+'" type="video/mp4"></video></div>';
     }
     // Accordion for sub-steps
@@ -943,7 +946,8 @@ function handleCheck(good){
 }
 function markStepDone(){
   const i=S.cs-1;
-  if(i>=0&&!S.comp.has(i)){S.comp.add(i);save();renderSteps();renderProgress();}
+  if(i<0){showToast('请先选择步骤再标记完成');return;}
+  if(!S.comp.has(i)){S.comp.add(i);save();renderSteps();renderProgress();}
   aiChat('✅','很好！<strong>'+EMBEDDED.steps[i].name+'</strong>已完成。继续加油！');
   speak('很好！'+EMBEDDED.steps[i].name+'已完成。');
   showToast('步骤已完成！✅');
@@ -1066,7 +1070,12 @@ function toggleEquipDetail(){
 
 function showToast(m,d=2000){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),d);}
 
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'&&S.cs<10)goToStep(S.cs+1);if(e.key==='ArrowLeft'&&S.cs>0)goToStep(S.cs-1);});
+// ============ KEYBOARD NAVIGATION ============
+document.addEventListener('keydown',e=>{
+  if(e.target.closest('video')) return; // let native video controls handle their own keys
+  if(e.key==='ArrowRight'&&S.cs<10)goToStep(S.cs+1);
+  if(e.key==='ArrowLeft'&&S.cs>0)goToStep(S.cs-1);
+});
 document.getElementById('checkOverlay').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
 
 function showCultureToast(i){

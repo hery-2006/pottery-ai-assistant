@@ -837,7 +837,8 @@ const KB = {
       qa: [
         { q: "修坯应该在什么干湿度进行？", a: "初学者建议修70%左右干燥程度（皮革硬度）的湿坯。此时坯体不易变形且容易掌握。过干的坯可适当刷水。" },
         { q: "'三分拉七分修'是什么意思？", a: "这是传统修坯观念，强调修坯的重要性——拉坯出的粗坯只占三成功夫，七成要靠修坯来完善。但现代理念趋向于多拉少修，充分利用泥土，保留手工痕迹。" },
-        { q: "修坯时作品甩飞破损了怎么办？", a: "不要气馁！几种补救方法：切（直接刀切异形部位）、填（填补破损）、挡（遮挡缺陷）。修穿底的可以改做花盆。前提是保证可以安全烧制。" }
+        { q: "修坯时作品甩飞破损了怎么办？", a: "不要气馁！几种补救方法：切（直接刀切异形部位）、填（填补破损）、挡（遮挡缺陷）。修穿底的可以改做花盆。前提是保证可以安全烧制。" },
+        { q: "修坯应该修多薄？", a: "常规家用器皿（杯、碗、小花瓶）器壁修至0.6-0.8cm，底部留1.0-1.2cm。口沿可比器壁略薄0.1-0.2cm。判断厚度可用<strong>指弹听声法</strong>：较厚时声音'咯咯'、中等厚度'咚咚'、修至适当厚度清脆'卟卟'声。视觉法：过薄处光泽亮、过厚处暗淡。记住'少一刀则嫌厚，多一刀则坯破器废'，修坯操刀要力度均匀平稳。初学者不要追求太薄——安全第一。" }
       ]
     },
     {
@@ -874,6 +875,7 @@ const KB = {
       ],
       points: ["上釉时搅匀釉料（透明釉、单色釉、无光釉需过滤）", "釉料浓稠度应如纯牛奶一般", "上釉后与硼板接触处用海绵擦干净", "没烧的作品轻拿轻放"],
       qa: [
+        { q: "上釉前要注意什么？", a: "施釉前必须做好五项准备：<strong>1) 搅匀釉料并过滤</strong>（透明釉、单色釉、无光釉需用100目筛网过滤）；<strong>2) 调整釉料浓度</strong>至牛奶状——手感测试：手伸入釉中取出，如酸奶般不易流动则太浓（加水），如水一般流走则太稀（沉淀后倒水）；<strong>3) 坯体补水除尘</strong>——用湿海绵轻擦坯体表面，去除灰尘并让坯体均匀湿润；<strong>4) 备好工具</strong>（喷壶/釉夹/海绵/筛网）；<strong>5) 确认素烧坯体无裂纹</strong>，否则施釉会渗入裂缝导致烧制不合格。" },
         { q: "釉到底是什么？", a: "釉是熔融在陶瓷制品表面上一层光滑均匀的玻璃质层，基本由土质原料、矿物原料、化工原料组成。釉的作用：提高艺术欣赏价值+改善制品性能（防污性、抗菌性、增加强度等）。" },
         { q: "怎么选择适合的釉？", a: "选釉四原则：1.考虑釉料的预测效果（看试片）；2.根据不同年龄段人的心理特征；3.自主选择个人喜好；4.把握釉料特性考虑实际可操作性。" },
         { q: "釉料太浓或太稀怎么办？", a: "手感测试法：手伸入釉中取出，如酸奶般不易流动则太浓（加水）；如水一般立即流走则太稀（沉淀后倒掉上面水分）。最佳状态如纯牛奶。" }
@@ -1030,9 +1032,9 @@ function renderDetailCard(index) {
   html += `<div class="en">${cat.en}</div>`;
   html += `<div class="desc">${cat.desc}</div>`;
 
-  if (step.techniques.length > 0) {
+  if (cat.techniques.length > 0) {
     html += `<div class="detail-section"><h4>技法要点</h4>`;
-    step.techniques.forEach((t, ti) => {
+    cat.techniques.forEach((t, ti) => {
       html += `<div class="technique-card"><div class="tc-num">${ti + 1}</div><div class="tc-body"><h5>${t.name}</h5><p>${t.desc}</p></div></div>`;
     });
     html += `</div>`;
@@ -1052,14 +1054,14 @@ function renderDetailCard(index) {
     html += `</div></div>`;
   }
 
-  if (step.points.length > 0) {
+  if (cat.points.length > 0) {
     html += `<div class="detail-section"><h4>注意事项</h4><div class="tag-list">`;
-    step.points.forEach(p => html += `<span class="tag tag-point">${p}</span>`);
+    cat.points.forEach(p => html += `<span class="tag tag-point">${p}</span>`);
     html += `</div></div>`;
   }
 
   html += `<div class="detail-section"><h4>常见问答</h4>`;
-  step.qa.slice(0, 2).forEach(qa => {
+  cat.qa.slice(0, 2).forEach(qa => {
     html += `<div class="technique-card"><h5>Q: ${qa.q}</h5><p>A: ${qa.a}</p></div>`;
   });
   html += `<p style="font-size:0.8rem;color:var(--text-light);margin-top:8px;"><em>点击下方"常见问题"或输入文字获取更多智能问答</em></p>`;
@@ -1101,7 +1103,7 @@ function handleSearch(query) {
   let found = -1;
   for (let i = 0; i < KB.categories.length; i++) {
     const c = KB.categories[i];
-    const haystack = cat.name + cat.desc + cat.en + step.qa.map(x => x.q + x.a).join(' ') + step.points.join(' ') + step.techniques.map(t => t.name + t.desc).join(' ');
+    const haystack = c.name + c.desc + c.en + c.qa.map(x => x.q + x.a).join(' ') +  c.points.join(' ') +  c.techniques.map(t => t.name + t.desc).join(' ');
     if (haystack.toLowerCase().includes(q)) { found = i; break; }
   }
   if (found >= 0) setActiveStep(found);
@@ -1128,19 +1130,19 @@ function findBestAnswer(query) {
 
   // Search all QA pairs
   for (const c of KB.categories) {
-    for (const qa of step.qa) {
+    for (const qa of c.qa) {
       const score = matchScore(q, qa.q.toLowerCase());
-      if (score > bestScore) { bestScore = score; bestMatch = { cat, qa }; }
+      if (score > bestScore) { bestScore = score; bestMatch = { cat: c, qa }; }
     }
   }
 
   // If no good QA match, search in descriptions and keywords
   if (bestScore < 3) {
     for (const c of KB.categories) {
-      const descScore = matchScore(q, (cat.name + cat.desc + step.points.join(' ')).toLowerCase());
+      const descScore = matchScore(q, (c.name + c.desc + c.points.join(' ')).toLowerCase());
       if (descScore > bestScore) {
         bestScore = descScore;
-        bestMatch = { cat, qa: null, descMatch: true };
+        bestMatch = { cat: c, qa: null, descMatch: true };
       }
     }
   }
@@ -1149,12 +1151,33 @@ function findBestAnswer(query) {
 
 function matchScore(query, target) {
   let score = 0;
-  const qWords = query.split(/[\s,，、。？?！!]+/).filter(w => w.length >= 2);
-  for (const word of qWords) {
-    if (target.includes(word)) score += word.length;
+  // 1. Exact substring: the whole query or meaningful chunks
+  if (target.includes(query)) { score += 20; return score; }
+  // 2. Strip punctuation before ngram matching, also filter stop phrases
+  const cleanQ = query.replace(/[？?！!，,。.、\s]+/g, '');
+  const cleanT = target.replace(/[？?！!，,。.、\s]+/g, '');
+  const stopGrams = new Set([
+    '怎么办','是什么','为什么','有什么区别','要注意','有什么','怎么做',
+    '如何','哪个','怎么','什么','应该','需要','的方法','的技巧',
+    '要注意什么','有什么技巧','怎样','怎么样','在哪','哪里','哪个','哪些'
+  ]);
+  for (let len = 5; len >= 2; len--) {
+    for (let i = 0; i <= cleanQ.length - len; i++) {
+      const ng = cleanQ.slice(i, i + len);
+      if (stopGrams.has(ng)) continue;
+      if (cleanT.includes(ng)) score += len * 1.5;
+    }
   }
-  // Bonus for exact phrase match
-  if (target.includes(query)) score += 10;
+  // 3. CJK character overlap (boosted — carries domain meaning)
+  const cjkQ = cleanQ.replace(/[^一-鿿]/g, '');
+  const cjkT = cleanT.replace(/[^一-鿿]/g, '');
+  if (cjkQ.length > 1) {
+    let charHits = 0;
+    for (const ch of cjkQ) {
+      if (cjkT.includes(ch)) charHits++;
+    }
+    score += charHits * 1.2; // heavy boost for domain character overlap
+  }
   return score;
 }
 
