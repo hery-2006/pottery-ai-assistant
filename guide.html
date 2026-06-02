@@ -208,7 +208,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(42,32,24,0.92);backdrop-filter:blur(12px);color:#f0e6d8;padding:12px 24px;border-radius:28px;font-size:0.85rem;z-index:999;opacity:0;transition:all 0.3s ease;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px);}
 
-@media(min-width:768px){body{max-width:480px;margin:0 auto;border-left:1px solid var(--border);border-right:1px solid var(--border);box-shadow:0 0 40px rgba(61,50,38,0.08);}}
+/* ===== 桌面端响应式 ===== */
+@media(min-width:768px){
+  html{background:#e8e2d9;}
+  body{max-width:720px;margin:0 auto;border-left:1px solid var(--border);border-right:1px solid var(--border);box-shadow:0 0 48px rgba(61,50,38,0.1);}
+  .header{padding:14px 24px;}
+  .header h1{font-size:1.2rem;}
+  .progress-wrap{padding:14px 24px 8px;}
+  .progress-text{font-size:0.85rem;}
+  .progress-text .step-name{font-size:1.1rem;}
+  .progress-dot{height:8px;}
+  .step-slide{padding:20px 24px;}
+  .step-card{padding:32px 28px;margin-bottom:20px;}
+  .step-card h2{font-size:1.5rem;}
+  .step-card .tagline{font-size:0.92rem;}
+  .ai-guide-btn{font-size:1.1rem;padding:17px;margin:18px 0;}
+  .instruction-text h4{font-size:0.98rem;}
+  .instruction-text p{font-size:0.88rem;}
+  .instruction-num{width:34px;height:34px;font-size:0.88rem;}
+  .equip-bar{font-size:0.82rem;margin:0 24px 12px;}
+  .equip-item .val{font-size:0.95rem;}
+  .equip-item .lbl{font-size:0.75rem;}
+  .nav-bar{padding:12px 0 calc(12px + var(--safe-bottom));}
+  .nav-item{font-size:0.78rem;}
+  .nav-icon i{font-size:24px;}
+  .complete-btn{font-size:1.05rem;padding:17px;}
+  .vessel-art{width:100px;height:120px;margin:0 auto 16px;}
+  .vessel-label{font-size:0.68rem;}
+  .warning-chip{font-size:0.78rem;}
+  .accordion-toggle{font-size:0.9rem;}
+  .accordion-body p,.accordion-body .instruction-text p{font-size:0.85rem;}
+  .sheet-overlay .sheet{max-width:540px;margin:0 auto;border-radius:20px;}
+  .ai-tutor-topbar{padding:12px 24px;font-size:0.9rem;}
+  .ai-chat-msg .txt{max-width:70%;font-size:0.9rem;}
+  .ai-chat-area{padding:14px 24px;}
+  .ai-step-panel{padding:14px 24px;}
+  .ai-step-panel .sub-step{min-width:90px;font-size:0.78rem;}
+  .ai-step-panel .sub-step .num{font-size:1rem;}
+  .voice-selector{padding:12px 24px;}
+  .ai-controls{padding:14px 24px;}
+  .ai-controls button{font-size:0.88rem;padding:13px;}
+  .quick-input-wrap{padding:12px 24px;}
+  .quick-replies{padding:10px 24px;}
+  .voice-opt{font-size:0.76rem;}
+  .check-card{max-width:420px;}
+  .tts-btn{bottom:120px;left:24px;}
+  .toast{bottom:120px;}
+  .ip-banner{display:none !important;}
+}
+@media(min-width:1024px){
+  body{max-width:860px;}
+  .step-slide{padding:24px 32px;}
+  .step-card{padding:36px 32px;}
+  .ai-chat-msg .txt{max-width:60%;}
+}
 
 /* ===== 欢迎页仪表盘 ===== */
 .hero-stats {
@@ -1115,11 +1168,22 @@ function toggleEquipDetail(){
 function showToast(m,d=2000){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),d);}
 
 // ============ KEYBOARD NAVIGATION ============
+// ============ KEYBOARD + MOUSE NAVIGATION ============
 document.addEventListener('keydown',e=>{
-  if(e.target.closest('video')) return; // let native video controls handle their own keys
+  if(e.target.closest('video')||e.target.closest('input')||e.target.closest('textarea')) return;
   if(e.key==='ArrowRight'&&S.cs<10)goToStep(S.cs+1);
   if(e.key==='ArrowLeft'&&S.cs>0)goToStep(S.cs-1);
 });
+// 桌面端鼠标滚轮翻页
+let _wheelT=0;
+document.getElementById('mainContent').addEventListener('wheel',function(e){
+  if(e.target.closest('video')||e.target.closest('.accordion-body')||e.target.closest('.sheet')||e.target.closest('input')) return;
+  var now=Date.now();
+  if(now-_wheelT<600) return;
+  _wheelT=now;
+  if(e.deltaY>20&&S.cs<10)goToStep(S.cs+1);
+  else if(e.deltaY<-20&&S.cs>0)goToStep(S.cs-1);
+},{passive:true});
 document.getElementById('checkOverlay').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
 
 function showCultureToast(i){
