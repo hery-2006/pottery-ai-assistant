@@ -777,7 +777,7 @@ function copyIP(){const u='http://10.216.71.38:'+(location.port||'8080')+'/guide
 // ============ RENDER ============
 function renderAll(){renderClayBadge();renderProgress();renderSteps();renderEquip();renderClayGrid();renderErrorList();renderStepsList();goToStep(S.cs,false);}
 function renderClayBadge(){const b=document.getElementById('clayBadge');if(S.clay){const c=EMBEDDED.clayTypes.find(x=>x.id===S.clay);b.textContent=c?'🏺 '+c.name:'🏺 选择泥料';}}
-function renderProgress(){const b=document.getElementById('progressBar');b.innerHTML='';for(let i=0;i<10;i++){const d=document.createElement('div');d.className='progress-dot';if(S.comp.has(i))d.classList.add('done');if(i===S.cs)d.classList.add('active');d.textContent=S.comp.has(i)?'✓':(i+1);d.onclick=()=>goToStep(i);b.appendChild(d);}}
+function renderProgress(){const b=document.getElementById('progressBar');b.innerHTML='';for(let i=0;i<10;i++){const d=document.createElement('div');d.className='progress-dot';if(S.comp.has(i))d.classList.add('done');if(i+1===S.cs)d.classList.add('active');d.textContent=S.comp.has(i)?'✓':(i+1);d.onclick=()=>goToStep(i+1);b.appendChild(d);}}
 function renderSteps(){
   const c=document.getElementById('stepsContainer');c.innerHTML='';
   const s0=document.createElement('div');s0.className='step-slide';
@@ -992,7 +992,7 @@ function speak(text){
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);u.lang='zh-CN';u.rate=0.9;u.pitch=1.05;
   const v=getSelectedVoice();if(v)u.voice=v;
-  S.tts=true;u.onend=u.onerror=()=>{S.tts=false;updateVoiceBtn();};
+  S.tts=true;u.onend=u.onerror=()=>{S.tts=false;updateVoiceBtn();document.getElementById('ttsBtn').classList.remove('playing');};
   setTimeout(()=>window.speechSynthesis.speak(u),30);
 }
 function stopAIVoice(){window.speechSynthesis.cancel();S.tts=false;S.av=false;updateVoiceBtn();}
@@ -1033,18 +1033,42 @@ function sendQuickReply(text){
   setTimeout(()=>{aiChat('🤖',ans);speak(ans);},300);
 }
 function findAnswer(q){
-  const lq=q.toLowerCase();
-  // Search errors first
+  const stopSet=new Set(['怎么办','是什么','为什么','有什么区别','要注意','有什么','怎么做','如何','哪个','怎么','什么','应该','需要','的方法','的技巧','怎样','怎么样','在哪','哪里','哪些','注意','要不要']);
+  // Clean: strip punctuation, then remove stop phrases
+  let clean=q.toLowerCase().replace(/[？?！!，,。.、\s]+/g,'');
+  for(const st of stopSet){clean=clean.split(st).join('');}
+  if(!clean)clean=q.replace(/[？?！!，,。.、\s]+/g,''); // fallback if everything was stripped
+
+  // 1. Search errors
   let best=null,bestS=0;
   for(const e of EMBEDDED.errors){
-    let s=0;for(const kw of e.kw){if(lq.includes(kw))s+=kw.length*3;}
+    let s=0;for(const kw of e.kw){if(clean.includes(kw))s+=kw.length*3;}
+    if(e.s.toLowerCase().replace(/[？?！!，,。.、\s]+/g,'').includes(clean))s+=10;
     if(s>bestS){bestS=s;best=e;}
   }
   if(best&&bestS>=3)return '关于<strong>'+best.s+'</strong>：'+best.cr.st.join('；')+'。'+best.cr.tp;
-  // Search step data
+  // 2. Search step subs
   const step=EMBEDDED.steps[S.cs-1];
   if(step){
-    for(const sub of step.subs){if(lq.includes(sub.a.slice(0,2))||lq.includes(sub.d.slice(0,3)))return '关于这个问题：'+sub.a+'——'+sub.d;}
+    let bestSub=null,subS=0;
+    for(const sub of step.subs){
+      const t=(sub.a+sub.d).toLowerCase();
+      let s=0;
+      // ngram 2-4 on clean keyword
+      for(let len=4;len>=2;len--){
+        for(let i=0;i<=clean.length-len;i++){
+          if(t.includes(clean.slice(i,i+len)))s+=len*1.5;
+        }
+      }
+      // Also check original query against sub text
+      const orig=q.replace(/[？?！!，,。.、\s]+/g,'');
+      if(t.includes(orig))s+=15;
+      for(const ch of clean){if(t.includes(ch))s+=0.5;}
+      if(s>subS){subS=s;bestSub=sub;}
+    }
+    if(bestSub&&subS>=2)return '关于这个问题：'+bestSub.a+'——'+bestSub.d;
+    // Fallback: step summary
+    if(subS>=1)return '关于<strong>'+step.name+'</strong>：'+step.subs.map(s=>s.a).join('；')+'。';
   }
   return '这个问题我需要更多信息。你可以试试：1. 点击「👀 AI检查」让AI诊断你的操作 2. 在「🆘求助」菜单搜索具体症状 3. 或者问问真人教师。';
 }
