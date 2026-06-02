@@ -452,11 +452,21 @@ body::before {
   max-width: 320px; text-align: center; line-height: 1.5;
 }
 .culture-toast.show { opacity: 1; transform: translateX(-50%) translateY(4px); }
+
+/* ===== Remix Icon 样式 ===== */
+.nav-item i { font-size: 1.4rem; display: block; }
+.nav-icon i { font-size: 22px; }
+.step-icon i { font-size: 44px; }
+.ai-guide-btn i { margin-right: 4px; font-size: 16px; }
+.wc-icon i { font-size: 24px; }
+.jo-title i { margin-right: 4px; font-size: 16px; }
+.toolbox-header i { margin-right: 6px; font-size: 16px; }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="header"><h1><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.25em;margin-right:6px"><rect x="3" y="9" width="18" height="13" rx="2"/><path d="M8 6h8M12 6V3"/><circle cx="9" cy="14" r="1.5" fill="currentColor"/><circle cx="15" cy="14" r="1.5" fill="currentColor"/><path d="M9 18h6"/></svg>拉坯AI导师</h1><span class="clay-badge" id="clayBadge" onclick="showClaySheet()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.2em;margin-right:4px"><path d="M9 3h6l4 7a5 5 0 01-10 7l-4-7z"/><path d="M12 12v7"/><path d="M8 17h8"/></svg>选择泥料</span></div>
+<div class="header"><h1><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.25em;margin-right:6px"><rect x="3" y="9" width="18" height="13" rx="2"/><path d="M8 6h8M12 6V3"/><circle cx="9" cy="14" r="1.5" fill="currentColor"/><circle cx="15" cy="14" r="1.5" fill="currentColor"/><path d="M9 18h6"/></svg>拉坯AI导师</h1><span class="clay-badge" id="clayBadge" onclick="showClaySheet()"><i class="ri-vase-line" style="font-size:14px;vertical-align:-0.2em;margin-right:4px"></i>选择泥料</span></div>
 <div class="ip-banner" id="ipBanner" onclick="copyIP()" style="display:none"></div>
 <div class="progress-wrap"><div class="progress-text"><span class="step-name" id="stepLabel">准备开始</span><span id="stepCount">第 0/10 步</span></div><div class="progress-bar" id="progressBar"></div></div>
 
@@ -471,7 +481,7 @@ body::before {
 
 <div class="nav-bar">
   <div class="nav-item" onclick="navTo(0)"><span class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></span>首页</div>
-  <div class="nav-item" onclick="navTo(-1)"><span class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>目录</div>
+  <div class="nav-item" onclick="navTo(-1)"><span class="nav-icon"><i class="ri-menu-line" style="font-size:22px"></i></span>目录</div>
   <div class="nav-item" onclick="showHelpSheet()"><span class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>求助</div>
   <div class="nav-item" onclick="toggleVideoCall()"><span class="nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2A19.8 19.8 0 013 4.1 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.5 12.8 12.8 0 002.8.7A2 2 0 0122 16.9z"/></svg></span>真人</div>
 </div>
@@ -765,13 +775,20 @@ culture:{
 }
 };
 
+const REMIX = {knead:'ri-hand',center:'ri-focus-2-line',open:'ri-arrow-down-circle-line',raise:'ri-arrow-up-double-line',shape:'ri-vase-line',trim:'ri-scissors-cut-line',dry:'ri-windy-line',bisque:'ri-fire-line',glaze:'ri-paint-brush-line',finish:'ri-sparkling-line',menu:'ri-menu-line',museum:'ri-building-2-line',book:'ri-book-open-line',chart:'ri-bar-chart-line',fire:'ri-fire-line',wrench:'ri-tools-line',bookOpen:'ri-book-read-line',link:'ri-link',refresh:'ri-refresh-line',robot:'ri-robot-line',home:'ri-home-line',help:'ri-question-line',phone:'ri-phone-line',close:'ri-close-line',camera:'ri-camera-line',mic:'ri-mic-line',eye:'ri-eye-line',check:'ri-check-line',checkS:'ri-check-double-line',user:'ri-user-line',map:'ri-map-pin-line',scroll:'ri-file-text-line',clock:'ri-time-line',chat:'ri-chat-1-line',warning:'ri-error-warning-line',star:'ri-star-line',pause:'ri-pause-line',speaker:'ri-volume-up-line',light:'ri-lightbulb-line',pin:'ri-pushpin-line',toolbox:'ri-briefcase-line',celebrate:'ri-trophy-line',ruler:'ri-ruler-line',mobile:'ri-smartphone-line',wave:'ri-user-smile-line',search:'ri-search-line'};
+
+
+function iconSVG(name, size) {
+  var cls = REMIX[name] || 'ri-question-line';
+  var s = size || 20;
+  return '<i class="' + cls + ' ri-' + name + '" style="font-size:' + s + 'px;line-height:1;vertical-align:-0.15em" aria-hidden="true"></i>';
+}
+
 // ============ STATE ============
 const S={cs:0,comp:new Set(),clay:null,va:false,tts:false,ao:false,av:false,stream:null,voiceIdx:0,curSub:0,availVoices:[]};
 try{const x=JSON.parse(localStorage.getItem('pg2'));if(x){S.cs=x.c||0;S.comp=new Set(x.d||[]);S.clay=x.l||null;S.voiceIdx=x.v||0;}}catch(e){}
 function save(){localStorage.setItem('pg2',JSON.stringify({c:S.cs,d:[...S.comp],l:S.clay,v:S.voiceIdx}));}
 
-// ============ ICON RENDERER ============
-function iconSVG(name,size){var s=size||24;var d={knead:'<circle cx="12" cy="10" r="6"/><path d="M7 13v2a5 5 0 0010 0v-2"/><path d="M8 5V3.5a1.5 1.5 0 013 0V8"/><path d="M16 5V3.5a1.5 1.5 0 00-3 0V8"/>',center:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',open:'<path d="M12 2a5 5 0 015 5v5a5 5 0 01-5 5"/><path d="M17 7h3a2 2 0 012 2v6a2 2 0 01-2 2h-3"/><path d="M12 2a5 5 0 00-5 5v5a5 5 0 005 5"/><path d="M10 7v5"/>',raise:'<path d="M8 21V11m0 0l4-7 4 7M8 11h8"/><path d="M12 4v17"/><path d="M4 9l-2 2m18-2l2 2"/>',shape:'<path d="M9 3h6l4 7a5 5 0 01-10 7l-4-7z"/><path d="M12 12v7"/><path d="M8 17h8"/>',trim:'<path d="M14.5 3.5l-9 9 3 3 9-9"/><path d="M5.5 12.5l-3 3 6 6 3-3"/><path d="M17 3l2.5-1.5L21 4l-1.5 2.5"/>',dry:'<path d="M3 8h13a3.5 3.5 0 000-7"/><path d="M2 18h11a3.5 3.5 0 000-7"/><path d="M5 13h14a3 3 0 000-6"/>',bisque:'<path d="M12 2c-2 4-4 7-4 10a4 4 0 108 0c0-3-2-6-4-10z"/><path d="M10 15a2 2 0 104 0"/><path d="M10 17h4"/>',glaze:'<path d="M17.5 3l-1 1-3 3-1-1-3 3 1 1-8 8H2v-.5l8-8 1 1 3-3-1-1 3-3 1-1z"/><path d="M3 16l3 3"/>',finish:'<path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',home:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/>',help:'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',phone:'<path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6A19.8 19.8 0 013 4.1 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.5 12.8 12.8 0 002.8.7A2 2 0 0122 16.9z"/>',chat:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>',warning:'<path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h16.9a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',star:'<path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 6.9L12 17.8l-6.2 3.3L7 14.2 2 9.3l6.9-1z"/>',check:'<circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/>',checkS:'<path d="M5 13l4 4L19 7"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',ruler:'<path d="M21.3 15.3L8.7 2.7l-6 6 12.6 12.6z"/><path d="M2.7 8.7l12.6 12.6"/><path d="M7.7 3.7l4 4M3.7 7.7l4 4"/>',celebrate:'<path d="M8 2l1.5 4.5L14 8l-4.5 1.5L8 14l-1.5-4.5L2 8l4.5-1.5z"/><path d="M18 3l.8 2.2L21 6l-2.2.8L18 9l-.8-2.2L15 6l2.2-.8z"/>',eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>',mic:'<path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><path d="M12 19v4M8 23h8"/>',speaker:'<path d="M11 5L6 9H2v6h4l5 4z"/><path d="M19.1 4.9a10 10 0 010 14.2"/><path d="M15.5 8.5a5 5 0 010 7.1"/>',pause:'<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>',robot:'<rect x="3" y="9" width="18" height="13" rx="2"/><path d="M8 6h8M12 6V3"/><circle cx="9" cy="14" r="1.5" fill="currentColor"/><circle cx="15" cy="14" r="1.5" fill="currentColor"/><path d="M9 18h6"/>',user:'<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>',camera:'<path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>',book:'<path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>',map:'<path d="M8 3l8 5 5-3v13l-5 3-8-5-5 3V6z"/><path d="M8 3v18M16 8v13"/>',scroll:'<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/>',fire:'<path d="M15 13.5c1.5-2 2-4 2-6 0-3-3-5-5-7-2 2-5 4-5 7 0 2 .5 4 2 6a4 4 0 106 0z"/>',mobile:'<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 18h.01"/>'}[name]||'';return '<svg class=\"i-svg\" width=\"'+s+'\" height=\"'+s+'\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\">'+d+'</svg>';}
 
 // ============ IP ============
 (function(){const ip='10.216.71.38',p=location.port||'8080',b=document.getElementById('ipBanner');if(location.hostname==='localhost'||location.hostname==='127.0.0.1'){b.style.display='block';b.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 18h.01"/></svg> 手机端：<strong>http://'+ip+':'+p+'/guide.html</strong>（点击复制）';}})();
@@ -786,7 +803,7 @@ function renderSteps(){
   const s0=document.createElement('div');s0.className='step-slide';
   const rq=EMBEDDED.culture.quotes[Math.floor(Math.random()*EMBEDDED.culture.quotes.length)];
 const doneCount=S.comp.size;
-s0.innerHTML='<div class="step-card"><div class="step-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10V8a2 2 0 014 0v5M11 13V4a2 2 0 014 0v8M14 15.5V3a2 2 0 014 0v11M3 19.5v-6a2 2 0 012-2h2l3-3h5a3 3 0 013 3v0"/></svg></div><h2>欢迎！开始学习拉坯</h2><p class="tagline">'+(S.clay?'已选泥料，准备好了吗？':'请先选择泥料类型')+'</p><div class="hero-stats"><div class="hero-stat hs-done"><div class="hs-num">'+doneCount+'</div><div class="hs-lbl">已完成步骤</div></div><div class="hero-stat hs-remain"><div class="hs-num">'+(10-doneCount)+'</div><div class="hs-lbl">剩余步骤</div></div><div class="hero-stat hs-clay"><div class="hs-num">'+(S.clay?EMBEDDED.clayTypes.find(c=>c.id===S.clay)?.name||'已选':'未选')+'</div><div class="hs-lbl">当前泥料</div></div></div>'+(!S.clay?'<p style="text-align:center"><button style="padding:12px 24px;background:var(--clay);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit" onclick="showClaySheet()">选择泥料 →</button></p>':'')+'<div class="journey-overview"><div class="jo-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.2em;margin-right:4px"><path d="M8 3l8 5 5-3v13l-5 3-8-5-5 3V6z"/><path d="M8 3v18M16 8v13"/></svg>你的陶艺之旅</div><div class="journey-steps" id="journeySteps">'+EMBEDDED.steps.map((s,i)=>'<div class="journey-chip'+(S.comp.has(i)?' jc-done':'')+'" onclick="goToStep('+(i+1)+')">'+(i+1)+'. '+iconSVG(s.icon,18)+' '+s.name+'</div>').join('')+'</div></div><div class="welcome-culture-tip"><div class="tip-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.2em;margin-right:4px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>陶韵</div>"'+rq.text+'"<br><span style="font-size:0.72rem;color:var(--text-light)">—— '+rq.author+'</span></div><p style="text-align:center;color:var(--text-light);font-size:0.82rem;margin-top:12px">🤖 <strong>AI面对面指导</strong>：每步点击按钮进入<br>📷 后置摄像头+AI语音+参考视频<br>👀 每个子步骤AI主动检查<br>🎤 多种AI声音可选<br><br>点击任一步骤开始！</p></div>';
+s0.innerHTML='<div class="step-card"><div class="step-icon"><i class="ri-user-smile-line" style="font-size:44px;color:var(--clay)"></i></div><h2>欢迎！开始学习拉坯</h2><p class="tagline">'+(S.clay?'已选泥料，准备好了吗？':'请先选择泥料类型')+'</p><div class="hero-stats"><div class="hero-stat hs-done"><div class="hs-num">'+doneCount+'</div><div class="hs-lbl">已完成步骤</div></div><div class="hero-stat hs-remain"><div class="hs-num">'+(10-doneCount)+'</div><div class="hs-lbl">剩余步骤</div></div><div class="hero-stat hs-clay"><div class="hs-num">'+(S.clay?EMBEDDED.clayTypes.find(c=>c.id===S.clay)?.name||'已选':'未选')+'</div><div class="hs-lbl">当前泥料</div></div></div>'+(!S.clay?'<p style="text-align:center"><button style="padding:12px 24px;background:var(--clay);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit" onclick="showClaySheet()">选择泥料 →</button></p>':'')+'<div class="journey-overview"><div class="jo-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.2em;margin-right:4px"><path d="M8 3l8 5 5-3v13l-5 3-8-5-5 3V6z"/><path d="M8 3v18M16 8v13"/></svg>你的陶艺之旅</div><div class="journey-steps" id="journeySteps">'+EMBEDDED.steps.map((s,i)=>'<div class="journey-chip'+(S.comp.has(i)?' jc-done':'')+'" onclick="goToStep('+(i+1)+')">'+(i+1)+'. '+iconSVG(s.icon,18)+' '+s.name+'</div>').join('')+'</div></div><div class="welcome-culture-tip"><div class="tip-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.2em;margin-right:4px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>陶韵</div>"'+rq.text+'"<br><span style="font-size:0.72rem;color:var(--text-light)">—— '+rq.author+'</span></div><p style="text-align:center;color:var(--text-light);font-size:0.82rem;margin-top:12px"><i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i> <strong>AI面对面指导</strong>：每步点击按钮进入<br>📷 后置摄像头+AI语音+参考视频<br>👀 每个子步骤AI主动检查<br>🎤 多种AI声音可选<br><br>点击任一步骤开始！</p></div>';
   c.appendChild(s0);
   EMBEDDED.steps.forEach((step,i)=>{
     const sl=document.createElement('div');sl.className='step-slide';
@@ -911,8 +928,8 @@ async function openAITutor(stepIdx){
   if(step.video){const rv=document.getElementById('aiRefVid');rv.src=step.video;rv.play().catch(()=>{});document.getElementById('aiRefInset').classList.add('show');}
   else{document.getElementById('aiRefInset').classList.remove('show');}
   // Welcome
-  aiChat('🤖','你好！我是你的AI陶艺导师。我们开始<strong>'+step.name+'</strong>的训练吧。我会一步步指导你，过程中随时问我问题。准备好了吗？');
-  setTimeout(()=>aiChat('🤖','首先，<strong>'+step.subs[0].a+'</strong>。'+(step.subs[0].d)),800);
+  aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>','你好！我是你的AI陶艺导师。我们开始<strong>'+step.name+'</strong>的训练吧。我会一步步指导你，过程中随时问我问题。准备好了吗？');
+  setTimeout(()=>aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>','首先，<strong>'+step.subs[0].a+'</strong>。'+(step.subs[0].d)),800);
 }
 function closeAITutor(){S.ao=false;stopAIVoice();document.getElementById('aiTutor').classList.remove('open');}
 function updateAITutor(){
@@ -922,7 +939,7 @@ function updateAITutor(){
   p.innerHTML=step.subs.map((s,i)=>'<div class="sub-step'+(i===S.curSub?' active':'')+(i<S.curSub?' done':'')+'" onclick="jumpToSub('+i+')"><div class="num">'+(i+1)+'</div><div>'+s.a+'</div></div>').join('');
   updateQuickReplies();
 }
-function jumpToSub(i){S.curSub=i;updateAITutor();const s=EMBEDDED.steps[S.cs-1];aiChat('🤖','我们来看第'+(i+1)+'步：<strong>'+s.subs[i].a+'</strong>。'+s.subs[i].d);speak(s.subs[i].a+'。'+s.subs[i].d);}
+function jumpToSub(i){S.curSub=i;updateAITutor();const s=EMBEDDED.steps[S.cs-1];aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>','我们来看第'+(i+1)+'步：<strong>'+s.subs[i].a+'</strong>。'+s.subs[i].d);speak(s.subs[i].a+'。'+s.subs[i].d);}
 
 function aiChat(icon,msg){
   const area=document.getElementById('aiChatArea');
@@ -1009,7 +1026,7 @@ function sendQuickAsk(){
   aiChat('👤',q);inp.value='';
   setTimeout(()=>{
     const ans=findAnswer(q);
-    aiChat('🤖',ans);speak(ans);
+    aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>',ans);speak(ans);
   },500);
 }
 
@@ -1033,7 +1050,7 @@ function updateQuickReplies(){
 function sendQuickReply(text){
   aiChat('👤',text);
   const ans=findAnswer(text);
-  setTimeout(()=>{aiChat('🤖',ans);speak(ans);},300);
+  setTimeout(()=>{aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>',ans);speak(ans);},300);
 }
 function findAnswer(q){
   const stopSet=new Set(['怎么办','是什么','为什么','有什么区别','要注意','有什么','怎么做','如何','哪个','怎么','什么','应该','需要','的方法','的技巧','怎样','怎么样','在哪','哪里','哪些','注意','要不要']);
