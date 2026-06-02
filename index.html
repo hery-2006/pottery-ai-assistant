@@ -1030,13 +1030,19 @@ function renderProcessList() {
   `).join('');
 }
 
-function setActiveStep(index) {
+function setActiveStep(index, silent) {
   activeStep = index;
-  document.querySelectorAll('.process-item').forEach(el => el.classList.remove('active'));
-  const item = document.getElementById('processItem' + index);
-  if (item) { item.classList.add('active'); item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  var items = document.querySelectorAll('.process-item');
+  for (var i = 0; i < items.length; i++) { items[i].classList.remove('active'); }
+  var item = document.getElementById('processItem' + index);
+  if (item) {
+    item.classList.add('active');
+    if (!silent) { item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  }
   renderDetailCard(index);
   renderQuickQuestions(index);
+  // Keep chat panel visible after switching
+  if (silent) { scrollToChat(); }
 }
 
 function renderDetailCard(index) {
@@ -1207,13 +1213,13 @@ function generateAnswer(query) {
   }
 
   if (result.qa) {
-    // Direct QA match
-    setActiveStep(KB.categories.indexOf(result.cat));
+    // Direct QA match — silent to avoid sidebar scroll
+    setActiveStep(KB.categories.indexOf(result.cat), true);
     return `<strong>【${result.cat.name}】</strong><br><br>${result.qa.a}<br><br><em>相关知识点已在右侧面板显示。</em>`;
   }
 
-  // Description match - give a summary
-  setActiveStep(KB.categories.indexOf(result.cat));
+  // Description match — silent to avoid sidebar scroll
+  setActiveStep(KB.categories.indexOf(result.cat), true);
   let ans = `<strong>【${result.cat.name}】</strong><br><br>${result.cat.desc}<br><br><strong>相关要点：</strong><br>`;
   result.cat.points.forEach(p => ans += `· ${p}<br>`);
   if (result.cat.qa.length > 0) {
@@ -1222,24 +1228,39 @@ function generateAnswer(query) {
   return ans;
 }
 
+function scrollToChat() {
+  var chatPanel = document.querySelector('.chat-panel');
+  if (!chatPanel) return;
+  var rect = chatPanel.getBoundingClientRect();
+  // If chat panel is not fully visible, scroll it into view
+  if (rect.bottom > window.innerHeight || rect.top < 0) {
+    chatPanel.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+  // Also scroll chat messages to latest
+  var msgs = document.getElementById('chatMessages');
+  if (msgs) { msgs.scrollTop = msgs.scrollHeight; }
+}
+
 function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const query = input.value.trim();
+  var input = document.getElementById('chatInput');
+  var query = input.value.trim();
   if (!query) return;
   addMessage('user', query);
   input.value = '';
-  setTimeout(() => {
-    const answer = generateAnswer(query);
+  setTimeout(function() {
+    var answer = generateAnswer(query);
     addMessage('assistant', answer);
-  }, 300);
+    scrollToChat();
+  }, 350);
 }
 
 function sendQuick(q) {
   addMessage('user', q);
-  setTimeout(() => {
-    const answer = generateAnswer(q);
+  setTimeout(function() {
+    var answer = generateAnswer(q);
     addMessage('assistant', answer);
-  }, 300);
+    scrollToChat();
+  }, 350);
 }
 
 // ==================== Welcome ====================
@@ -1308,7 +1329,7 @@ function renderToolbox() {
     {q:'釉烧和素烧有什么区别？',step:9}
   ];
   document.getElementById('tbHotQs').innerHTML = hotQs.map(hq =>
-    '<div class="tb-hot-item" onclick="setActiveStep(' + hq.step + ');document.getElementById(\'chatInput\').value=\'' + hq.q.replace(/'/g,'&#39;') + '\';sendMessage();">' + hq.q + '</div>'
+    '<div class="tb-hot-item" onclick="setActiveStep(' + hq.step + ',true);document.getElementById(\'chatInput\').value=\'' + hq.q.replace(/'/g,'&#39;') + '\';sendMessage();">' + hq.q + '</div>'
   ).join('');
 
   // Tool reference
