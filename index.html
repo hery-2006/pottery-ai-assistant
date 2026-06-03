@@ -83,8 +83,7 @@ body {
 .main { max-width: 1400px; margin: 0 auto; padding: 24px 28px; display: grid; grid-template-columns: 350px 1fr; gap: 24px; min-height: calc(100vh - 150px); }
 
 /* ===== Sidebar ===== */
-.sidebar {
-  background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+.sidebar { background: var(--ik-milk); border: 1px solid var(--ik-border); border-radius: var(--radius-lg); box-shadow: var(--shadow);
   overflow: hidden; display: flex; flex-direction: column; border: 1px solid var(--border);
 }
 .sidebar-header {
@@ -101,10 +100,7 @@ body {
   border-left: 4px solid transparent; position: relative; margin: 2px 0;
 }
 .process-item:hover { background: #fdfaf5; transform: translateX(2px); }
-.process-item.active {
-  background: linear-gradient(90deg, rgba(198,123,75,0.1) 0%, rgba(198,123,75,0.03) 50%, transparent 100%);
-  border-left-color: var(--clay);
-}
+.process-item.active { background: var(--ik-sand); border-left: 3px solid var(--ik-brown); }
 .process-num {
   width: 34px; height: 34px; border-radius: 50%;
   background: var(--clay-light); color: var(--clay-dark);
@@ -131,8 +127,7 @@ body {
 .content { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 
 /* ===== Chat Panel ===== */
-.chat-panel {
-  background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+.chat-panel { background: #fff; border-radius: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; flex: 1; min-height: 520px; border: 1px solid var(--ik-border); overflow: hidden; box-shadow: var(--shadow);
   display: flex; flex-direction: column; flex: 1; min-height: 520px;
   border: 1px solid var(--border); overflow: hidden;
 }
@@ -216,9 +211,7 @@ body {
 .chat-input-wrap button:active { transform: scale(0.96); }
 
 /* ===== Detail Card ===== */
-.detail-card {
-  background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow);
-  padding: 28px; display: none; border: 1px solid var(--border);
+.detail-card { background: #fff; border-radius: 12px; box-shadow: var(--shadow); padding: 24px; display: none; border: 1px solid var(--ik-border);
   animation: fadeSlide 0.35s ease;
 }
 @keyframes fadeSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
@@ -695,8 +688,57 @@ body::before {
 .qa-card { border: 1px solid var(--ik-border); border-radius: 8px; padding: 15px; margin: 10px 0; background: #fff; }
 .qa-card .qa-q { font-weight: 700; color: var(--ik-brown); margin-bottom: 6px; }
 .qa-card .qa-a { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
+
+/* ===== 非遗陶瓷纹理 ===== */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.04;
+  background:
+    /* 泥点肌理 */
+    radial-gradient(circle at 15% 25%, var(--ik-brown) 1px, transparent 1px),
+    radial-gradient(circle at 85% 35%, var(--ik-brown) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 40% 65%, var(--ik-brown) 1.2px, transparent 1.2px),
+    radial-gradient(circle at 75% 80%, var(--ik-brown) 0.9px, transparent 0.9px),
+    radial-gradient(circle at 25% 85%, var(--ik-brown) 0.7px, transparent 0.7px),
+    radial-gradient(circle at 60% 15%, var(--ik-brown) 1px, transparent 1px),
+    /* 卷草暗纹 — 间隔大 */
+    repeating-linear-gradient(45deg, transparent, transparent 180px, rgba(153,98,55,0.06) 180px, rgba(153,98,55,0.06) 181px),
+    repeating-linear-gradient(-45deg, transparent, transparent 180px, rgba(153,98,55,0.06) 180px, rgba(153,98,55,0.06) 181px);
+  background-size: 320px 320px;
+}
+
+/* 侧边栏局部纹理 */
+.sidebar::after {
+  content: '';
+  position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+  pointer-events: none; opacity: 0.03; z-index: 0;
+  background:
+    radial-gradient(circle at 10% 8%, var(--ik-brown) 1px, transparent 1px),
+    radial-gradient(circle at 90% 5%, var(--ik-brown) 0.7px, transparent 0.7px),
+    radial-gradient(circle at 8% 90%, var(--ik-brown) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 92% 92%, var(--ik-brown) 1px, transparent 1px);
+  background-size: 160px 160px;
+}
+
+/* 右侧内容卡 — 右下角单只瓷瓶暗纹 */
+.content::after {
+  content: '';
+  position: absolute; right: 0; bottom: 0; pointer-events: none; opacity: 0.04; z-index: -1;
+  width: 180px; height: 240px;
+  background:
+    radial-gradient(ellipse at 50% 30%, var(--ik-brown) 0px, transparent 2px),
+    radial-gradient(ellipse at 50% 32%, transparent 4px, var(--ik-brown) 4px, transparent 6px),
+    radial-gradient(ellipse at 50% 45%, transparent 14px, var(--ik-brown) 14px, transparent 17px),
+    radial-gradient(ellipse at 50% 60%, transparent 22px, var(--ik-brown) 22px, transparent 26px),
+    radial-gradient(ellipse at 50% 75%, transparent 14px, var(--ik-brown) 14px, transparent 17px),
+    radial-gradient(ellipse at 50% 85%, transparent 5px, var(--ik-brown) 5px, transparent 7px);
+  background-size: 60px 90px;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+}
+.content { position: relative; }
+
 </style>
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
 
@@ -971,12 +1013,20 @@ let activeStep = 0;
 let chatHistory = [];
 
 // ==================== Icon Renderer ====================
-const REMIX = {knead:'ri-hand',center:'ri-focus-2-line',open:'ri-arrow-down-circle-line',raise:'ri-arrow-up-double-line',shape:'ri-vase-line',trim:'ri-scissors-cut-line',dry:'ri-windy-line',bisque:'ri-fire-line',glaze:'ri-paint-brush-line',finish:'ri-sparkling-line',menu:'ri-menu-line',museum:'ri-building-2-line',book:'ri-book-open-line',chart:'ri-bar-chart-line',fire:'ri-fire-line',wrench:'ri-tools-line',bookOpen:'ri-book-read-line',link:'ri-link',refresh:'ri-refresh-line',robot:'ri-robot-line',home:'ri-home-line',help:'ri-question-line',phone:'ri-phone-line',close:'ri-close-line',camera:'ri-camera-line',mic:'ri-mic-line',eye:'ri-eye-line',check:'ri-check-line',checkS:'ri-check-double-line',user:'ri-user-line',map:'ri-map-pin-line',scroll:'ri-file-text-line',clock:'ri-time-line',chat:'ri-chat-1-line',warning:'ri-error-warning-line',star:'ri-star-line',pause:'ri-pause-line',speaker:'ri-volume-up-line',light:'ri-lightbulb-line',pin:'ri-pushpin-line',toolbox:'ri-briefcase-line',celebrate:'ri-trophy-line',ruler:'ri-ruler-line',mobile:'ri-smartphone-line',wave:'ri-user-smile-line',search:'ri-search-line'};
+
 
 function iconSVG(name, size) {
   var cls = REMIX[name] || 'ri-question-line';
   var s = size || 20;
   return '<i class="' + cls + ' ri-' + name + '" style="font-size:' + s + 'px;line-height:1;vertical-align:-0.15em" aria-hidden="true"></i>';
+}
+
+var STEP_ICONS = {'knead': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><ellipse cx="10" cy="7" rx="5.5" ry="4.5" stroke="#996237" stroke-width="1.5"/><path d="M5.5 11c-.8 1.2-1 2.8-.3 3.8M14.5 11c.8 1.2 1 2.8.3 3.8" stroke="#996237" stroke-width="1.2" stroke-linecap="round"/><circle cx="8.5" cy="15" r="4" stroke="#996237" stroke-width="1.3"/><circle cx="15.5" cy="15" r="4" stroke="#996237" stroke-width="1.3"/></svg>', 'center': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" stroke="#996237" stroke-width="1.6"/><circle cx="14" cy="14" r="4.5" stroke="#996237" stroke-width="1.2"/><circle cx="14" cy="14" r="1.2" fill="#996237"/><path d="M14 3v4M14 21v4M3 14h4M21 14h4" stroke="#996237" stroke-width="1" stroke-linecap="round" opacity="0.5"/></svg>', 'open': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M7 12v3c0 4 3 7 7 7s7-3 7-7v-3" stroke="#996237" stroke-width="1.5" stroke-linecap="round"/><ellipse cx="14" cy="8" rx="3" ry="1.5" stroke="#996237" stroke-width="1.2"/><path d="M12 10l2 3 2-3" stroke="#996237" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>', 'raise': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 4v18" stroke="#996237" stroke-width="1.3" stroke-linecap="round"/><path d="M8 14l6-8 6 8" stroke="#996237" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 18h12M9.5 21.5h9" stroke="#996237" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/></svg>', 'shape': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M8 5h12l5 9a6 6 0 01-10.5 8.5L9 14z" stroke="#996237" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 14v7" stroke="#996237" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg>', 'trim': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M15.5 4l-9.5 9 3 3.5 9.5-9" stroke="#996237" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 13l-3 3.5 6 6 3-3.5" stroke="#996237" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>', 'dry': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M4 6h14a3 3 0 000-6" stroke="#996237" stroke-width="1.3" stroke-linecap="round"/><path d="M3 16h10a3 3 0 000-6" stroke="#996237" stroke-width="1.3" stroke-linecap="round"/><path d="M6 12h12a2.5 2.5 0 000-5" stroke="#996237" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg>', 'bisque': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2c-2 4-4 7-4 10a4 4 0 108 0c0-3-2-6-4-10z" stroke="#996237" stroke-width="1.5" stroke-linejoin="round"/><path d="M11.5 14.5h5M12 17h4" stroke="#996237" stroke-width="1" stroke-linecap="round" opacity="0.5"/></svg>', 'glaze': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M7 10v1.5c0 4 3.5 7.5 7 7.5s7-3.5 7-7.5V10" stroke="#996237" stroke-width="1.5" stroke-linecap="round"/><path d="M10 7.5V5.5c0-.5.5-1 1-1h6c.5 0 1 .5 1 1v2" stroke="#996237" stroke-width="1.2" stroke-linecap="round"/><path d="M9 14h10" stroke="#996237" stroke-width="0.7" stroke-linecap="round" opacity="0.4"/></svg>', 'finish': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2l2.5 6.5 6.5 2.5-6.5 2.5-2.5 6.5-2.5-6.5-6.5-2.5 6.5-2.5z" stroke="#996237" stroke-width="1.5" stroke-linejoin="round"/></svg>', menu: '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M4 7h20M4 14h20M4 21h20" stroke="#996237" stroke-width="1.5" stroke-linecap="round"/></svg>'};
+
+function iconSVG(name, size) {
+  var s = size || 20;
+  var svg = STEP_ICONS[name] || STEP_ICONS['menu'];
+  return '<span style="display:inline-flex;align-items:center;justify-content:center;width:'+s+'px;height:'+s+'px;vertical-align:-0.15em">' + svg + '</span>';
 }
 
 // ==================== Init ====================
