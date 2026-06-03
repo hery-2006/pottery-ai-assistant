@@ -45,38 +45,83 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ===== Header ===== */
+/* ===== Header Banner ===== */
 .header {
-  background: linear-gradient(135deg, #4a2a10 0%, #7a4a24 35%, #9a6a44 65%, #b0805a 100%);
+  position: relative; min-height: 150px;
+  background:
+    radial-gradient(ellipse at 8% 50%, rgba(153,98,55,0.18) 0px, transparent 80px),
+    radial-gradient(ellipse at 92% 40%, rgba(153,98,55,0.15) 0px, transparent 90px),
+    radial-gradient(ellipse at 25% 60%, rgba(153,98,55,0.08) 0px, transparent 120px),
+    radial-gradient(ellipse at 70% 55%, rgba(153,98,55,0.08) 0px, transparent 100px),
+    repeating-linear-gradient(90deg,transparent,transparent 38px,rgba(153,98,55,0.04) 38px,rgba(153,98,55,0.04) 39px),
+    repeating-linear-gradient(0deg,transparent,transparent 52px,rgba(153,98,55,0.03) 52px,rgba(153,98,55,0.03) 53px),
+    linear-gradient(180deg, #5C3A1E 0%, #7B4E2C 25%, #9A6B42 55%, #C49A6C 85%, #D4B99C 100%);
   color: #fff;
-  padding: 22px 0;
-  box-shadow: 0 4px 24px rgba(61,50,38,0.18), 0 1px 0 rgba(255,255,255,0.08) inset;
+  box-shadow: 0 4px 24px rgba(61,50,38,0.25);
   position: sticky; top: 0; z-index: 100;
+  overflow: hidden;
 }
-.header::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-  height: 2px; background: linear-gradient(90deg, transparent, rgba(232,201,160,0.5), transparent);
+
+/* 左上角边角花纹 */
+.header::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 80px; height: 80px; opacity: 0.18; pointer-events: none;
+  background:
+    radial-gradient(circle at 12px 12px, rgba(153,98,55,0.6) 1px, transparent 1px),
+    radial-gradient(circle at 22px 8px, rgba(153,98,55,0.5) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 8px 22px, rgba(153,98,55,0.5) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 30px 18px, rgba(153,98,55,0.4) 0.6px, transparent 0.6px),
+    radial-gradient(circle at 18px 30px, rgba(153,98,55,0.4) 0.6px, transparent 0.6px);
+  background-size: 50px 50px;
 }
+
+/* 右上角边角花纹 */
+.htop-r {
+  position: absolute; top: 0; right: 0;
+  width: 80px; height: 80px; opacity: 0.18; pointer-events: none;
+  background:
+    radial-gradient(circle at 68px 12px, rgba(153,98,55,0.6) 1px, transparent 1px),
+    radial-gradient(circle at 58px 8px, rgba(153,98,55,0.5) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 72px 22px, rgba(153,98,55,0.5) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 50px 18px, rgba(153,98,55,0.4) 0.6px, transparent 0.6px),
+    radial-gradient(circle at 62px 30px, rgba(153,98,55,0.4) 0.6px, transparent 0.6px);
+  background-size: 50px 50px;
+}
+
 .header-inner {
+  position: relative; z-index: 2;
   max-width: 1400px; margin: 0 auto; padding: 0 28px;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 150px; gap: 4px; text-align: center;
 }
-.header-left { display: flex; align-items: center; gap: 12px; }
+.header-left { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .header-icon {
-  width: 42px; height: 42px; border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.12); display: flex; align-items: center;
-  justify-content: center; font-size: 1.5rem; flex-shrink: 0;
-  backdrop-filter: blur(4px);
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
 }
-.header h1 { font-size: 1.35rem; font-weight: 700; letter-spacing: 0.03em; line-height: 1.2; }
-.header .subtitle { font-size: 0.8rem; opacity: 0.75; margin-top: 1px; font-weight: 400; }
+.header h1 {
+  font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.header .subtitle { font-size: 0.82rem; opacity: 0.7; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.2); }
 .badge {
-  background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
-  padding: 8px 16px; border-radius: 24px; font-size: 0.76rem; font-weight: 500;
-  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+  background: rgba(255,255,255,0.12); backdrop-filter: blur(12px);
+  padding: 8px 18px; border-radius: 24px; font-size: 0.76rem; font-weight: 500;
+  display: flex; align-items: center; gap: 8px;
   border: 1px solid rgba(255,255,255,0.15);
 }
 .badge .dot { width: 9px; height: 9px; background: #7dff7d; border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 6px rgba(125,255,125,0.5); }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+
+/* 小瓷瓶点缀 */
+.hv1, .hv2, .hv3 { position: absolute; pointer-events: none; z-index: 1; }
+.hv1 { left: 12%; top: 55%; opacity: 0.22; }
+.hv2 { right: 15%; top: 50%; opacity: 0.18; }
+.hv3 { left: 48%; top: 65%; opacity: 0.15; }
+@media(max-width:900px){ .hv1,.hv2,.hv3 { display:none; } }
 @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
 
 /* ===== Layout ===== */
@@ -752,6 +797,7 @@ body::before {
       </div>
     </div>
     <div class="badge"><span class="dot"></span> <span class="subtitle-text">AI知识库已就绪 | 10个流程节点 | 50+问答对</span></div>
+  <div class="hv1"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M10 5h12l3.5 7a6 6 0 01-11 8l-4.5-8z" stroke="#996237" stroke-width="1.2" opacity="0.4" stroke-linejoin="round"/></svg></div><div class="hv2"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 3h14l3 6a6 6 0 01-10.5 8L9 9z" stroke="#996237" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div class="hv3"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h12l3 5.5a4.5 4.5 0 01-8 5.5L8.5 8z" stroke="#996237" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
   </div>
 </div>
 
