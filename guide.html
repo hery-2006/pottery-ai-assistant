@@ -6,6 +6,11 @@
 <title>陶艺拉坯入门 — AI分步指导</title>
 <style>
 :root {
+  --ik-brown: #996237;
+  --ik-milk: #F8F3E9;
+  --ik-sand: #E9DBCD;
+  --ik-border: #D4B99C;
+  --ik-bg: #FCF9F2;
   --clay:#c67b4b; --clay-dark:#8b4513; --clay-light:#faf0e6;
   --glaze:#5b8c85; --fire:#d4534a; --safe:#4caf50;
   --bg:#fdfaf6; --card:#fff; --text:#3d3226; --text-light:#7a6f64;
@@ -16,9 +21,9 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{height:100%;overflow:hidden;}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f0ea;color:var(--text);height:100%;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background: var(--ik-bg);color:var(--text);height:100%;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
 
-.header{background:linear-gradient(135deg,#4a2a10,#7a4a24,#9a6a44);color:#fff;padding:12px 16px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(0,0,0,0.18);z-index:10;}
+.header{background: linear-gradient(180deg, #5C3A1E 0%, #7B4E2C 35%, #9A6B42 70%, #B8875E 100%);color:#fff;padding:12px 16px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(0,0,0,0.18);z-index:10;}
 .header h1{font-size:1.05rem;font-weight:700;letter-spacing:0.02em;}
 .clay-badge{background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);padding:6px 14px;border-radius:16px;font-size:0.75rem;cursor:pointer;font-weight:500;border:1px solid rgba(255,255,255,0.12);transition:all 0.2s ease;}
 .clay-badge:active{background:rgba(255,255,255,0.22);transform:scale(0.96);}
@@ -28,14 +33,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .progress-text .step-name{font-weight:700;color:var(--clay-dark);font-size:1rem;}
 .progress-bar{display:flex;gap:6px;}
 .progress-dot{flex:1;height:6px;border-radius:3px;background:#e8ddd0;transition:all 0.3s ease;cursor:pointer;}
-.progress-dot.done{background:var(--safe);box-shadow:0 0 6px rgba(76,175,80,0.3);}
-.progress-dot.active{background:linear-gradient(90deg,var(--clay),var(--clay-dark));box-shadow:0 0 8px rgba(198,123,75,0.4);}
+.progress-dot.done { background: var(--ik-brown); opacity: 0.5; box-shadow: 0 0 6px rgba(153,98,55,0.2); animation: popIn 0.4s cubic-bezier(0.68,-0.55,0.27,1.55); }}
+.progress-dot.active{background: var(--ik-brown); box-shadow: 0 0 8px rgba(153,98,55,0.35);}
 
 .main-content{flex:1;overflow:hidden;position:relative;}
 .steps-container{display:flex;height:100%;transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);will-change:transform;}
 .step-slide{min-width:100%;height:100%;overflow-y:auto;padding:16px;-webkit-overflow-scrolling:touch;}
 
-.step-card{background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:24px 20px;margin-bottom:14px;border:1px solid var(--border);}
+.step-card { background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 24px 20px; margin-bottom: 14px; border: 1px solid var(--ik-border); }
 .step-card .step-icon{font-size:3rem;text-align:center;margin-bottom:6px;display:block;}
 .step-card h2{font-size:1.35rem;text-align:center;margin-bottom:4px;font-weight:700;}
 .step-card .tagline{text-align:center;color:var(--text-light);font-size:0.85rem;margin-bottom:18px;}
@@ -57,11 +62,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .warning-box li{font-size:0.8rem;color:#8d6e00;padding:3px 0;line-height:1.5;}
 .warning-box li::before{content:"⚠️ ";}
 
-.complete-btn{display:block;width:100%;margin-top:16px;padding:15px;background:var(--safe);color:#fff;border:none;border-radius:14px;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s ease;font-family:inherit;box-shadow:0 4px 14px rgba(76,175,80,0.3);letter-spacing:0.02em;}
+.complete-btn { display: block; width: 100%; margin-top: 16px; padding: 15px; background: var(--ik-brown); color: #fff; border: none; border-radius: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; font-family: inherit; box-shadow: 0 4px 14px rgba(153,98,55,0.25); letter-spacing: 0.02em; }
 .complete-btn:active{transform:scale(0.96);}
-.complete-btn.done{background:#c0c0c0;box-shadow:none;}
+.complete-btn.done { background: var(--ik-sand); color: var(--ik-brown); box-shadow: none; }
 
-.equip-bar{background:var(--card);margin:0 16px 10px;border-radius:var(--radius);padding:12px 14px;display:flex;gap:10px;justify-content:space-around;flex-shrink:0;box-shadow:var(--shadow);cursor:pointer;font-size:0.75rem;border:1px solid var(--border);transition:all 0.2s ease;}
+.equip-bar { background: var(--card); margin: 0 16px 10px; border-radius: var(--radius); padding: 12px 14px; display: flex; gap: 10px; justify-content: space-around; flex-shrink: 0; box-shadow: var(--shadow); cursor: pointer; font-size: 0.75rem; border: 1px solid var(--ik-border); transition: all 0.2s ease; }
 .equip-bar:active{transform:scale(0.98);}
 .equip-item{text-align:center;}
 .equip-item .val{font-weight:700;color:var(--clay-dark);font-size:0.88rem;}
@@ -74,15 +79,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 
 .sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;display:none;justify-content:center;align-items:flex-end;backdrop-filter:blur(2px);}
 .sheet-overlay.open{display:flex;}
-.sheet{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-height:78vh;overflow-y:auto;padding:20px 20px 28px;animation:slideUp 0.3s cubic-bezier(0.32,0.72,0,1);box-shadow:0 -8px 32px rgba(0,0,0,0.15);}
+.sheet { background: var(--card); border-radius: 20px 20px 0 0; width: 100%; max-height: 78vh; overflow-y: auto; padding: 20px 20px 28px; animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1); box-shadow: 0 -8px 32px rgba(0,0,0,0.15); border: 1px solid var(--ik-border); border-bottom: none; }
 @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
 .sheet-handle{width:40px;height:5px;background:#d0c8bc;border-radius:3px;margin:0 auto 16px;}
 .sheet h3{font-size:1.1rem;margin-bottom:16px;text-align:center;font-weight:700;}
 
 .clay-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.clay-card{background:#fdfaf5;border-radius:14px;padding:16px 14px;text-align:center;border:2.5px solid transparent;cursor:pointer;transition:all 0.25s ease;}
-.clay-card:active{transform:scale(0.95);}
-.clay-card.selected{border-color:var(--clay);background:var(--clay-light);box-shadow:0 4px 16px rgba(198,123,75,0.2);}
+.clay-card { background: var(--ik-milk); border-radius: 14px; padding: 16px 14px; text-align: center; border: 1.5px solid var(--ik-border); cursor: pointer; transition: all 0.25s ease; }
+.clay-card:active { transform: scale(0.95); background: var(--ik-sand); }
+.clay-card.selected { border-color: var(--ik-brown); background: var(--ik-sand); box-shadow: 0 4px 12px rgba(153,98,55,0.15); }
 .clay-card .emoji{font-size:2.2rem;display:block;margin-bottom:4px;}
 .clay-card h4{font-size:0.92rem;margin:6px 0;font-weight:700;}
 .clay-card .stars{color:#ff9800;font-size:0.78rem;}
@@ -91,8 +96,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .error-search{width:100%;padding:11px 16px;border-radius:24px;border:2px solid var(--border);font-size:0.9rem;outline:none;font-family:inherit;margin-bottom:14px;background:#fdfaf6;transition:all 0.25s ease;}
 .error-search:focus{border-color:var(--clay);box-shadow:0 0 0 4px rgba(198,123,75,0.08);}
 .error-list{display:flex;flex-direction:column;gap:8px;}
-.error-chip{padding:12px 14px;border-radius:12px;border:1px solid var(--border);cursor:pointer;font-size:0.84rem;background:#fff;transition:all 0.2s ease;}
-.error-chip:active{background:var(--clay-light);border-color:var(--clay);transform:scale(0.98);}
+.error-chip { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--ik-border); cursor: pointer; font-size: 0.84rem; background: var(--ik-milk); transition: all 0.2s ease; }transition:all 0.2s ease;}
+.error-chip:active { background: var(--ik-sand); border-color: var(--ik-brown); transform: scale(0.98); }border-color:var(--clay);transform:scale(0.98);}
 .sev{font-size:0.7rem;padding:3px 8px;border-radius:6px;margin-left:8px;font-weight:600;}
 .sev-critical{background:#fce4ec;color:#c62828;}
 .sev-high{background:#fff3e0;color:#e65100;}
@@ -117,9 +122,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .pip-full iframe{flex:1;border:none;}
 
 /* ===== AI TUTOR OVERLAY ===== */
-.ai-tutor-overlay{display:none;position:fixed;inset:0;z-index:500;background:var(--ai-bg);flex-direction:column;}
+.ai-tutor-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: var(--ik-bg); flex-direction: column; }
 .ai-tutor-overlay.open{display:flex;}
-.ai-tutor-topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(42,32,24,0.85);backdrop-filter:blur(12px);color:#f0e6d8;flex-shrink:0;font-size:0.82rem;font-weight:600;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.ai-tutor-topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(62,30,18,0.92); backdrop-filter: blur(12px); color: #fff; flex-shrink: 0; font-size: 0.82rem; font-weight: 600; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); }
 .ai-tutor-topbar .live-dot{width:10px;height:10px;background:#ff4444;border-radius:50%;animation:pulse 1.5s infinite;display:inline-block;margin-right:5px;box-shadow:0 0 8px rgba(255,68,68,0.5);}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.3;transform:scale(0.8);}}
 .ai-tutor-topbar button{background:rgba(255,255,255,0.1);color:#f0e6d8;border:none;padding:6px 14px;border-radius:8px;font-size:0.74rem;cursor:pointer;font-family:inherit;transition:all 0.2s ease;border:1px solid rgba(255,255,255,0.08);}
@@ -202,7 +207,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .tts-btn:active{transform:scale(0.9);}
 .tts-btn.playing{background:linear-gradient(135deg,var(--fire),#b84040);animation:pulse 1.5s infinite;box-shadow:0 4px 16px rgba(212,83,74,0.4);}
 
-.ip-banner{background:#e9f1fd;color:#1565c0;text-align:center;padding:8px;font-size:0.74rem;flex-shrink:0;cursor:pointer;font-weight:500;border-bottom:1px solid #d0e0f5;transition:background 0.2s ease;}
+.ip-banner { background: var(--ik-milk); color: var(--ik-brown); text-align: center; padding: 8px; font-size: 0.74rem; flex-shrink: 0; cursor: pointer; font-weight: 500; border-bottom: 1px solid var(--ik-border); transition: background 0.2s ease; }color:#1565c0;text-align:center;padding:8px;font-size:0.74rem;flex-shrink:0;cursor:pointer;font-weight:500;border-bottom:1px solid #d0e0f5;transition:background 0.2s ease;}
 .ip-banner:active{background:#d0e0f5;}
 
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(42,32,24,0.92);backdrop-filter:blur(12px);color:#f0e6d8;padding:12px 24px;border-radius:28px;font-size:0.85rem;z-index:999;opacity:0;transition:all 0.3s ease;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);}
@@ -280,13 +285,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 
 /* ===== 步骤手风琴 ===== */
 .accordion-section { margin: 12px 0; }
-.accordion-toggle {
-  display: flex; align-items: center; justify-content: space-between;
-  width: 100%; padding: 12px 14px; background: #fdfaf5; border: 1px solid var(--border);
+.accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 14px; background: var(--ik-milk); border: 1px solid var(--ik-border); border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 700; font-family: inherit; color: var(--text); transition: all 0.2s ease; } border: 1px solid var(--border);
   border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 700;
   font-family: inherit; color: var(--text); transition: all 0.2s ease;
 }
-.accordion-toggle:hover { background: var(--clay-warm); }
+.accordion-toggle:hover { background: var(--ik-sand); }
 .accordion-toggle .acc-arrow {
   transition: transform 0.3s ease; font-size: 0.7rem; color: var(--text-light);
 }
@@ -295,9 +298,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
   max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
   border: 0 solid var(--border); border-radius: 0 0 10px 10px;
 }
-.accordion-body.open {
-  max-height: 500px; border-width: 0 1px 1px 1px;
-  padding: 0 14px; background: #fefdfb;
+.accordion-body.open { max-height: 500px; border-width: 0 1px 1px 1px; padding: 0 14px; background: var(--ik-milk); border-color: var(--ik-border); }
 }
 
 /* ===== 注意事项色块 ===== */
@@ -307,9 +308,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .warning-chip {
   padding: 6px 12px; border-radius: 8px; font-size: 0.74rem; font-weight: 600;
 }
-.wc-safety { background: #fce4ec; color: #c62828; }
-.wc-technique { background: #fff3e0; color: #e65100; }
-.wc-tip { background: #e3f2fd; color: #1565c0; }
+.wc-safety { background: var(--ik-sand); color: #C0392B; }
+.wc-technique { background: var(--ik-sand); color: var(--ik-brown); }
+.wc-tip { background: var(--ik-milk); color: var(--ik-brown); border: 1px solid var(--ik-border); }
 
 /* ===== AI导师装饰占位 ===== */
 .ai-placeholder-art {
@@ -415,8 +416,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 }
 
 /* ===== 欢迎页旅行概览 ===== */
-.journey-overview {
-  margin-top: 16px; padding: 14px; background: linear-gradient(135deg, #fefdfb, #fdf7f0);
+.journey-overview { margin-top: 16px; padding: 14px; background: var(--ik-milk); border-radius: var(--radius); border: 1px solid var(--ik-border); }
   border-radius: var(--radius); border: 1px dashed var(--clay-light);
 }
 .journey-overview .jo-title {
@@ -470,9 +470,7 @@ body::before {
 }
 
 /* 完成祝福卡片 */
-.culture-celebration {
-  text-align: center; padding: 20px 16px; margin-top: 16px;
-  background: linear-gradient(135deg, #fefdfb, #fdf7f0);
+.culture-celebration { text-align: center; padding: 20px 16px; margin-top: 16px; background: var(--ik-milk); border-radius: var(--radius); border: 1px solid var(--ik-border); }
   border-radius: var(--radius); border: 1px solid var(--clay-light);
 }
 .culture-celebration .celeb-icon { font-size: 2.5rem; display: block; margin-bottom: 8px; }
@@ -483,9 +481,7 @@ body::before {
 .video-wrap { margin: 12px 0; border-radius: 10px; overflow: hidden; background: #000; }
 
 /* 欢迎页陶瓷装饰 */
-.welcome-culture-tip {
-  margin-top: 16px; padding: 12px 14px;
-  background: linear-gradient(135deg, #fdf8f2, #faf3ea);
+.welcome-culture-tip { margin-top: 16px; padding: 12px 14px; background: var(--ik-milk); border-radius: var(--radius); border: 1px solid var(--ik-border); text-align: left; font-size: 0.8rem; color: var(--text); line-height: 1.6; }
   border-radius: var(--radius); border: 1px dashed var(--clay-light);
   text-align: left; font-size: 0.8rem; color: var(--clay-dark); line-height: 1.6;
 }
