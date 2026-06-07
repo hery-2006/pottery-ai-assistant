@@ -771,6 +771,11 @@ body::before {
 }
 .content { position: relative; }
 
+
+/* ===== DeepSeek AI 状态 ===== */
+.ai-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 12px; background: #E8F0FE; color: #4285F4; font-size: 0.7rem; font-weight: 600; }
+.ai-status .ai-dot { width: 7px; height: 7px; border-radius: 50%; background: #4285F4; animation: pulse 2s infinite; }
+.badge-ai { background: rgba(66,133,244,0.12); backdrop-filter: blur(8px); padding: 4px 10px; border-radius: 12px; font-size: 0.68rem; color: #5B9CF5; font-weight: 500; border: 1px solid rgba(66,133,244,0.2); margin-left: 8px; }
 </style>
 </head>
 <body>
@@ -784,7 +789,7 @@ body::before {
         <div class="subtitle">《中国陶瓷艺术赏析与创作基础》课程 · 标准化智能问答交互原型</div>
       </div>
     </div>
-    <div class="badge"><span class="dot"></span> <span class="subtitle-text">AI知识库已就绪 | 10个流程节点 | 50+问答对</span></div>
+    <div class="badge"><span class="dot"></span> <span class="subtitle-text">AI知识库已就绪 | 10个流程节点 | 50+问答对<span class="badge-ai">DeepSeek</span></span></div>
   <div class="hv1"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M10 5h12l3.5 7a6 6 0 01-11 8l-4.5-8z" stroke="#996237" stroke-width="1.2" opacity="0.4" stroke-linejoin="round"/></svg></div><div class="hv2"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 3h14l3 6a6 6 0 01-10.5 8L9 9z" stroke="#996237" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div class="hv3"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h12l3 5.5a4.5 4.5 0 01-8 5.5L8.5 8z" stroke="#996237" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
   </div>
 </div>
@@ -1239,6 +1244,28 @@ function addMessage(role, text) {
   msgs.scrollTop = msgs.scrollHeight;
 }
 
+
+// ==================== DeepSeek AI ====================
+var AI_CONFIG = {
+  endpoint: '/api/chat',
+  model: 'deepseek-chat',
+  enabled: true
+};
+
+function buildKBContext() {
+  var ctx = "你是AI智能助手，可以回答各类问题。当问到陶艺/拉坯/陶瓷相关问题时，你基于《中国陶瓷艺术赏析与创作基础》课程的专业知识回答，严肃专业但鼓励学生；问到其他领域时自然作答。全程中文。\\n\\n## 陶瓷专业知识库\\n";
+  for (var i = 0; i < KB.categories.length; i++) {
+    var c = KB.categories[i];
+    ctx += "\\n### " + (i+1) + ". " + c.name + " (" + c.en + ")\\n" + c.desc + "\\n";
+    ctx += "技法: " + c.techniques.map(function(t){return t.name + "(" + t.desc + ")"}).join("; ") + "\\n";
+    ctx += "要点: " + c.points.join("; ") + "\\n";
+    ctx += "问答:\\n";
+    for (var j = 0; j < c.qa.length; j++) {
+      ctx += "Q:" + c.qa[j].q + " A:" + c.qa[j].a + "\\n";
+    }
+  }
+  return ctx;
+}
 function findBestAnswer(query) {
   const q = query.toLowerCase();
   let bestMatch = null;
@@ -1297,30 +1324,82 @@ function matchScore(query, target) {
   return score;
 }
 
-function generateAnswer(query) {
-  const result = findBestAnswer(query);
-  if (!result) {
-    return `抱歉，我在知识库中没有找到关于"${query}"的匹配信息。请尝试以下方式：<br><br>
-    <strong>1.</strong> 使用更简洁的关键词（如：揉泥、修坯、上釉）<br>
-    <strong>2.</strong> 点击左侧流程导航查看各环节详情<br>
-    <strong>3.</strong> 点击下方推荐问题快速提问`;
+
+function showTyping() {
+  var msgs = document.getElementById('chatMessages');
+  var div = document.createElement('div');
+  div.className = 'message assistant';
+  div.id = 'typingMsg';
+  div.innerHTML = '<div class="avatar">AI</div><div class="bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+function hideTyping() {
+  var el = document.getElementById('typingMsg');
+  if (el) el.remove();
+}
+
+async function generateAnswer(query) {
+  // 1. 先查本地知识库，给高匹配分的结果做快速响应
+  var local = findBestAnswer(query);
+  var localAnswer = null;
+  if (local) {
+    if (local.qa) {
+      setActiveStep(KB.categories.indexOf(local.cat), true);
+      localAnswer = '<strong>【' + local.cat.name + '】</strong><br><br>' + local.qa.a + '<br><br><em>（来自知识库 · DeepSeek正在补充…）</em>';
+    }
   }
 
-  if (result.qa) {
-    // Direct QA match — silent to avoid sidebar scroll
-    setActiveStep(KB.categories.indexOf(result.cat), true);
-    return `<strong>【${result.cat.name}】</strong><br><br>${result.qa.a}<br><br><em>相关知识点已在右侧面板显示。</em>`;
+  // 2. 调用 DeepSeek
+  if (AI_CONFIG.enabled) {
+    try {
+      var ctx = buildKBContext();
+      var resp = await fetch(AI_CONFIG.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+                  },
+        body: JSON.stringify({
+          model: AI_CONFIG.model,
+          messages: [
+            { role: 'system', content: ctx },
+            { role: 'user', content: query }
+          ],
+          temperature: 0.7,
+          max_tokens: 1500
+        })
+      });
+
+      if (resp.ok) {
+        var data = await resp.json();
+        var aiText = data.choices[0].message.content;
+        // 本地匹配做辅助导航
+        if (local && local.cat) {
+          setActiveStep(KB.categories.indexOf(local.cat), true);
+        }
+        return '<strong>🤖 DeepSeek</strong><br><br>' + aiText.replace(/\n/g, '<br>') + '<br><br><em>本地知识库已同步更新到相关步骤</em>';
+      }
+    } catch(e) {
+      console.log('DeepSeek 请求失败:', e.message);
+      // 降级到本地
+    }
   }
 
-  // Description match — silent to avoid sidebar scroll
-  setActiveStep(KB.categories.indexOf(result.cat), true);
-  let ans = `<strong>【${result.cat.name}】</strong><br><br>${result.cat.desc}<br><br><strong>相关要点：</strong><br>`;
-  result.cat.points.forEach(p => ans += `· ${p}<br>`);
-  if (result.cat.qa.length > 0) {
-    ans += `<br><em>该环节还有 ${result.cat.qa.length} 个常见问答，可在推荐问题中查看。</em>`;
+  // 3. 降级：纯本地匹配
+  if (localAnswer) return localAnswer;
+  if (!local) {
+    return '⚠️ AI服务暂时不可用（请确认服务已启动），已切换为离线模式。<br><br>知识库覆盖范围：揉泥、定中心、开孔、拉高、造型、修坯、干燥、素烧、上釉、釉烧 共10个环节。<br>如需提问其他领域，请启动代理服务器后重试。';
+  }
+  // Description match
+  setActiveStep(KB.categories.indexOf(local.cat), true);
+  var ans = '<strong>【' + local.cat.name + '】</strong><br><br>' + local.cat.desc + '<br><br><strong>相关要点：</strong><br>';
+  local.cat.points.forEach(function(p) { ans += '· ' + p + '<br>'; });
+  if (local.cat.qa.length > 0) {
+    ans += '<br><em>该环节还有 ' + local.cat.qa.length + ' 个常见问答，可在推荐问题中查看。</em>';
   }
   return ans;
 }
+
 
 function scrollToChat() {
   var chatPanel = document.querySelector('.chat-panel');
@@ -1335,27 +1414,41 @@ function scrollToChat() {
   if (msgs) { msgs.scrollTop = msgs.scrollHeight; }
 }
 
+
 function sendMessage() {
   var input = document.getElementById('chatInput');
   var query = input.value.trim();
   if (!query) return;
   addMessage('user', query);
   input.value = '';
-  setTimeout(function() {
-    var answer = generateAnswer(query);
+  showTyping();
+  generateAnswer(query).then(function(answer) {
+    hideTyping();
     addMessage('assistant', answer);
     scrollToChat();
-  }, 350);
+  }).catch(function(err) {
+    hideTyping();
+    addMessage('assistant', '⚠️ 连接AI服务失败，请检查网络后重试。');
+    console.error(err);
+  });
 }
+
+
 
 function sendQuick(q) {
   addMessage('user', q);
-  setTimeout(function() {
-    var answer = generateAnswer(q);
+  showTyping();
+  generateAnswer(q).then(function(answer) {
+    hideTyping();
     addMessage('assistant', answer);
     scrollToChat();
-  }, 350);
+  }).catch(function(err) {
+    hideTyping();
+    addMessage('assistant', '⚠️ 连接AI服务失败，请检查网络后重试。');
+    console.error(err);
+  });
 }
+
 
 // ==================== Welcome ====================
 function showWelcome() {
