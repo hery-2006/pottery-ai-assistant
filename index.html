@@ -122,14 +122,19 @@ body {
 .hv2 { right: 15%; top: 50%; opacity: 0.18; }
 .hv3 { left: 48%; top: 65%; opacity: 0.15; }
 @media(max-width:900px){ .hv1,.hv2,.hv3 { display:none; } }
-@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
 
 /* ===== Layout ===== */
 .main { max-width: 1400px; margin: 0 auto; padding: 24px 28px; display: grid; grid-template-columns: 350px 1fr; gap: 24px; min-height: calc(100vh - 150px); }
 
 /* ===== Sidebar ===== */
-.sidebar { background: var(--ik-milk); border: 1px solid var(--ik-border); border-radius: var(--radius-lg); box-shadow: var(--shadow);
-  overflow: hidden; display: flex; flex-direction: column; border: 1px solid var(--border);
+.sidebar { background: linear-gradient(180deg, #FCF9F4 0%, #F8F3E9 50%, #F5EDE2 100%); border: 1px solid var(--ik-border); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  overflow: hidden; display: flex; flex-direction: column;
+  position: relative;
+}
+.sidebar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--ik-brown), transparent);
+  opacity: 0.3; z-index: 1;
 }
 .sidebar-header { padding: 18px 22px; border-bottom: 1px solid var(--ik-border); font-weight: 700; font-size: 1rem; letter-spacing: 0.02em; background: var(--ik-milk); }
 .sidebar-header::before { content: none; font-size: 1.1rem; }
@@ -252,10 +257,49 @@ body {
   box-shadow: 0 6px 20px rgba(139,69,19,0.4); transform: translateY(-1px);
 }
 .chat-input-wrap button:active { transform: scale(0.96); }
+.chat-input-wrap .img-attach-btn {
+  padding: 11px 14px; border-radius: 50%; border: 2px dashed var(--border);
+  background: #fdfaf6; color: var(--text-light); cursor: pointer; font-size: 1.1rem;
+  transition: all 0.25s ease; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; box-shadow: none; letter-spacing: 0;
+}
+.chat-input-wrap .img-attach-btn:hover {
+  border-color: var(--clay); color: var(--clay); background: #fff;
+  box-shadow: 0 2px 10px rgba(198,123,75,0.15); transform: none;
+}
+.chat-input-wrap .img-attach-btn.has-image {
+  border-color: var(--clay); background: var(--clay-light); color: var(--clay-dark);
+  border-style: solid; animation: imgPulse 0.5s ease;
+}
+@keyframes imgPulse { 0%,100%{box-shadow:0 0 0 0 rgba(198,123,75,0.4)} 50%{box-shadow:0 0 0 8px rgba(198,123,75,0)} }
+.img-preview-bar {
+  display: none; align-items: center; gap: 10px; padding: 8px 22px; flex-shrink: 0;
+  background: #fef9f2; border-top: 1px solid var(--clay-light);
+}
+.img-preview-bar.show { display: flex; }
+.img-preview-thumb {
+  width: 40px; height: 40px; border-radius: 8px; object-fit: cover;
+  border: 2px solid var(--clay-light);
+}
+.img-preview-name {
+  flex: 1; font-size: 0.78rem; color: var(--text-light); overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+.img-preview-remove {
+  background: none; border: none; color: #999; cursor: pointer; font-size: 1.2rem;
+  padding: 2px 6px; border-radius: 4px; transition: all 0.2s;
+}
+.img-preview-remove:hover { color: #e53935; background: #ffebee; }
 
 /* ===== Detail Card ===== */
-.detail-card { background: #fff; border-radius: 12px; box-shadow: var(--shadow); padding: 24px; display: none; border: 1px solid var(--ik-border);
+.detail-card { background: linear-gradient(180deg, #fff 0%, #fefdfb 100%); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; display: none; border: 1px solid var(--ik-border);
   animation: fadeSlide 0.35s ease;
+  position: relative;
+}
+.detail-card::after {
+  content: ''; position: absolute; bottom: 0; left: 16px; right: 16px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--clay-light), transparent);
+  opacity: 0.5;
 }
 @keyframes fadeSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 .detail-card.visible { display: block; }
@@ -331,7 +375,7 @@ body {
 
 /* ===== 陶瓷文化装饰 ===== */
 /* 冰裂纹 header 装饰线 */
-.header::before {
+.header::after {
   content: ''; position: absolute; bottom: 2px; left: 0; right: 0; height: 4px;
   background: repeating-linear-gradient(90deg,
     transparent, transparent 6px,
@@ -519,20 +563,27 @@ body {
 
 /* 文化延伸卡片 */
 .culture-card {
-  margin-top: 20px; padding: 16px 18px;
-  background: #fff; cursor: pointer;
-  border-radius: 6px; border: 1px solid var(--ik-brown);
+  margin-top: 20px; padding: 18px 20px;
+  background: linear-gradient(135deg, #fdfaf5, #faf5ef, #fdf8f2);
+  cursor: pointer;
+  border-radius: var(--radius-sm); border: 1.5px solid var(--clay-light);
   position: relative; overflow: hidden;
+  transition: all 0.3s ease;
+}
+.culture-card:hover {
+  border-color: var(--clay);
+  box-shadow: 0 4px 16px rgba(198,123,75,0.1);
+  transform: translateY(-1px);
 }
 .culture-card::before {
-  content: none; position: absolute; right: 14px; top: 50%;
-  transform: translateY(-50%); font-size: 2.5rem; opacity: 0.12;
+  content: '🏺'; position: absolute; right: 16px; top: 50%;
+  transform: translateY(-50%); font-size: 2.2rem; opacity: 0.1;
 }
 .culture-card h4 {
-  font-size: 0.82rem; color: var(--ik-brown); margin-bottom: 6px;
+  font-size: 0.84rem; color: var(--clay-dark); margin-bottom: 6px;
   font-weight: 700; display: flex; align-items: center; gap: 6px;
 }
-.culture-card p { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; position: relative; z-index: 1; }
+.culture-card p { font-size: 0.84rem; color: var(--text-light); line-height: 1.65; position: relative; z-index: 1; }
 
 /* 侧边栏陶瓷小知识 */
 .knowledge-bar {
@@ -568,9 +619,7 @@ body {
 .welcome-panel {
   display: flex; flex-direction: column; gap: 16px; padding: 4px 0;
 }
-.welcome-hero { padding: 20px 22px; border-radius: var(--radius); background: var(--ik-milk); border: 1px solid var(--ik-border); text-align: center; }
-  border: 2px solid var(--clay-light); text-align: center;
-}
+.welcome-hero { padding: 20px 22px; border-radius: var(--radius); background: var(--ik-milk); border: 2px solid var(--clay-light); text-align: center; }
 .welcome-hero .hero-quote {
   font-size: 1.1rem; color: var(--clay-dark); font-style: italic;
   line-height: 1.7; margin-bottom: 4px;
@@ -610,9 +659,7 @@ body {
 .glaze-spectrum {
   display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0;
 }
-.glaze-spec-item { flex: 1; min-width: 70px; text-align: center; padding: 10px 8px; border-radius: var(--radius-sm); background: var(--ik-milk); border: 1px solid var(--ik-border); cursor: pointer; transition: all 0.2s ease; } border: 1px solid var(--border);
-  cursor: pointer; transition: all 0.2s ease;
-}
+.glaze-spec-item { flex: 1; min-width: 70px; text-align: center; padding: 10px 8px; border-radius: var(--radius-sm); background: var(--ik-milk); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s ease; }
 .glaze-spec-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); background: var(--ik-sand); }
 .glaze-spec-item .gsi-swatch {
   width: 36px; height: 36px; border-radius: 50%; margin: 0 auto 5px;
@@ -714,6 +761,48 @@ body::before {
 .empty-state { text-align: center; padding: 48px 20px; color: var(--text-light); }
 .empty-state .icon { font-size: 3.5rem; margin-bottom: 14px; opacity: 0.6; }
 
+/* ===== 打字动画 ===== */
+.typing-dots { display: flex; gap: 5px; padding: 6px 0; }
+.typing-dots span {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--clay-light);
+  animation: typingBounce 1.2s infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-8px); opacity: 1; }
+}
+
+/* ===== 用户信息栏 ===== */
+.user-bar {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 22px;
+  background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+  font-size: 0.78rem; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: all 0.2s ease;
+}
+.user-bar:hover { background: rgba(255,255,255,0.18); }
+.user-bar .user-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--clay), var(--clay-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 700; color: #fff;
+}
+
+/* ===== 返回按钮 ===== */
+.back-home {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 12px; border-radius: 18px;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8);
+  font-size: 0.74rem; cursor: pointer; text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.2s ease;
+}
+.back-home:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
 /* ===== Remix Icon 样式 ===== */
 .header-icon i { font-size: 26px; display: flex; align-items: center; justify-content: center; }
 .process-icon i { font-size: 18px; }
@@ -779,12 +868,221 @@ body::before {
 .ai-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 12px; background: #E8F0FE; color: #4285F4; font-size: 0.7rem; font-weight: 600; }
 .ai-status .ai-dot { width: 7px; height: 7px; border-radius: 50%; background: #4285F4; animation: pulse 2s infinite; }
 .badge-ai { background: rgba(66,133,244,0.12); backdrop-filter: blur(8px); padding: 4px 10px; border-radius: 12px; font-size: 0.68rem; color: #5B9CF5; font-weight: 500; border: 1px solid rgba(66,133,244,0.2); margin-left: 8px; }
+
+/* ===== 可拖拽IP形象 ===== */
+.drag-pet {
+  position: fixed; z-index: 999;
+  cursor: grab; perspective: 800px;
+  width: 72px; height: 72px;
+  touch-action: none;
+  transition: none;
+  top: 80px; right: 24px;
+}
+.drag-pet:active { cursor: grabbing; }
+.drag-pet .pet-inner {
+  width: 72px; height: 72px; border-radius: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 8px 32px rgba(153,98,55,0.2), 0 0 0 3px rgba(255,255,255,0.6), 0 0 0 5px rgba(198,123,75,0.15);
+  animation: petFloat 3s ease-in-out infinite;
+}
+.drag-pet .pet-inner:hover { transform: rotateY(15deg) rotateX(-8deg) scale(1.08); }
+.drag-pet .pet-inner:active { transform: rotateY(180deg) scale(0.92); }
+.drag-pet img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.drag-pet .pet-glow {
+  position: absolute; inset: -4px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(251,114,153,0.15), rgba(99,102,241,0.1), rgba(255,152,0,0.1));
+  filter: blur(6px); z-index: -1;
+  animation: petGlow 3s ease-in-out infinite alternate;
+}
+.drag-pet .pet-badge {
+  position: absolute; top: -8px; right: -8px;
+  background: linear-gradient(135deg, #FB7299, #F5587C);
+  color: #fff; font-size: 0.55rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(251,114,153,0.4);
+  white-space: nowrap;
+}
+.drag-pet .pet-tooltip {
+  position: absolute; bottom: 100%; right: 0; margin-bottom: 10px;
+  background: rgba(42,32,24,0.92); backdrop-filter: blur(8px);
+  color: #f0e6d8; font-size: 0.72rem; padding: 8px 14px;
+  border-radius: 10px; white-space: nowrap;
+  opacity: 0; transform: translateY(6px);
+  transition: all 0.25s ease; pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.drag-pet:hover .pet-tooltip { opacity: 1; transform: translateY(0); }
+@keyframes petFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes petGlow { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+
+/* ===== 浮动问答气泡 ===== */
+.chat-float-btn {
+  position: fixed; bottom: 100px; right: 24px; z-index: 900;
+  width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--clay), var(--clay-dark));
+  color: #fff; border: none; cursor: pointer;
+  box-shadow: 0 6px 24px rgba(198,123,75,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; transition: all 0.25s ease;
+}
+.chat-float-btn:active { transform: scale(0.9); }
+.chat-float-popup {
+  position: fixed; bottom: 168px; right: 24px; z-index: 899;
+  width: 360px; max-height: 480px;
+  background: var(--card); border-radius: var(--radius-lg);
+  box-shadow: 0 8px 40px rgba(61,50,38,0.2);
+  border: 1px solid var(--ik-border);
+  display: none; flex-direction: column; overflow: hidden;
+  animation: chatSlideUp 0.3s ease;
+}
+.chat-float-popup.open { display: flex; }
+@keyframes chatSlideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.cfp-header {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  font-weight: 700; font-size: 0.85rem; color: var(--clay-dark);
+  background: linear-gradient(180deg, #fdfaf5, #fff);
+  cursor: grab; user-select: none;
+}
+.cfp-header:active { cursor: grabbing; }
+.cfp-body { display:flex;flex-direction:column;flex:1;min-height:0; }
+.cfp-msgs {
+  flex:1; padding:12px 14px; overflow-y:auto;
+  display:flex; flex-direction:column; gap:8px;
+  max-height: 200px;
+}
+.cfp-msg { max-width: 92%; }
+.cfp-msg.user { align-self: flex-end; }
+.cfp-msg.ai { align-self: flex-start; }
+.cfp-bubble {
+  padding: 8px 12px; border-radius: 12px; font-size: 0.82rem; line-height: 1.5;
+}
+.cfp-msg.user .cfp-bubble {
+  background: linear-gradient(135deg, var(--clay), #b87040);
+  color: #fff; border-bottom-right-radius: 4px;
+}
+.cfp-msg.ai .cfp-bubble {
+  background: #f8f4ee; color: var(--text);
+  border: 1px solid #f0e8dc; border-bottom-left-radius: 4px;
+}
+.cfp-qs { display:flex;flex-wrap:wrap;gap:4px;padding:6px 14px 4px; }
+.cfp-q-chip {
+  padding:4px 10px; border-radius:12px; border:1px solid var(--border);
+  background:var(--ik-milk); color:var(--text-light);
+  font-size:0.65rem; cursor:pointer; font-family:inherit;
+  transition:all 0.2s; white-space:nowrap;
+}
+.cfp-q-chip:active { background:var(--ik-sand); border-color:var(--ik-brown); }
+.cfp-input-row {
+  display:flex; gap:6px; padding:8px 14px 12px; border-top:1px solid var(--border);
+}
+.cfp-input-row input {
+  flex:1; padding:8px 12px; border-radius:16px; border:1.5px solid var(--border);
+  font-size:0.8rem; outline:none; font-family:inherit; background:#fdfaf6;
+}
+.cfp-input-row input:focus { border-color:var(--ik-brown); }
+.cfp-input-row button {
+  padding:8px 14px; border-radius:16px; border:none;
+  background:linear-gradient(135deg, var(--clay), var(--clay-dark));
+  color:#fff; font-weight:600; cursor:pointer; font-size:0.78rem;
+  font-family:inherit; transition:all 0.2s;
+}
+.cfp-input-row button:active { transform:scale(0.95); }
+@media(max-width:480px) {
+  .chat-float-popup { width:calc(100vw - 32px); right:16px; bottom:160px; }
+  .chat-float-btn { right:16px; bottom:90px; }
+}
+
+/* ===== 陶瓷装饰纹样 ===== */
+/* 知识卡片边框纹样增强 */
+.know-card {
+  position: relative;
+}
+.know-card::after {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 40px; height: 2px; border-radius: 1px;
+  background: repeating-linear-gradient(90deg,
+    var(--ik-border) 0px, var(--ik-border) 3px,
+    transparent 3px, transparent 6px
+  );
+  opacity: 0.4;
+}
+/* 侧边栏底部装饰陶瓷纹样 */
+.kiln-gallery::after {
+  content: ''; display: block; margin: 6px 14px 0;
+  height: 1px;
+  background: repeating-linear-gradient(90deg,
+    var(--ik-border) 0px, var(--ik-border) 2px,
+    transparent 2px, transparent 5px
+  );
+  opacity: 0.4;
+}
+/* 聊天面板顶部装饰 */
+.chat-header::after {
+  content: ''; position: absolute; bottom: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: repeating-linear-gradient(90deg,
+    var(--ik-border) 0px, var(--ik-border) 3px,
+    transparent 3px, transparent 7px
+  );
+  opacity: 0.3;
+}
+.chat-header { position: relative; }
+
+/* ===== 创意参考（文创+纹样），分开独立 ===== */
+.creative-section {
+  margin: 10px 12px 4px;
+  background: linear-gradient(170deg, #fff 0%, #fefcf8 40%, #fdf9f2 100%);
+  border-radius: var(--radius);
+  border: 1px solid var(--ik-border);
+  padding: 12px 12px 10px;
+  box-shadow: var(--shadow);
+}
+.creative-section .cs-header {
+  font-size: 0.75rem; font-weight: 700; color: var(--clay-dark);
+  display: flex; align-items: center; gap: 5px; margin-bottom: 8px;
+}
+.creative-section .cs-header .cs-icon { font-size: 1rem; }
+.creative-section .cs-header .cs-sub {
+  font-size: 0.6rem; color: var(--text-light); font-weight: 400; margin-left: auto;
+}
+.creative-section .creative-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+}
+.creative-section .creative-card {
+  border-radius: 8px; padding: 10px 4px; text-align: center;
+  cursor: pointer; transition: all 0.2s ease;
+  text-decoration: none; display: block;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #fefdfb, #fdfaf6);
+}
+.creative-section .creative-card:hover {
+  transform: translateY(-2px); box-shadow: 0 3px 10px rgba(61,50,38,0.08);
+  border-color: var(--ik-brown);
+}
+.creative-section .creative-card:active { transform: scale(0.94); }
+.creative-section .creative-card .cc-icon { font-size: 1.3rem; display: block; }
+.creative-section .creative-card .cc-name { font-size: 0.62rem; font-weight: 700; color: var(--text); display: block; }
+.creative-section .creative-card .cc-desc { font-size: 0.52rem; color: var(--text-light); display: block; line-height: 1.2; }
+.creative-section .creative-card .cc-tag { display: inline-block; font-size: 0.45rem; padding: 1px 5px; border-radius: 4px; margin-top: 2px; font-weight: 600; }
+.ct-redbook { background: #fff2f0; color: #ff2442; }
+.ct-bili { background: #fce8ef; color: #FB7299; }
+.ct-douyin { background: #f0f0f0; color: #333; }
+.ct-pattern { background: var(--ik-milk); color: var(--ik-brown); }
 </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header-inner">
+    <div style="display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;gap:8px;">
+      <a href="/login.html" class="back-home">🏠 首页</a>
+      <a href="/guide.html" class="back-home" style="margin-left:8px">🎓 AI指导</a>
+      <div id="userGreeting" style="flex:1;text-align:center;"></div>
+    </div>
     <div class="header-left">
       <div class="header-icon"><i class="ri-vase-line" style="font-size:26px;line-height:1"></i></div>
       <div>
@@ -798,12 +1096,12 @@ body::before {
 </div>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-<button class="mobile-sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()"><i class="ri-menu-line" style="font-size:22px"></i></button>
+<button class="mobile-sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
 
 <div class="main">
   <!-- Sidebar: Process Flow -->
   <aside class="sidebar">
-    <div class="sidebar-header"><i class="ri-menu-line" style="font-size:18px;margin-right:6px"></i>拉坯全流程导航</div>
+    <div class="sidebar-header">🏺 拉坯全流程导航</div>
     <div class="stats-dashboard">
       <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">核心流程</div></div>
       <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">专业问答</div></div>
@@ -812,6 +1110,14 @@ body::before {
     <div class="kiln-gallery">
       <div class="kg-title"><svg width=16 height=16 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=1.8 stroke-linecap=round stroke-linejoin=round style=vertical-align:-0.2em;margin-right:5px><path d="M3 21h18M5 21V9M9 21V9M13 21V9M17 21V9M12 3L3 9h18z"/></svg>五大名窑</div>
       <div class="kiln-row" id="kilnRow"></div>
+    </div>
+    <div class="creative-section">
+      <div class="cs-header"><span class="cs-icon">🏺</span>文创参考 <span class="cs-sub">搜灵感做设计</span></div>
+      <div class="creative-grid" id="creativeGrid"></div>
+    </div>
+    <div class="creative-section">
+      <div class="cs-header"><span class="cs-icon">〰️</span>纹样创新 <span class="cs-sub">传统纹样现代演绎</span></div>
+      <div class="creative-grid" id="patternGrid"></div>
     </div>
     <div class="search-wrap">
       <input type="text" id="searchInput" placeholder="搜索知识库...">
@@ -848,13 +1154,22 @@ body::before {
     <!-- Chat Panel -->
     <div class="chat-panel">
       <div class="chat-header">
-        <span class="icon">&#128172;</span>
+        <span class="icon"><i class="ri-chat-3-line" style="font-size:1.3rem;color:var(--clay)"></i></span>
         <h3>智能问答</h3>
+        <button onclick="clearChatHistory()" title="清空" style="margin-left:6px;background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:0.7rem;cursor:pointer;color:var(--text-light);font-family:inherit">清空</button>
+        <span style="margin-left:auto;font-size:0.72rem;color:var(--text-light);display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#4caf50;display:inline-block"></span>AI在线</span>
       </div>
       <div class="chat-messages" id="chatMessages"></div>
       <div class="quick-questions" id="quickQuestions"></div>
+      <div class="img-preview-bar" id="imgPreviewBar">
+        <img class="img-preview-thumb" id="imgPreviewThumb" src="" alt="">
+        <span class="img-preview-name" id="imgPreviewName"></span>
+        <button class="img-preview-remove" onclick="removeAttachedImage()" title="移除图片">✕</button>
+      </div>
       <div class="chat-input-wrap">
+        <button class="img-attach-btn" id="imgAttachBtn" onclick="document.getElementById('imgFileInput').click()" title="添加图片">🖼</button>
         <input type="text" id="chatInput" placeholder="输入你的问题，如：揉泥有什么技巧？">
+        <input type="file" id="imgFileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
         <button id="sendBtn">发送</button>
       </div>
     </div>
@@ -862,6 +1177,11 @@ body::before {
 </div>
 
 <script>
+// ==================== Auth Guard ====================
+var currentUser = null;
+try { currentUser = JSON.parse(localStorage.getItem('pottery_user')); } catch(e) {}
+if (!currentUser || !currentUser.id) { window.location.replace('/login.html'); }
+
 // ==================== Knowledge Base ====================
 const KB = {
   categories: [
@@ -1053,16 +1373,10 @@ const CULTURE = {
 // ==================== App State ====================
 let activeStep = 0;
 let chatHistory = [];
+var _loadingHistory = false;
+var attachedImage = null; // 图片附件（全局作用域，sendMessage 需要使用）
 
 // ==================== Icon Renderer ====================
-
-
-function iconSVG(name, size) {
-  var cls = REMIX[name] || 'ri-question-line';
-  var s = size || 20;
-  return '<i class="' + cls + ' ri-' + name + '" style="font-size:' + s + 'px;line-height:1;vertical-align:-0.15em" aria-hidden="true"></i>';
-}
-
 var STEP_ICONS = {'knead': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><ellipse cx="10" cy="7" rx="5.5" ry="4.5" stroke="#996237" stroke-width="1.5"/><path d="M5.5 11c-.8 1.2-1 2.8-.3 3.8M14.5 11c.8 1.2 1 2.8.3 3.8" stroke="#996237" stroke-width="1.2" stroke-linecap="round"/><circle cx="8.5" cy="15" r="4" stroke="#996237" stroke-width="1.3"/><circle cx="15.5" cy="15" r="4" stroke="#996237" stroke-width="1.3"/></svg>', 'center': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" stroke="#996237" stroke-width="1.6"/><circle cx="14" cy="14" r="4.5" stroke="#996237" stroke-width="1.2"/><circle cx="14" cy="14" r="1.2" fill="#996237"/><path d="M14 3v4M14 21v4M3 14h4M21 14h4" stroke="#996237" stroke-width="1" stroke-linecap="round" opacity="0.5"/></svg>', 'open': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M7 12v3c0 4 3 7 7 7s7-3 7-7v-3" stroke="#996237" stroke-width="1.5" stroke-linecap="round"/><ellipse cx="14" cy="8" rx="3" ry="1.5" stroke="#996237" stroke-width="1.2"/><path d="M12 10l2 3 2-3" stroke="#996237" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>', 'raise': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 4v18" stroke="#996237" stroke-width="1.3" stroke-linecap="round"/><path d="M8 14l6-8 6 8" stroke="#996237" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 18h12M9.5 21.5h9" stroke="#996237" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/></svg>', 'shape': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M8 5h12l5 9a6 6 0 01-10.5 8.5L9 14z" stroke="#996237" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 14v7" stroke="#996237" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg>', 'trim': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M15.5 4l-9.5 9 3 3.5 9.5-9" stroke="#996237" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 13l-3 3.5 6 6 3-3.5" stroke="#996237" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>', 'dry': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M4 6h14a3 3 0 000-6" stroke="#996237" stroke-width="1.3" stroke-linecap="round"/><path d="M3 16h10a3 3 0 000-6" stroke="#996237" stroke-width="1.3" stroke-linecap="round"/><path d="M6 12h12a2.5 2.5 0 000-5" stroke="#996237" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg>', 'bisque': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2c-2 4-4 7-4 10a4 4 0 108 0c0-3-2-6-4-10z" stroke="#996237" stroke-width="1.5" stroke-linejoin="round"/><path d="M11.5 14.5h5M12 17h4" stroke="#996237" stroke-width="1" stroke-linecap="round" opacity="0.5"/></svg>', 'glaze': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M7 10v1.5c0 4 3.5 7.5 7 7.5s7-3.5 7-7.5V10" stroke="#996237" stroke-width="1.5" stroke-linecap="round"/><path d="M10 7.5V5.5c0-.5.5-1 1-1h6c.5 0 1 .5 1 1v2" stroke="#996237" stroke-width="1.2" stroke-linecap="round"/><path d="M9 14h10" stroke="#996237" stroke-width="0.7" stroke-linecap="round" opacity="0.4"/></svg>', 'finish': '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2l2.5 6.5 6.5 2.5-6.5 2.5-2.5 6.5-2.5-6.5-6.5-2.5 6.5-2.5z" stroke="#996237" stroke-width="1.5" stroke-linejoin="round"/></svg>', menu: '<svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M4 7h20M4 14h20M4 21h20" stroke="#996237" stroke-width="1.5" stroke-linecap="round"/></svg>'};
 
 function iconSVG(name, size) {
@@ -1079,12 +1393,15 @@ function init() {
   renderQuickQuestions(0);
   setActiveStep(0);
   renderKnowledgeBar();
+  loadChatHistory();
 
   // Knowledge bar click to refresh
   document.getElementById('knowledgeBar').addEventListener('click', renderKnowledgeBar);
 
   // Render toolbox
   renderToolbox();
+  renderCreativeGrid();
+  renderPatternGrid();
 
   // Bind chat input Enter key
   document.getElementById('chatInput').addEventListener('keydown', function(e) {
@@ -1092,6 +1409,72 @@ function init() {
   });
   // Bind send button
   document.getElementById('sendBtn').addEventListener('click', sendMessage);
+
+  // ======== 图片附件：粘贴 / 拖拽 / 选择 → 自动路由 Vision 模型 ========
+
+  // 粘贴图片 (截图等)
+  document.addEventListener('paste', function(e) {
+    var items = e.clipboardData && e.clipboardData.items;
+    if (!items) return;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') !== -1) {
+        e.preventDefault();
+        var blob = items[i].getAsFile();
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          setAttachedImage(ev.target.result, '截图_' + new Date().toLocaleTimeString().replace(/:/g,'-') + '.png');
+          document.getElementById('chatInput').focus();
+        };
+        reader.readAsDataURL(blob);
+        break;
+      }
+    }
+  });
+
+  // 拖拽图片
+  var chatPanel = document.querySelector('.chat-panel');
+  if (chatPanel) {
+    chatPanel.addEventListener('dragover', function(e) { e.preventDefault(); });
+    chatPanel.addEventListener('drop', function(e) {
+      e.preventDefault();
+      var files = e.dataTransfer && e.dataTransfer.files;
+      if (files && files[0] && files[0].type.indexOf('image') !== -1) {
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          setAttachedImage(ev.target.result, files[0].name);
+        };
+        reader.readAsDataURL(files[0]);
+      }
+    });
+  }
+
+  // 文件选择
+  window.handleFileSelect = function(e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      setAttachedImage(ev.target.result, file.name);
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
+  function setAttachedImage(dataUrl, name) {
+    attachedImage = { dataUrl: dataUrl, name: name || '图片' };
+    document.getElementById('imgPreviewThumb').src = dataUrl;
+    document.getElementById('imgPreviewName').textContent = name;
+    document.getElementById('imgPreviewBar').classList.add('show');
+    document.getElementById('imgAttachBtn').classList.add('has-image');
+    document.getElementById('chatInput').placeholder = '输入你想问的... (已附加图片 → AI视觉分析)';
+  }
+
+  window.removeAttachedImage = function() {
+    attachedImage = null;
+    document.getElementById('imgPreviewBar').classList.remove('show');
+    document.getElementById('imgAttachBtn').classList.remove('has-image');
+    document.getElementById('chatInput').placeholder = '输入你的问题，如：揉泥有什么技巧？';
+  };
 
   // Delegate process list clicks
   document.getElementById('processList').addEventListener('click', function(e) {
@@ -1235,7 +1618,9 @@ function handleSearch(query) {
 
 // ==================== Chat ====================
 function addMessage(role, text) {
-  chatHistory.push({ role, text });
+  chatHistory.push({ role, text, time: Date.now() });
+  if (chatHistory.length > 50) chatHistory = chatHistory.slice(-50);
+  if (!_loadingHistory) saveChatHistory();
   const msgs = document.getElementById('chatMessages');
   const div = document.createElement('div');
   div.className = 'message ' + role;
@@ -1342,6 +1727,116 @@ function hideTyping() {
   if (el) el.remove();
 }
 
+function saveChatHistory() {
+  try { localStorage.setItem('pottery_chat_history', JSON.stringify(chatHistory)); } catch(e) {}
+  if (currentUser && currentUser.role === 'student') {
+    fetch('/api/chat/history', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({userId: currentUser.id, action: 'save', history: chatHistory})
+    }).catch(function() {});
+  }
+}
+
+function loadChatHistory() {
+  _loadingHistory = true;
+  var msgs = document.getElementById('chatMessages');
+  if (currentUser && currentUser.role === 'student') {
+    fetch('/api/chat/history', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({userId: currentUser.id, action: 'load'})
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.ok && data.history && data.history.length > 0) {
+          chatHistory = data.history;
+          chatHistory.forEach(function(m) {
+            var div = document.createElement('div');
+            div.className = 'message ' + m.role;
+            div.innerHTML = '<div class=avatar>' + (m.role === 'user' ? '我' : 'AI') + '</div><div class=bubble>' + m.text + '</div>';
+            msgs.appendChild(div);
+          });
+          msgs.scrollTop = msgs.scrollHeight;
+        }
+        _loadingHistory = false;
+        if (chatHistory.length === 0) showWelcome();
+      }).catch(function() {
+        loadFromLocal();
+        _loadingHistory = false;
+        if (chatHistory.length === 0) showWelcome();
+      });
+  } else {
+    loadFromLocal();
+    _loadingHistory = false;
+    if (chatHistory.length === 0) showWelcome();
+  }
+}
+
+function loadFromLocal() {
+  try {
+    var raw = localStorage.getItem('pottery_chat_history');
+    if (raw) {
+      chatHistory = JSON.parse(raw);
+      var msgs = document.getElementById('chatMessages');
+      chatHistory.forEach(function(m) {
+        var div = document.createElement('div');
+        div.className = 'message ' + m.role;
+        div.innerHTML = '<div class=avatar>' + (m.role === 'user' ? '我' : 'AI') + '</div><div class=bubble>' + m.text + '</div>';
+        msgs.appendChild(div);
+      });
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+  } catch(e) { chatHistory = []; }
+}
+
+function clearChatHistory() {
+  chatHistory = [];
+  localStorage.removeItem('pottery_chat_history');
+  if (currentUser && currentUser.role === 'student') {
+    fetch('/api/chat/history', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({userId: currentUser.id, action: 'clear'})
+    }).catch(function() {});
+  }
+  document.getElementById('chatMessages').innerHTML = '';
+  showWelcome();
+}
+
+function logout() {
+  localStorage.removeItem('pottery_user');
+  localStorage.removeItem('pottery_user_name');
+  localStorage.removeItem('pottery_user_id');
+  localStorage.removeItem('pottery_user_role');
+  localStorage.removeItem('pottery_teacher_id');
+  localStorage.removeItem('pottery_chat_history');
+  window.location.href = '/login.html';
+}
+
+
+// ======== Vision 视觉问答（图片 → xiaomi-mimo-vision）========
+async function generateVisionAnswer(query, imageDataUrl) {
+  var ctx = buildKBContext();
+  var visionPrompt = ctx + '\\n\\n用户上传了一张图片并提问。请结合陶艺知识库的专业知识分析图片内容，回答用户的问题。如果图片与陶艺/拉坯无关，就正常描述图片内容回答问题。用中文回答，语气温和鼓励。';
+  var resp = await fetch('/api/vision', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'xiaomi-mimo-vision',
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'text', text: visionPrompt + '\\n\\n用户问题：' + query },
+          { type: 'image_url', image_url: { url: imageDataUrl } }
+        ]
+      }],
+      temperature: 0.7,
+      max_tokens: 1500
+    })
+  });
+  if (!resp.ok) throw new Error('Vision API error ' + resp.status);
+  var data = await resp.json();
+  var text = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '（未收到AI回复）';
+  return '<strong>👁️ AI视觉分析</strong><br><br>' + text.replace(/\\n/g, '<br>') + '<br><br><em>已自动切换到 Xiaomi MiMo Vision 模型处理图片</em>';
+}
+
 async function generateAnswer(query) {
   // 1. 先查本地知识库，给高匹配分的结果做快速响应
   var local = findBestAnswer(query);
@@ -1418,21 +1913,52 @@ function scrollToChat() {
 }
 
 
+function logTeacherQuery(q) {
+  try {
+    var u = JSON.parse(localStorage.getItem('pottery_user') || '{}');
+    var cat = KB.categories[activeStep];
+    fetch('/api/teacher/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ studentId: u.id || '', studentName: u.name || '匿名学生', teacherId: u.teacherId || '', question: q, step: cat ? cat.name : '', stepIndex: activeStep, role: u.role || 'student' }) }).catch(function() {});
+  } catch(e) {}
+}
+
 function sendMessage() {
   var input = document.getElementById('chatInput');
   var query = input.value.trim();
-  if (!query) return;
-  addMessage('user', query);
+  // 允许无文字但有图片 → 纯视觉描述
+  if (!query && !attachedImage) return;
+  if (!query) query = '请描述这张图片的内容';
+
+  var imgToSend = attachedImage;
+
+  // 用户消息显示
+  if (imgToSend) {
+    addMessage('user', '<img src="' + imgToSend.dataUrl + '" style="max-width:200px;max-height:150px;border-radius:12px;display:block;margin-bottom:6px">' + query);
+  } else {
+    addMessage('user', query);
+  }
+
+  logTeacherQuery(query);
   input.value = '';
   showTyping();
-  generateAnswer(query).then(function(answer) {
+
+  // 🔀 自动路由：有图 → Vision 模型，无图 → DeepSeek 文字
+  var promise;
+  if (imgToSend) {
+    promise = generateVisionAnswer(query, imgToSend.dataUrl);
+  } else {
+    promise = generateAnswer(query);
+  }
+
+  promise.then(function(answer) {
     hideTyping();
     addMessage('assistant', answer);
     scrollToChat();
+    removeAttachedImage();
   }).catch(function(err) {
     hideTyping();
     addMessage('assistant', '⚠️ 连接AI服务失败，请检查网络后重试。');
     console.error(err);
+    removeAttachedImage();
   });
 }
 
@@ -1440,6 +1966,7 @@ function sendMessage() {
 
 function sendQuick(q) {
   addMessage('user', q);
+  logTeacherQuery(q);
   showTyping();
   generateAnswer(q).then(function(answer) {
     hideTyping();
@@ -1455,29 +1982,45 @@ function sendQuick(q) {
 
 // ==================== Welcome ====================
 function showWelcome() {
-  const rq = CULTURE.quotes[Math.floor(Math.random() * CULTURE.quotes.length)];
-  const featuredQs = [
+  if (chatHistory.length > 0) return;
+  var userName = getUserName();
+  var rq = CULTURE.quotes[Math.floor(Math.random() * CULTURE.quotes.length)];
+  var featuredQs = [
     {q:'揉泥有什么技巧？',icon:'knead',step:0},
     {q:'定中心总是晃怎么办？',icon:'center',step:1},
     {q:'修坯应该修多薄？',icon:'trim',step:5},
     {q:'上釉前要注意什么？',icon:'glaze',step:8}
   ];
-  let html = '<div class="welcome-panel">';
+  var html = '<div class="welcome-panel">';
   html += '<div class="welcome-hero"><div class="hero-quote">"' + rq.text + '"</div><div class="hero-author">—— ' + rq.author + '</div></div>';
   html += '<div class="welcome-grid">';
-  featuredQs.forEach(fq => {
+  featuredQs.forEach(function(fq) {
     html += '<div class="welcome-card" onclick="document.getElementById(\'chatInput\').value=\'' + fq.q.replace(/'/g,'&#39;') + '\';sendMessage();"><div class="wc-icon">' + iconSVG(fq.icon,28) + '</div><div class="wc-text">' + fq.q + '</div></div>';
   });
   html += '</div>';
   html += '<div class="welcome-nav"><span class="welcome-nav-chip wn-s1" onclick="setActiveStep(0)">段位一 · 基础成型</span><span class="welcome-nav-chip wn-s2" onclick="setActiveStep(5)">段位二 · 精修提升</span><span class="welcome-nav-chip wn-s3" onclick="setActiveStep(7)">段位三 · 烧成艺术</span></div>';
   html += '</div>';
 
-  addMessage('assistant', `
-    <strong>欢迎使用陶艺拉坯全流程AI知识库！</strong><br><br>
-    本系统基于《中国陶瓷艺术赏析与创作基础》课程体系构建，覆盖拉坯成型的<strong>10个核心环节</strong>。<br><br>
-    <em>"拉坯需要专心和不厌其烦的练习"</em>
-  `);
+  var greeting = userName ? '你好，' + userName + '！' : '你好！';
+  addMessage('assistant', '<strong>' + greeting + '欢迎使用陶艺拉坯全流程AI知识库！</strong><br><br>本系统基于《中国陶瓷艺术赏析与创作基础》课程体系构建，覆盖拉坯成型的<strong>10个核心环节</strong>。<br><br><em>"拉坯需要专心和不厌其烦的练习"</em>');
   addMessage('assistant', html);
+}
+
+// ==================== User Info ====================
+function getUserName() {
+  try {
+    var u = JSON.parse(localStorage.getItem('pottery_user') || '{}');
+    if (u.name) return u.name;
+  } catch(e) {}
+  return localStorage.getItem('pottery_user_name') || '';
+}
+
+function updateUserGreeting() {
+  var name = getUserName();
+  var el = document.getElementById('userGreeting');
+  if (el && name) {
+    el.innerHTML = '<span class="user-bar"><span class="user-avatar">' + name.charAt(0) + '</span>' + name + '</span> <a onclick="logout()" style="color:rgba(255,255,255,0.6);font-size:0.7rem;cursor:pointer;margin-left:8px;text-decoration:underline">退出</a>';
+  }
 }
 
 function renderKilnGallery() {
@@ -1489,10 +2032,12 @@ function renderKilnGallery() {
     '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="8" rx="5" ry="2.5" stroke="#996237" stroke-width="1.3"/><path d="M15 8v2c0 1 .3 2.2.7 3.8l.7 3.7c.3 1.5.5 3 .6 4-.1 1.5-.3 3.2-.5 4.5l-.3 2c-.1.8 0 1.5 0 2h7.5c0-.5.1-1.2 0-2l-.3-2c-.2-1.3-.4-3-.5-4.5.1-1 .3-2.5.6-4l.7-3.7c.4-1.6.7-2.8.7-3.8V8" stroke="#996237" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="7" rx="10" ry="3" stroke="#996237" stroke-width="1.5"/><path d="M10 7v1.5c0 1 1 2 1.5 2.5l2 2.5 1 3.5c.3 1 .8 2.5 1.2 4l.5 2.5c.2 1.5.5 3 .3 4 0 .8-.2 1.5-.5 2h8c-.3-.5-.5-1.2-.5-2-.2-1 .1-2.5.3-4l.5-2.5c.4-1.5.9-3 1.2-4l1-3.5 2-2.5c.5-.5 1.5-1.5 1.5-2.5V7" stroke="#996237" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 27h16M14 24h12" stroke="#996237" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/></svg>'
   ];
+  var kwMap = { '汝窑':'宋代汝窑瓷器鉴赏教学', '官窑':'宋代官窑瓷器鉴赏教学', '哥窑':'宋代哥窑瓷器鉴赏教学', '钧窑':'宋代钧窑瓷器鉴赏教学', '定窑':'宋代定窑瓷器鉴赏教学' };
   var html = '';
   for (var i = 0; i < kilns.length; i++) {
     var k = kilns[i];
-    html += '<div class="kiln-chip-new" title="' + k.trait + '">';
+    var kw = encodeURIComponent(kwMap[k.name] || k.name + ' 瓷器 教学');
+    html += '<div class="kiln-chip-new" title="点击观看B站' + k.name + '视频" onclick="window.open(\'https://search.bilibili.com/all?keyword=' + kw + '\',\'_blank\')">';
     html += '<div class="kiln-icon-circle">' + vesselSvg[i] + '</div>';
     html += '<div class="k-name">' + k.name + '</div>';
     html += '<div class="k-era">' + k.era + '</div>';
@@ -1511,6 +2056,35 @@ function renderKnowledgeBar() {
     refresh.textContent = '<svg width=16 height=16 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=1.8 stroke-linecap=round stroke-linejoin=round style=vertical-align:-0.2em><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.8-3.4L23 10M1 14l4.6 4.4A9 9 0 0020.5 15"/></svg>点击刷新';
     bar.appendChild(refresh);
   }
+}
+
+function renderCreativeGrid() {
+  var items = [
+    { icon: '🏺', name: '陶艺文创', desc: '小红书搜灵感', tag: '小红书', cls: 'ct-redbook', url: 'https://www.xiaohongshu.com/search_result?keyword=陶艺文创' },
+    { icon: '🎨', name: '陶瓷设计', desc: 'B站看创意', tag: 'B站', cls: 'ct-bili', url: 'https://search.bilibili.com/all?keyword=陶艺文创设计' },
+    { icon: '✨', name: '手工好物', desc: '抖音搜教程', tag: '抖音', cls: 'ct-douyin', url: 'https://www.douyin.com/search/陶艺手工文创' },
+    { icon: '🫖', name: '茶器设计', desc: '小红书搜茶具', tag: '小红书', cls: 'ct-redbook', url: 'https://www.xiaohongshu.com/search_result?keyword=陶瓷茶器文创' },
+    { icon: '🖼️', name: '装饰画', desc: 'B站搜创意', tag: 'B站', cls: 'ct-bili', url: 'https://search.bilibili.com/all?keyword=陶瓷装饰画创意' },
+    { icon: '💡', name: 'DIY教程', desc: '抖音学制作', tag: '抖音', cls: 'ct-douyin', url: 'https://www.douyin.com/search/陶艺DIY文创' }
+  ];
+  document.getElementById('creativeGrid').innerHTML = items.map(function(i) {
+    return '<a href="' + i.url + '" target="_blank" rel="noopener" class="creative-card"><span class="cc-icon">' + i.icon + '</span><span class="cc-name">' + i.name + '</span><span class="cc-desc">' + i.desc + '</span><span class="cc-tag ' + i.cls + '">' + i.tag + '</span></a>';
+  }).join('');
+}
+
+function renderPatternGrid() {
+  var patterns = [
+    { icon: '〰️', name: '回纹', desc: '传统几何纹样·现代极简应用', kw: '陶瓷回纹创新设计', tag: '看设计', cls: 'ct-pattern' },
+    { icon: '🪷', name: '莲瓣纹', desc: '佛教艺术·现代文创演绎', kw: '陶瓷莲瓣纹创意', tag: '看设计', cls: 'ct-pattern' },
+    { icon: '🌿', name: '缠枝纹', desc: '生生不息·灵活运用于器型', kw: '陶瓷缠枝纹现代设计', tag: '看设计', cls: 'ct-pattern' },
+    { icon: '☁️', name: '云雷纹', desc: '商周经典·几何重构再创造', kw: '云雷纹陶瓷创新', tag: '看设计', cls: 'ct-pattern' },
+    { icon: '🌊', name: '海水纹', desc: '波涛汹涌·层次丰富的表现', kw: '陶瓷海水纹设计', tag: '看设计', cls: 'ct-pattern' },
+    { icon: '☯️', name: '如意纹', desc: '吉祥寓意·对称与不对称美', kw: '陶瓷如意纹文创', tag: '看设计', cls: 'ct-pattern' }
+  ];
+  document.getElementById('patternGrid').innerHTML = patterns.map(function(p) {
+    var url = 'https://search.bilibili.com/all?keyword=' + encodeURIComponent(p.kw);
+    return '<a href="' + url + '" target="_blank" rel="noopener" class="creative-card"><span class="cc-icon">' + p.icon + '</span><span class="cc-name">' + p.name + '</span><span class="cc-desc">' + p.desc + '</span><span class="cc-tag ' + p.cls + '">' + p.tag + '</span></a>';
+  }).join('');
 }
 
 // ==================== Toolbox ====================
@@ -1552,6 +2126,188 @@ function closeSidebar() {
 // Start
 init();
 showWelcome();
+updateUserGreeting();
+
+// ===== 浮动问答 =====
+function toggleFloatChat() {
+  document.getElementById('chatFloatPopup').classList.toggle('open');
+}
+function sendFloatQ() {
+  var input = document.getElementById('cfpInput');
+  var q = input.value.trim();
+  if (!q) return;
+  var msgs = document.getElementById('cfpMsgs');
+  var div = document.createElement('div');
+  div.className = 'cfp-msg user';
+  div.innerHTML = '<div class="cfp-bubble">' + q + '</div>';
+  msgs.appendChild(div);
+  input.value = '';
+  // Also send to main chat
+  document.getElementById('chatInput').value = q;
+  sendMessage();
+  msgs.scrollTop = msgs.scrollHeight;
+}
+// 填充快捷问题
+(function(){
+  var qs = ['揉泥有什么技巧？','定中心总是晃怎么办？','修坯应该修多薄？','上釉前要注意什么？','釉烧和素烧有什么区别？'];
+  document.getElementById('cfpQuickQs').innerHTML = qs.map(function(q) {
+    return '<button class="cfp-q-chip" onclick="document.getElementById(\'cfpInput\').value=\'' + q.replace(/'/g,'&#39;') + '\';sendFloatQ()">' + q + '</button>';
+  }).join('');
+})();
+
+// 可拖拽IP形象
+(function(){
+  function initDragPet() {
+    var pet = document.getElementById('dragPet');
+    if (!pet) return;
+    var saved = localStorage.getItem('pottery_pet_pos');
+    if (saved) {
+      var pos = JSON.parse(saved);
+      pet.style.left = pos.left;
+      pet.style.top = pos.top;
+      pet.style.right = 'auto';
+      pet.style.bottom = 'auto';
+    }
+    var offsetX, offsetY;
+    pet.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      var rect = pet.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+    pet.addEventListener('touchstart', function(e) {
+      var t = e.touches[0];
+      var rect = pet.getBoundingClientRect();
+      offsetX = t.clientX - rect.left;
+      offsetY = t.clientY - rect.top;
+      document.addEventListener('touchmove', onTouchMove, { passive: false });
+      document.addEventListener('touchend', onTouchEnd);
+    });
+    function onMove(e) {
+      pet.style.left = (e.clientX - offsetX) + 'px';
+      pet.style.top = (e.clientY - offsetY) + 'px';
+      pet.style.right = 'auto'; pet.style.bottom = 'auto';
+    }
+    function onTouchMove(e) {
+      e.preventDefault();
+      var t = e.touches[0];
+      pet.style.left = (t.clientX - offsetX) + 'px';
+      pet.style.top = (t.clientY - offsetY) + 'px';
+      pet.style.right = 'auto'; pet.style.bottom = 'auto';
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      localStorage.setItem('pottery_pet_pos', JSON.stringify({ left: pet.style.left, top: pet.style.top }));
+    }
+    function onTouchEnd() {
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+      localStorage.setItem('pottery_pet_pos', JSON.stringify({ left: pet.style.left, top: pet.style.top }));
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDragPet);
+  } else {
+    initDragPet();
+  }
+})();
+
+// 可拖拽浮动问答
+(function(){
+  function initChatDrag() {
+    var handle = document.getElementById('chatDragHandle');
+    var popup = document.getElementById('chatFloatPopup');
+    if (!handle || !popup) return;
+    var saved = localStorage.getItem('pottery_chat_pos');
+    if (saved) {
+      var pos = JSON.parse(saved);
+      popup.style.left = pos.left;
+      popup.style.top = pos.top;
+      popup.style.right = 'auto';
+      popup.style.bottom = 'auto';
+    }
+    var offsetX, offsetY;
+    handle.addEventListener('mousedown', function(e) {
+      if (e.target.tagName === 'BUTTON') return;
+      e.preventDefault();
+      var rect = popup.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+    handle.addEventListener('touchstart', function(e) {
+      if (e.target.tagName === 'BUTTON') return;
+      var t = e.touches[0];
+      var rect = popup.getBoundingClientRect();
+      offsetX = t.clientX - rect.left;
+      offsetY = t.clientY - rect.top;
+      document.addEventListener('touchmove', onTouchMove, { passive: false });
+      document.addEventListener('touchend', onTouchEnd);
+    });
+    function onMove(e) {
+      popup.style.left = (e.clientX - offsetX) + 'px';
+      popup.style.top = (e.clientY - offsetY) + 'px';
+      popup.style.right = 'auto'; popup.style.bottom = 'auto';
+    }
+    function onTouchMove(e) {
+      e.preventDefault();
+      var t = e.touches[0];
+      popup.style.left = (t.clientX - offsetX) + 'px';
+      popup.style.top = (t.clientY - offsetY) + 'px';
+      popup.style.right = 'auto'; popup.style.bottom = 'auto';
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      localStorage.setItem('pottery_chat_pos', JSON.stringify({ left: popup.style.left, top: popup.style.top }));
+    }
+    function onTouchEnd() {
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+      localStorage.setItem('pottery_chat_pos', JSON.stringify({ left: popup.style.left, top: popup.style.top }));
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChatDrag);
+  } else {
+    initChatDrag();
+  }
+})();
 </script>
+
+<div class="drag-pet" id="dragPet" onclick="window.location.href='/explore.html'" title="陶瓷知识助手">
+  <div class="pet-inner">
+    <div class="pet-glow"></div>
+    <img src="/images/character.png" alt="陶瓷知识助手" loading="lazy">
+    <span class="pet-badge">知识</span>
+  </div>
+  <div class="pet-tooltip">拖动我~ 点击探索陶瓷文化</div>
+</div>
+
+<!-- 浮动问答气泡 -->
+<button class="chat-float-btn" id="chatFloatBtn" onclick="toggleFloatChat()">
+  <i class="ri-chat-3-line"></i>
+</button>
+<div class="chat-float-popup" id="chatFloatPopup">
+  <div class="cfp-header" id="chatDragHandle">
+    <span><i class="ri-chat-3-line" style="color:var(--clay)"></i> 快速提问</span>
+    <button onclick="toggleFloatChat()">✕</button>
+  </div>
+  <div class="cfp-body">
+    <div class="cfp-msgs" id="cfpMsgs">
+      <div class="cfp-msg ai"><div class="cfp-bubble">有什么问题可以直接问我～</div></div>
+    </div>
+    <div class="cfp-qs" id="cfpQuickQs"></div>
+    <div class="cfp-input-row">
+      <input type="text" id="cfpInput" placeholder="输入问题..." onkeydown="if(event.key==='Enter')sendFloatQ()">
+      <button onclick="sendFloatQ()">发送</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

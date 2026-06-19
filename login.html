@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陶艺拉坯 AI智能学习系统</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:root {
+  --clay: #c67b4b;
+  --clay-dark: #8b4513;
+  --clay-light: #faf0e6;
+  --clay-warm: #e8c9a0;
+  --glaze: #5b8c85;
+  --glaze-light: #a8d8d0;
+  --fire: #d4534a;
+  --fire-glow: #ff6b3d;
+  --bg: #1a1410;
+  --surface: #2a2018;
+  --surface-light: #3a3028;
+  --text: #f0e6d8;
+  --text-dim: #a09080;
+  --gold: #c8a860;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Serif SC", serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+}
+
+/* ===== 动态背景 ===== */
+.bg-layer {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+}
+/* 窑火渐变 */
+.bg-fire {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 120%, rgba(212,83,74,0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 20% 0%, rgba(198,123,75,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 0%, rgba(198,123,75,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, rgba(200,168,96,0.05) 0%, transparent 70%);
+}
+/* 粒子 */
+.bg-particles {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(1px 1px at 8% 12%, rgba(255,180,120,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 22% 8%, rgba(255,160,100,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 45% 15%, rgba(255,200,140,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 68% 6%, rgba(255,170,110,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 82% 14%, rgba(255,180,120,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 85%, rgba(255,150,90,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 92%, rgba(255,180,120,0.35) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 58% 88%, rgba(255,160,100,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 90%, rgba(255,170,110,0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 82%, rgba(255,190,130,0.4) 0%, transparent 100%);
+  animation: particleFloat 8s ease-in-out infinite;
+}
+@keyframes particleFloat {
+  0%,100% { opacity: 0.7; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-8px); }
+}
+
+/* 陶瓷纹样水印 */
+.bg-motif {
+  position: absolute; inset: 0; opacity: 0.03;
+  background:
+    repeating-linear-gradient(45deg, transparent, transparent 80px, rgba(200,168,96,0.8) 80px, rgba(200,168,96,0.8) 81px),
+    repeating-linear-gradient(-45deg, transparent, transparent 80px, rgba(200,168,96,0.8) 80px, rgba(200,168,96,0.8) 81px);
+}
+
+/* ===== 主容器 — 桌面横版布局 ===== */
+.main-container {
+  position: relative; z-index: 1;
+  display: flex;
+  align-items: center; justify-content: center;
+  min-height: 100vh; padding: 40px 48px; gap: 60px;
+  max-width: 1200px; margin: 0 auto;
+}
+
+/* ===== 左侧品牌区 ===== */
+.brand-panel {
+  flex: 1; max-width: 480px;
+  animation: fadeIn 0.8s ease;
+  text-align: left;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.brand-panel .logo-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.12), rgba(198,123,75,0.2));
+  border: 2px solid rgba(200,168,96,0.4);
+  margin-bottom: 20px;
+  box-shadow: 0 0 60px rgba(200,168,96,0.15), 0 0 120px rgba(198,123,75,0.08);
+}
+.logo-icon svg { width: 38px; height: 38px; }
+.brand-panel .logo-title {
+  font-size: 2.2rem; font-weight: 700; letter-spacing: 0.06em;
+  background: linear-gradient(180deg, #f0e6d8 0%, #c8a860 50%, #a08040 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 10px;
+}
+.brand-panel .logo-subtitle {
+  font-size: 0.95rem; color: var(--text-dim); letter-spacing: 0.08em; margin-bottom: 24px;
+}
+.brand-features { display: flex; flex-direction: column; gap: 14px; }
+.brand-feat {
+  display: flex; align-items: flex-start; gap: 12px; font-size: 0.84rem; color: var(--text-dim);
+  padding: 10px 14px; border-radius: 12px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(200,168,96,0.08);
+  transition: all 0.2s;
+}
+.brand-feat:hover { background: rgba(255,255,255,0.06); border-color: rgba(200,168,96,0.2); }
+.brand-feat i { font-size: 1.2rem; color: var(--gold); margin-top: 1px; }
+
+/* ===== 右侧登录卡片 ===== */
+.login-panel {
+  flex: 0 0 420px;
+  background: linear-gradient(160deg, rgba(42,32,24,0.9), rgba(30,22,16,0.95));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(200,168,96,0.2);
+  border-radius: var(--radius-lg);
+  padding: 40px 34px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(200,168,96,0.08) inset;
+  animation: fadeUp 0.8s ease 0.15s both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 卡片顶部回纹装饰 */
+.login-panel::before {
+  content: ''; display: block; height: 3px; margin-bottom: 24px;
+  background: repeating-linear-gradient(90deg,
+    var(--gold) 0px, var(--gold) 8px,
+    transparent 8px, transparent 12px,
+    var(--gold) 12px, var(--gold) 16px,
+    transparent 16px, transparent 20px
+  );
+  border-radius: 2px; opacity: 0.5;
+}
+
+.panel-hd {
+  text-align: center; margin-bottom: 28px;
+}
+.panel-hd h2 {
+  font-size: 1.4rem; font-weight: 700;
+  letter-spacing: 0.04em; margin-bottom: 6px;
+}
+.panel-hd p {
+  font-size: 0.82rem; color: var(--text-dim);
+}
+
+/* 表单 */
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block; font-size: 0.78rem; font-weight: 600;
+  color: var(--text-dim); margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.input-wrap {
+  position: relative;
+}
+.input-wrap .input-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--text-dim); font-size: 1.1rem; pointer-events: none;
+  transition: color 0.3s ease;
+}
+.input-wrap input {
+  width: 100%; padding: 14px 16px 14px 44px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(200,168,96,0.15);
+  border-radius: 12px;
+  font-size: 0.92rem; color: var(--text);
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.input-wrap input::placeholder {
+  color: rgba(160,144,128,0.4);
+}
+.input-wrap input:focus {
+  border-color: rgba(200,168,96,0.5);
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 0 0 4px rgba(200,168,96,0.06), 0 0 20px rgba(200,168,96,0.05);
+}
+.input-wrap input:focus ~ .input-icon,
+.input-wrap input:focus + .input-icon { color: var(--gold); }
+
+/* 角色选择 */
+.role-selector {
+  display: flex; gap: 10px; margin-bottom: 24px;
+}
+.role-option {
+  flex: 1; padding: 14px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(200,168,96,0.12);
+  border-radius: 12px;
+  text-align: center; cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+.role-option:hover {
+  border-color: rgba(200,168,96,0.3);
+  background: rgba(255,255,255,0.06);
+}
+.role-option.selected {
+  border-color: var(--gold);
+  background: rgba(200,168,96,0.1);
+  box-shadow: 0 0 20px rgba(200,168,96,0.1);
+}
+.role-option .role-icon {
+  font-size: 1.6rem; display: block; margin-bottom: 6px;
+}
+.role-option .role-name {
+  font-size: 0.82rem; font-weight: 600;
+}
+.role-option .role-desc {
+  font-size: 0.68rem; color: var(--text-dim); margin-top: 2px;
+}
+
+/* 登录按钮 */
+.btn-enter {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px;
+  width: 100%; padding: 16px;
+  background: linear-gradient(135deg, #c67b4b, #a06030, #8b4513);
+  color: #fff; border: none; border-radius: 14px;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  font-family: inherit; letter-spacing: 0.04em;
+  box-shadow: 0 6px 24px rgba(198,123,75,0.3), 0 0 0 1px rgba(200,168,96,0.2) inset;
+  transition: all 0.35s ease;
+  position: relative; overflow: hidden;
+}
+.btn-enter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(198,123,75,0.45), 0 0 0 1px rgba(200,168,96,0.3) inset;
+}
+.btn-enter:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 16px rgba(198,123,75,0.3);
+}
+.btn-enter::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  transition: left 0.6s ease;
+}
+.btn-enter:hover::after { left: 100%; }
+
+/* ===== 底部入口直达 ===== */
+.quick-links {
+  margin-top: 28px; display: flex; gap: 12px;
+  animation: fadeUp 0.8s ease 0.3s both;
+}
+.quick-link {
+  flex: 1; padding: 14px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(200,168,96,0.12);
+  border-radius: 14px;
+  text-align: center; cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none; color: var(--text);
+  font-family: inherit;
+}
+.quick-link:hover {
+  border-color: rgba(200,168,96,0.35);
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.quick-link .ql-icon {
+  font-size: 1.5rem; display: block; margin-bottom: 6px;
+}
+.quick-link .ql-title {
+  font-size: 0.82rem; font-weight: 600; margin-bottom: 2px;
+}
+.quick-link .ql-desc {
+  font-size: 0.68rem; color: var(--text-dim);
+}
+
+/* ===== Footer ===== */
+.footer-text {
+  position: relative; z-index: 1;
+  padding: 12px 0 32px;
+  font-size: 0.72rem; color: rgba(160,144,128,0.4);
+  text-align: center;
+  animation: fadeUp 0.8s ease 0.4s both;
+}
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: rgba(42,32,24,0.95); backdrop-filter: blur(16px);
+  color: #f0e6d8; padding: 14px 28px; border-radius: 28px;
+  font-size: 0.85rem; z-index: 999;
+  opacity: 0; pointer-events: none;
+  border: 1px solid rgba(200,168,96,0.3);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  transition: all 0.4s ease;
+}
+.toast.show {
+  opacity: 1; transform: translateX(-50%) translateY(0);
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 900px) {
+  .main-container { flex-direction: column; padding: 32px 20px; gap: 32px; min-height: auto; }
+  .brand-panel { text-align: center; max-width: 100%; }
+  .brand-panel .logo-icon { margin: 0 auto 16px; }
+  .brand-features { display: none; }
+  .login-panel { flex: 0 0 auto; width: 100%; max-width: 420px; }
+  .quick-links { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .login-panel { padding: 24px 18px; }
+  .logo-title { font-size: 1.5rem; }
+  .logo-icon { width: 60px; height: 60px; }
+  .logo-icon svg { width: 28px; height: 28px; }
+  .role-selector { flex-direction: column; gap: 8px; }
+  .quick-links { flex-direction: column; }
+}
+
+/* ===== 陶瓷装饰纹样 ===== */
+/* 底部回纹装饰 */
+.login-panel::after {
+  content: ''; display: block; margin: 20px auto 0;
+  width: 80px; height: 2px;
+  background: repeating-linear-gradient(90deg,
+    var(--ik-border) 0px, var(--ik-border) 2px,
+    transparent 2px, transparent 5px,
+    var(--ik-border) 5px, var(--ik-border) 7px,
+    transparent 7px, transparent 12px
+  );
+  opacity: 0.35;
+}
+/* 角色卡片底部陶瓷纹样装饰 */
+.role-option::after {
+  content: ''; position: absolute; bottom: 0; left: 30%; right: 30%;
+  height: 2px; border-radius: 1px;
+  background: linear-gradient(90deg, transparent, var(--ik-sand), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.role-option { position: relative; }
+.role-option:hover::after { opacity: 1; }
+/* 背景层器型装饰 */
+.bg-layer::after {
+  content: '🏺'; position: absolute; bottom: 40px; right: 40px;
+  font-size: 4rem; opacity: 0.04; pointer-events: none;
+  transform: rotate(-15deg);
+}
+</style>
+</head>
+<body>
+
+<!-- 背景 -->
+<div class="bg-layer">
+  <div class="bg-fire"></div>
+  <div class="bg-particles"></div>
+  <div class="bg-motif"></div>
+</div>
+
+<!-- 主容器 -->
+<div class="main-container">
+
+  <!-- 左侧品牌区 -->
+  <div class="brand-panel">
+    <div class="logo-icon">
+      <svg viewBox="0 0 48 48" fill="none" stroke="rgba(200,168,96,0.8)" stroke-width="1.6">
+        <ellipse cx="24" cy="12" rx="7" ry="3" stroke-linecap="round"/>
+        <path d="M17 12c0 2 1 5 2 8l2 10 1 3c.5 1.5 1.2 3 2 4.5" stroke-linecap="round"/>
+        <path d="M31 12c0 2-1 5-2 8l-2 10-1 3c-.5 1.5-1.2 3-2 4.5" stroke-linecap="round"/>
+        <path d="M14 26h20" stroke-width="0.8" opacity="0.5"/>
+      </svg>
+    </div>
+    <h1 class="logo-title">陶艺拉坯 AI学习系统</h1>
+    <p class="logo-subtitle">《中国陶瓷艺术赏析与创作基础》· 智能学习平台</p>
+    <div class="brand-features">
+      <div class="brand-feat"><i class="ri-robot-line"></i><span><strong>AI智能问答</strong> — 基于课程体系的专业陶瓷知识库，随时解答拉坯疑问</span></div>
+      <div class="brand-feat"><i class="ri-bar-chart-box-line"></i><span><strong>教学数据分析</strong> — 教师实时查看学生关注热点，精准调整教学方向</span></div>
+      <div class="brand-feat"><i class="ri-building-2-line"></i><span><strong>陶瓷文化探索</strong> — 从五大名窑到千年工艺，沉浸在陶瓷艺术的世界</span></div>
+    </div>
+  </div>
+
+  <!-- 登录卡片 -->
+  <div class="login-panel">
+    <div class="panel-hd">
+      <h2>开始你的陶艺之旅</h2>
+      <p>请输入信息，进入AI智能学习系统</p>
+    </div>
+
+    <div class="form-group">
+      <label>我是...</label>
+      <div class="role-selector" id="roleSelector">
+        <div class="role-option selected" data-role="student">
+          <span class="role-icon">🎓</span>
+          <div class="role-name">陶艺学生</div>
+          <div class="role-desc">系统学习拉坯</div>
+        </div>
+        <div class="role-option" data-role="teacher">
+          <span class="role-icon">👨‍🏫</span>
+          <div class="role-name">指导老师</div>
+          <div class="role-desc">查看教学资源</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 学生字段 -->
+    <div id="studentFields">
+      <div class="form-group">
+        <label>学号</label>
+        <div class="input-wrap">
+          <i class="ri-user-line input-icon"></i>
+          <input type="text" id="studentId" placeholder="请输入你的学号" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>姓名</label>
+        <div class="input-wrap">
+          <i class="ri-user-smile-line input-icon"></i>
+          <input type="text" id="studentName" placeholder="请输入你的姓名" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>教师工号</label>
+        <div class="input-wrap">
+          <i class="ri-user-star-line input-icon"></i>
+          <input type="text" id="teacherId" placeholder="请输入你的老师工号" list="teacherList" autocomplete="off">
+          <datalist id="teacherList"></datalist>
+        </div>
+      </div>
+    </div>
+
+    <!-- 教师字段 -->
+    <div id="teacherFields" style="display:none">
+      <div class="form-group">
+        <label>工号</label>
+        <div class="input-wrap">
+          <i class="ri-user-line input-icon"></i>
+          <input type="text" id="teacherLoginId" placeholder="请输入你的工号" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>姓名</label>
+        <div class="input-wrap">
+          <i class="ri-user-smile-line input-icon"></i>
+          <input type="text" id="teacherLoginName" placeholder="请输入你的姓名" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-enter" onclick="enterSystem()">
+      进入系统 <i class="ri-arrow-right-line"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer-text">
+  基于《中国陶瓷艺术赏析与创作基础》课程体系构建 · 2024
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// 角色切换 — 显示对应字段
+var currentRole = 'student';
+
+document.getElementById('roleSelector').addEventListener('click', function(e) {
+  var opt = e.target.closest('.role-option');
+  if (!opt) return;
+  this.querySelectorAll('.role-option').forEach(function(o) { o.classList.remove('selected'); });
+  opt.classList.add('selected');
+  currentRole = opt.dataset.role;
+  showRoleFields(currentRole);
+});
+
+function showRoleFields(role) {
+  document.getElementById('studentFields').style.display = (role === 'student') ? '' : 'none';
+  document.getElementById('teacherFields').style.display = (role === 'teacher') ? '' : 'none';
+}
+
+// 页面加载时，加载教师工号列表供学生选择
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/api/teacher/list')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.ok && d.teachers) {
+        var dl = document.getElementById('teacherList');
+        dl.innerHTML = d.teachers.map(function(t) {
+          return '<option value="' + t.id + '">' + t.name + '</option>';
+        }).join('');
+      }
+    }).catch(function() {});
+});
+
+// 回车键触发登录
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') enterSystem();
+});
+
+// 登录
+function enterSystem() {
+  var role = currentRole;
+  var id, name, teacherId = '';
+
+  if (role === 'student') {
+    id = document.getElementById('studentId').value.trim();
+    name = document.getElementById('studentName').value.trim();
+    teacherId = document.getElementById('teacherId').value.trim();
+    if (!id) { showToast('请输入学号'); document.getElementById('studentId').focus(); return; }
+    if (!name) { showToast('请输入姓名'); document.getElementById('studentName').focus(); return; }
+    if (!teacherId) { showToast('请输入教师工号'); document.getElementById('teacherId').focus(); return; }
+  } else if (role === 'teacher') {
+    id = document.getElementById('teacherLoginId').value.trim();
+    name = document.getElementById('teacherLoginName').value.trim();
+    if (!id) { showToast('请输入工号'); document.getElementById('teacherLoginId').focus(); return; }
+    if (!name) { showToast('请输入姓名'); document.getElementById('teacherLoginName').focus(); return; }
+  }
+
+  var payload = { id: id, name: name, role: role };
+  if (teacherId) payload.teacherId = teacherId;
+
+  showToast('正在登录…');
+
+  fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.ok) { showToast(data.error || '登录失败，请重试'); return; }
+      // 存储完整用户信息
+      localStorage.setItem('pottery_user', JSON.stringify(data.user));
+      // 同时保留兼容旧代码的key
+      localStorage.setItem('pottery_user_name', data.user.name);
+      localStorage.setItem('pottery_user_role', data.user.role);
+      localStorage.setItem('pottery_user_id', data.user.id);
+      if (data.user.teacherId) localStorage.setItem('pottery_teacher_id', data.user.teacherId);
+
+      showToast('欢迎，' + data.user.name + '！');
+      var pages = { student: '/index.html', teacher: '/teacher.html' };
+      setTimeout(function() {
+        window.location.href = pages[data.user.role] || '/index.html';
+      }, 600);
+    }).catch(function(err) {
+      showToast('网络错误，请检查服务器后重试');
+      console.error(err);
+    });
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(function() { t.classList.remove('show'); }, 3000);
+}
+</script>
+</body>
+</html>

@@ -21,7 +21,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{height:100%;overflow:hidden;}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background: var(--ik-bg);color:var(--text);height:100%;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background: linear-gradient(180deg, #fcf9f2 0%, #f8f0e6 50%, #f5ebe0 100%);color:var(--text);height:100%;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
 
 .header{background: linear-gradient(180deg, #5C3A1E 0%, #7B4E2C 35%, #9A6B42 70%, #B8875E 100%);color:#fff;padding:12px 16px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(0,0,0,0.18);z-index:10;}
 .header h1{font-size:1.05rem;font-weight:700;letter-spacing:0.02em;}
@@ -33,14 +33,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .progress-text .step-name{font-weight:700;color:var(--clay-dark);font-size:1rem;}
 .progress-bar{display:flex;gap:6px;}
 .progress-dot{flex:1;height:6px;border-radius:3px;background:#e8ddd0;transition:all 0.3s ease;cursor:pointer;}
-.progress-dot.done { background: var(--ik-brown); opacity: 0.5; box-shadow: 0 0 6px rgba(153,98,55,0.2); animation: popIn 0.4s cubic-bezier(0.68,-0.55,0.27,1.55); }}
+.progress-dot.done { background: var(--ik-brown); opacity: 0.5; box-shadow: 0 0 6px rgba(153,98,55,0.2); animation: popIn 0.4s cubic-bezier(0.68,-0.55,0.27,1.55); }
 .progress-dot.active{background: var(--ik-brown); box-shadow: 0 0 8px rgba(153,98,55,0.35);}
 
 .main-content{flex:1;overflow:hidden;position:relative;}
 .steps-container{display:flex;height:100%;transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);will-change:transform;}
 .step-slide{min-width:100%;height:100%;overflow-y:auto;padding:16px;-webkit-overflow-scrolling:touch;}
 
-.step-card { background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 24px 20px; margin-bottom: 14px; border: 1px solid var(--ik-border); }
+.step-card { background: linear-gradient(170deg, #fff 0%, #fefcf8 40%, #fdf9f2 100%); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 24px 20px; margin-bottom: 14px; border: 1px solid var(--ik-border); position: relative; overflow: hidden; }
+.step-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--clay), var(--clay-dark), var(--clay), #D4B99C, var(--clay));
+  opacity: 0.4;
+}
 .step-card .step-icon{font-size:3rem;text-align:center;margin-bottom:6px;display:block;}
 .step-card h2{font-size:1.35rem;text-align:center;margin-bottom:4px;font-weight:700;}
 .step-card .tagline{text-align:center;color:var(--text-light);font-size:0.85rem;margin-bottom:18px;}
@@ -48,8 +53,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .ai-guide-btn{display:block;width:100%;padding:15px;margin:14px 0;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:14px;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 6px 20px rgba(99,102,241,0.35);transition:all 0.2s ease;letter-spacing:0.02em;}
 .ai-guide-btn:active{transform:scale(0.96);box-shadow:0 3px 10px rgba(99,102,241,0.2);}
 
-.instruction-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start;position:relative;}
+.instruction-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start;position:relative;transition:background 0.15s ease;}
 .instruction-item:last-child{border-bottom:none;}
+.instruction-item:hover{background:rgba(198,123,75,0.06);border-radius:8px;padding-left:6px;padding-right:6px;}
 .instruction-item::before{content:'';position:absolute;left:13px;top:42px;bottom:-14px;width:2px;background:var(--clay-light);}
 .instruction-item:last-child::before{display:none;}
 .instruction-num{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--clay),var(--clay-dark));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;flex-shrink:0;box-shadow:0 2px 8px rgba(198,123,75,0.3);}
@@ -96,8 +102,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .error-search{width:100%;padding:11px 16px;border-radius:24px;border:2px solid var(--border);font-size:0.9rem;outline:none;font-family:inherit;margin-bottom:14px;background:#fdfaf6;transition:all 0.25s ease;}
 .error-search:focus{border-color:var(--clay);box-shadow:0 0 0 4px rgba(198,123,75,0.08);}
 .error-list{display:flex;flex-direction:column;gap:8px;}
-.error-chip { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--ik-border); cursor: pointer; font-size: 0.84rem; background: var(--ik-milk); transition: all 0.2s ease; }transition:all 0.2s ease;}
-.error-chip:active { background: var(--ik-sand); border-color: var(--ik-brown); transform: scale(0.98); }border-color:var(--clay);transform:scale(0.98);}
+.error-chip { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--ik-border); cursor: pointer; font-size: 0.84rem; background: var(--ik-milk); transition: all 0.2s ease; }
+.error-chip:active { background: var(--ik-sand); border-color: var(--ik-brown); transform: scale(0.98); }
 .sev{font-size:0.7rem;padding:3px 8px;border-radius:6px;margin-left:8px;font-weight:600;}
 .sev-critical{background:#fce4ec;color:#c62828;}
 .sev-high{background:#fff3e0;color:#e65100;}
@@ -121,66 +127,119 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .pip-bar button{background:linear-gradient(135deg,var(--fire),#c04040);color:#fff;border:none;padding:9px 18px;border-radius:10px;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 3px 10px rgba(212,83,74,0.3);}
 .pip-full iframe{flex:1;border:none;}
 
-/* ===== AI TUTOR OVERLAY ===== */
-.ai-tutor-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: var(--ik-bg); flex-direction: column; }
+/* ===== AI TUTOR OVERLAY v2 — 摄像头为主，底部可上拉 ===== */
+.ai-tutor-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: #000; flex-direction: column; }
 .ai-tutor-overlay.open{display:flex;}
-.ai-tutor-topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(62,30,18,0.92); backdrop-filter: blur(12px); color: #fff; flex-shrink: 0; font-size: 0.82rem; font-weight: 600; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.ai-tutor-topbar .live-dot{width:10px;height:10px;background:#ff4444;border-radius:50%;animation:pulse 1.5s infinite;display:inline-block;margin-right:5px;box-shadow:0 0 8px rgba(255,68,68,0.5);}
+.ai-tutor-topbar { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(12px); color: #fff; flex-shrink: 0; font-size: 0.78rem; font-weight: 600; position: absolute; top: 0; left: 0; right: 0; z-index: 20; height: 40px; }
+.ai-tutor-topbar .live-dot{width:8px;height:8px;background:#ff4444;border-radius:50%;animation:pulse 1.5s infinite;display:inline-block;margin-right:5px;box-shadow:0 0 8px rgba(255,68,68,0.5);}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.3;transform:scale(0.8);}}
-.ai-tutor-topbar button{background:rgba(255,255,255,0.1);color:#f0e6d8;border:none;padding:6px 14px;border-radius:8px;font-size:0.74rem;cursor:pointer;font-family:inherit;transition:all 0.2s ease;border:1px solid rgba(255,255,255,0.08);}
-.ai-tutor-topbar button:active{background:rgba(255,255,255,0.2);}
+.ai-tutor-topbar button{background:rgba(255,255,255,0.12);color:#f0e6d8;border:none;padding:5px 12px;border-radius:6px;font-size:0.72rem;cursor:pointer;font-family:inherit;transition:all 0.2s ease;border:1px solid rgba(255,255,255,0.08);}
+.ai-tutor-topbar button:active{background:rgba(255,255,255,0.25);}
 
-.ai-tutor-main{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative;}
-.ai-self-view{flex:1;position:relative;background:#000;display:flex;align-items:center;justify-content:center;min-height:0;}
+/* 摄像头主区域（全屏） */
+.ai-tutor-main{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#000;}
+.ai-self-view{width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center;}
 .ai-self-view video{width:100%;height:100%;object-fit:cover;}
-.ai-self-view .no-camera{color:#aaa;text-align:center;padding:20px;font-size:0.88rem;}
-.ai-ref-inset{position:absolute;bottom:12px;right:12px;width:115px;height:85px;border-radius:12px;overflow:hidden;border:2.5px solid rgba(255,255,255,0.5);background:var(--ai-surface);display:none;box-shadow:0 4px 16px rgba(0,0,0,0.4);}
+.ai-self-view .no-camera{color:#aaa;text-align:center;padding:20px;font-size:0.85rem;}
+
+/* 参考视频小窗 */
+.ai-ref-inset{position:absolute;bottom:16px;right:16px;width:120px;height:90px;border-radius:10px;overflow:hidden;border:2px solid rgba(255,255,255,0.4);background:#111;display:none;box-shadow:0 4px 16px rgba(0,0,0,0.5);z-index:15;transition:all 0.3s ease;}
 .ai-ref-inset.show{display:block;}
-.ai-ref-inset video{width:100%;height:100%;object-fit:cover;}
+.ai-ref-inset.fullsize{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;border-radius:0;border:none;z-index:30;}
+.ai-ref-inset video{width:100%;height:100%;object-fit:contain;background:#000;}
 
-/* AI Chat-like feedback area */
-.ai-chat-area{flex-shrink:0;max-height:30vh;overflow-y:auto;padding:10px 14px;background:var(--ai-surface);display:flex;flex-direction:column;gap:8px;}
-.ai-chat-msg{display:flex;gap:8px;font-size:0.84rem;color:#f0e6d8;line-height:1.55;animation:msgSlide 0.25s ease;}
+/* 浮动麦克风按钮 */
+.floating-mic{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);z-index:25;}
+.floating-mic .btn-mic-float{width:56px;height:56px;border-radius:50%;border:3px solid rgba(255,255,255,0.3);background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:1.5rem;cursor:pointer;box-shadow:0 6px 24px rgba(99,102,241,0.5);transition:all 0.25s ease;display:flex;align-items:center;justify-content:center;}
+.btn-mic-float:active{transform:scale(0.9);}
+.btn-mic-float.listening{background:linear-gradient(135deg,#ef4444,#dc2626);border-color:rgba(255,255,255,0.6);animation:floatPulse 1s ease-in-out infinite;}
+@keyframes floatPulse{0%,100%{box-shadow:0 6px 24px rgba(239,68,68,0.5);}50%{box-shadow:0 6px 36px rgba(239,68,68,0.8);}}
+.btn-mic-float.thinking{background:linear-gradient(135deg,#f59e0b,#d97706);}
+.btn-mic-float.speaking{background:linear-gradient(135deg,#22c55e,#16a34a);}
+.btn-mic-float.paused{background:linear-gradient(135deg,#6b7280,#4b5563);}
+
+/* 浮动按钮上方的小标签 */
+.floating-mic .mic-hint{text-align:center;color:rgba(255,255,255,0.6);font-size:0.62rem;margin-top:4px;font-weight:500;}
+
+/* 底部可上拉抽屉 */
+.drawer-container{position:absolute;bottom:0;left:0;right:0;z-index:18;transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);}
+.drawer-container.pulled{transform:translateY(0);}
+.drawer-handle-zone{padding:8px 0 4px;text-align:center;cursor:pointer;background:rgba(26,20,16,0.92);backdrop-filter:blur(12px);border-radius:16px 16px 0 0;border-top:1px solid rgba(255,255,255,0.06);}
+.drawer-handle{width:36px;height:4px;background:rgba(255,255,255,0.25);border-radius:2px;margin:0 auto 4px;}
+.drawer-handle-zone .handle-label{font-size:0.6rem;color:rgba(255,255,255,0.35);}
+.drawer-body{background:var(--ai-surface);max-height:55vh;overflow-y:auto;}
+.drawer-body.collapsed{display:none;}
+
+/* 抽屉内快速操作按钮行 */
+.drawer-quick-actions{display:flex;gap:6px;padding:8px 14px;background:var(--ai-surface);flex-shrink:0;}
+.drawer-quick-actions .qa-btn{flex:1;padding:10px 6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#c0b0a0;font-size:0.7rem;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;transition:all 0.2s ease;white-space:nowrap;}
+.drawer-quick-actions .qa-btn:active{background:rgba(99,102,241,0.2);border-color:var(--ai-accent);color:#fff;}
+
+/* 抽屉内子步骤横排 */
+.drawer-step-panel{display:flex;gap:6px;padding:6px 14px;overflow-x:auto;flex-shrink:0;}
+.drawer-step-panel .sub-step{flex-shrink:0;text-align:center;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.04);color:#a09080;font-size:0.66rem;cursor:pointer;border:1.5px solid transparent;transition:all 0.25s ease;min-width:60px;}
+.drawer-step-panel .sub-step.active{border-color:var(--ai-accent);background:rgba(99,102,241,0.2);color:#fff;box-shadow:0 0 8px rgba(99,102,241,0.15);}
+.drawer-step-panel .sub-step.done{background:rgba(76,175,80,0.15);border-color:rgba(76,175,80,0.4);color:#a5d6a7;}
+.drawer-step-panel .sub-step .num{font-size:0.82rem;font-weight:700;}
+
+/* 抽屉内的聊天记录 */
+.drawer-chat-area{flex-shrink:0;max-height:25vh;overflow-y:auto;padding:6px 14px;display:flex;flex-direction:column;gap:6px;}
+.ai-chat-msg{display:flex;gap:6px;font-size:0.78rem;color:#e0d6c8;line-height:1.5;animation:msgSlide 0.25s ease;}
 @keyframes msgSlide{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-.ai-chat-msg .dot{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--ai-accent),#818cf8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.65rem;box-shadow:0 2px 8px rgba(99,102,241,0.4);}
-.ai-chat-msg .txt{background:rgba(255,255,255,0.06);padding:9px 14px;border-radius:0 14px 14px 14px;max-width:88%;border:1px solid rgba(255,255,255,0.05);}
+.ai-chat-msg .dot{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--ai-accent),#818cf8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.6rem;box-shadow:0 2px 6px rgba(99,102,241,0.3);}
+.ai-chat-msg .txt{background:rgba(255,255,255,0.05);padding:7px 11px;border-radius:0 12px 12px 12px;max-width:88%;border:1px solid rgba(255,255,255,0.04);}
 .ai-chat-msg.user{flex-direction:row-reverse;}
-.ai-chat-msg.user .txt{background:linear-gradient(135deg,var(--ai-accent),#7c3aed);border-radius:14px 0 14px 14px;border:none;}
+.ai-chat-msg.user .txt{background:linear-gradient(135deg,var(--ai-accent),#7c3aed);border-radius:12px 0 12px 12px;border:none;color:#fff;}
 
-/* Step instructions panel */
-.ai-step-panel{background:var(--ai-surface);color:#f0e6d8;padding:12px 14px;flex-shrink:0;display:flex;gap:8px;align-items:center;overflow-x:auto;}
-.ai-step-panel .sub-step{flex-shrink:0;text-align:center;padding:9px 12px;border-radius:12px;background:rgba(255,255,255,0.04);font-size:0.72rem;cursor:pointer;min-width:72px;border:1.5px solid transparent;transition:all 0.25s ease;}
-.ai-step-panel .sub-step.active{border-color:var(--ai-accent);background:rgba(99,102,241,0.2);box-shadow:0 0 12px rgba(99,102,241,0.2);}
-.ai-step-panel .sub-step.done{background:rgba(76,175,80,0.18);border-color:var(--safe);}
-.ai-step-panel .sub-step .num{font-size:0.9rem;font-weight:700;}
+/* 抽屉内快捷回复 */
+.drawer-quick-replies{display:flex;flex-wrap:wrap;gap:4px;padding:6px 14px;flex-shrink:0;}
+.quick-reply{padding:6px 12px;border-radius:14px;background:rgba(255,255,255,0.05);color:#b0a090;font-size:0.66rem;cursor:pointer;border:1px solid rgba(255,255,255,0.06);white-space:nowrap;transition:all 0.2s ease;}
+.quick-reply:active{background:rgba(99,102,241,0.25);border-color:var(--ai-accent);color:#fff;}
 
-/* Voice selector */
-.voice-selector{display:flex;gap:8px;padding:10px 14px;background:var(--ai-surface);flex-shrink:0;overflow-x:auto;align-items:center;}
-.voice-selector span{font-size:0.72rem;color:#a09080;flex-shrink:0;}
-.voice-opt{padding:5px 12px;border-radius:14px;background:rgba(255,255,255,0.05);color:#c0b0a0;font-size:0.7rem;cursor:pointer;flex-shrink:0;border:1px solid transparent;white-space:nowrap;transition:all 0.2s ease;}
+/* 抽屉内语音选择 */
+.drawer-voice-selector{display:flex;gap:5px;padding:6px 14px;overflow-x:auto;flex-shrink:0;align-items:center;}
+.drawer-voice-selector .vs-label{font-size:0.62rem;color:#a09080;flex-shrink:0;}
+.voice-opt{padding:4px 10px;border-radius:12px;background:rgba(255,255,255,0.04);color:#b0a090;font-size:0.62rem;cursor:pointer;flex-shrink:0;border:1px solid transparent;white-space:nowrap;transition:all 0.2s ease;}
 .voice-opt.selected{background:rgba(99,102,241,0.25);border-color:var(--ai-accent);color:#fff;}
+.voice-opt.unavailable{opacity:0.4;text-decoration:line-through;}
 .voice-opt:active{background:rgba(255,255,255,0.12);}
 
-/* Controls */
-.ai-controls{display:flex;gap:8px;padding:12px 14px;background:var(--ai-surface);flex-shrink:0;}
-.ai-controls button{flex:1;padding:11px;border-radius:12px;border:none;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s ease;letter-spacing:0.02em;}
-.ai-controls button:active{transform:scale(0.95);}
-.btn-voice2{background:linear-gradient(135deg,var(--glaze),#4a7a74);color:#fff;box-shadow:0 3px 12px rgba(91,140,133,0.3);}
-.btn-voice2.active{background:linear-gradient(135deg,var(--fire),#b84040);box-shadow:0 3px 12px rgba(212,83,74,0.4);}
-.btn-check2{background:linear-gradient(135deg,var(--ai-accent),#7c3aed);color:#fff;box-shadow:0 3px 12px rgba(99,102,241,0.35);}
-.btn-done2{background:linear-gradient(135deg,var(--safe),#3d9140);color:#fff;box-shadow:0 3px 12px rgba(76,175,80,0.35);}
+/* 抽屉内打字输入 */
+.drawer-input-wrap{display:flex;gap:6px;padding:8px 14px 16px;flex-shrink:0;}
+.drawer-input-wrap input{flex:1;padding:9px 12px;border-radius:18px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#f0e6d8;font-size:0.76rem;outline:none;font-family:inherit;}
+.drawer-input-wrap input:focus{border-color:var(--ai-accent);box-shadow:0 0 0 2px rgba(99,102,241,0.1);}
+.drawer-input-wrap button{padding:9px 14px;border-radius:18px;background:linear-gradient(135deg,var(--ai-accent),#818cf8);color:#fff;border:none;font-size:0.74rem;font-weight:600;cursor:pointer;font-family:inherit;}
 
-/* Voice status indicator */
-.voice-status{display:none;padding:8px 14px;background:var(--ai-surface);color:#ff9800;font-size:0.76rem;text-align:center;flex-shrink:0;font-weight:500;}
-.voice-status.show{display:block;}
-.voice-status.listening{color:#ff4444;}
-.voice-status.processing{color:#ff9800;}
+/* 视觉AI加载/结果样式 */
+.vision-loading{display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px 0;color:#e0d6c8;}
+.vision-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,0.1);border-top:4px solid var(--ai-accent);border-radius:50%;animation:apaSpin 0.8s linear infinite;}
+.vision-result{text-align:left;line-height:1.7;color:#e0d6c8;}
+.vision-result .vr-verdict{padding:10px 14px;border-radius:12px;margin-bottom:12px;font-weight:700;font-size:0.88rem;text-align:center;}
+.vision-result .vr-good{background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.3);}
+.vision-result .vr-fix{background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.3);}
+.vision-result .vr-detail{font-size:0.8rem;margin-bottom:10px;white-space:pre-wrap;word-break:break-word;}
+.vision-result .vr-actions{display:flex;gap:8px;margin-top:14px;justify-content:center;}
+.vision-result .vr-actions button{padding:8px 18px;border-radius:16px;border:none;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s ease;}
+.vr-actions .vr-retry{background:rgba(255,255,255,0.08);color:#c0b0a0;border:1px solid rgba(255,255,255,0.1);}
+.vr-actions .vr-close{background:rgba(99,102,241,0.3);color:#fff;border:1px solid rgba(99,102,241,0.4);}
 
-/* Quick chat input */
-.quick-input-wrap{display:flex;gap:8px;padding:10px 14px;background:var(--ai-surface);flex-shrink:0;}
-.quick-input-wrap input{flex:1;padding:10px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#f0e6d8;font-size:0.82rem;outline:none;font-family:inherit;transition:all 0.25s ease;}
-.quick-input-wrap input:focus{border-color:var(--ai-accent);box-shadow:0 0 0 3px rgba(99,102,241,0.15);}
-.quick-input-wrap button{padding:10px 16px;border-radius:20px;background:linear-gradient(135deg,var(--ai-accent),#818cf8);color:#fff;border:none;font-size:0.8rem;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 2px 10px rgba(99,102,241,0.3);}
+.vision-unavailable{text-align:center;padding:16px 0;color:#e0d6c8;}
+.vision-unavailable .vu-icon{font-size:2rem;margin-bottom:6px;}
+
+/* 桌面端适配 */
+@media(min-width:768px){
+  .ai-tutor-topbar{padding:8px 20px;font-size:0.85rem;height:44px;}
+  .floating-mic .btn-mic-float{width:64px;height:64px;}
+  .drawer-handle-zone{padding:10px 0 4px;}
+  .drawer-body{max-height:60vh;}
+  .drawer-chat-area{max-height:30vh;}
+  .ai-ref-inset{width:180px;height:135px;bottom:20px;right:20px;}
+  .quick-reply{font-size:0.72rem;}
+  .voice-opt{font-size:0.68rem;}
+}
+@media(min-width:1024px){
+  .ai-ref-inset{width:220px;height:165px;}
+}
 
 /* Quick replies */
 .quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px;background:var(--ai-surface);flex-shrink:0;}
@@ -194,7 +253,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 /* Check overlay */
 .check-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;backdrop-filter:blur(3px);}
 .check-overlay.open{display:flex;}
-.check-card{background:var(--card);border-radius:18px;padding:28px 24px;width:90%;max-width:360px;text-align:center;box-shadow:0 16px 48px rgba(0,0,0,0.25);}
+.check-card{background:var(--card);border-radius:18px;padding:28px 24px;width:90%;max-width:400px;text-align:center;box-shadow:0 16px 48px rgba(0,0,0,0.25);max-height:80vh;overflow-y:auto;}
 .check-card h4{font-size:1.05rem;margin-bottom:10px;font-weight:700;}
 .check-card p{font-size:0.88rem;color:var(--text-light);margin-bottom:16px;line-height:1.5;}
 .check-options{display:flex;flex-direction:column;gap:10px;}
@@ -203,12 +262,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .check-opt.good{border-color:var(--safe);background:#e8f5e9;}
 .check-opt.bad{border-color:var(--fire);background:#fce4ec;}
 
+/* 视觉AI检查加载动画 */
+.vision-loading{display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px 0;}
+.vision-spinner{width:48px;height:48px;border:4px solid var(--border);border-top:4px solid var(--ai-accent);border-radius:50%;animation:apaSpin 0.8s linear infinite;}
+.vision-loading p{color:var(--text-light);font-size:0.85rem;margin:0;}
+
+/* 视觉AI结果 */
+.vision-result{text-align:left;line-height:1.7;}
+.vision-result .vr-verdict{padding:10px 14px;border-radius:12px;margin-bottom:12px;font-weight:700;font-size:0.92rem;text-align:center;}
+.vision-result .vr-good{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
+.vision-result .vr-fix{background:#fff3e0;color:#e65100;border:1px solid #ffcc80;}
+.vision-result .vr-detail{font-size:0.85rem;color:var(--text);margin-bottom:10px;white-space:pre-wrap;word-break:break-word;}
+.vision-result .vr-actions{display:flex;gap:8px;margin-top:14px;justify-content:center;}
+.vision-result .vr-actions button{padding:10px 20px;border-radius:20px;border:none;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s ease;}
+.vr-actions .vr-retry{background:var(--ik-milk);color:var(--clay-dark);border:1px solid var(--ik-border);}
+.vr-actions .vr-close{background:var(--clay);color:#fff;box-shadow:0 2px 8px rgba(198,123,75,0.25);}
+.vr-actions button:active{transform:scale(0.95);}
+
+/* 视觉API未配置提示 */
+.vision-unavailable{text-align:center;padding:16px 0;}
+.vision-unavailable .vu-icon{font-size:2.5rem;margin-bottom:8px;}
+.vision-unavailable p{color:var(--text-light);font-size:0.85rem;}
+
 .tts-btn{position:fixed;bottom:100px;left:16px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--glaze),#4a7a74);color:#fff;border:none;font-size:1.2rem;cursor:pointer;z-index:150;box-shadow:0 4px 16px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.25s ease;}
 .tts-btn:active{transform:scale(0.9);}
 .tts-btn.playing{background:linear-gradient(135deg,var(--fire),#b84040);animation:pulse 1.5s infinite;box-shadow:0 4px 16px rgba(212,83,74,0.4);}
 
-.ip-banner { background: var(--ik-milk); color: var(--ik-brown); text-align: center; padding: 8px; font-size: 0.74rem; flex-shrink: 0; cursor: pointer; font-weight: 500; border-bottom: 1px solid var(--ik-border); transition: background 0.2s ease; }color:#1565c0;text-align:center;padding:8px;font-size:0.74rem;flex-shrink:0;cursor:pointer;font-weight:500;border-bottom:1px solid #d0e0f5;transition:background 0.2s ease;}
-.ip-banner:active{background:#d0e0f5;}
+.ip-banner { background: var(--ik-milk); color: var(--ik-brown); text-align: center; padding: 8px; font-size: 0.74rem; flex-shrink: 0; cursor: pointer; font-weight: 500; border-bottom: 1px solid var(--ik-border); transition: background 0.2s ease; }
+.ip-banner:active{background:#e8ddd0;}
 
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(42,32,24,0.92);backdrop-filter:blur(12px);color:#f0e6d8;padding:12px 24px;border-radius:28px;font-size:0.85rem;z-index:999;opacity:0;transition:all 0.3s ease;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px);}
@@ -260,6 +341,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
   .tts-btn{bottom:120px;left:24px;}
   .toast{bottom:120px;}
   .ip-banner{display:none !important;}
+  .ai-ref-inset{width:200px;height:150px;bottom:16px;right:16px;}
 }
 @media(min-width:1024px){
   body{max-width:860px;}
@@ -267,6 +349,56 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
   .step-card{padding:36px 32px;}
   .ai-chat-msg .txt{max-width:60%;}
 }
+
+/* ===== 可拖拽IP形象 ===== */
+.drag-pet {
+  position: fixed; z-index: 999;
+  cursor: grab; perspective: 800px;
+  width: 60px; height: 60px;
+  touch-action: none;
+  transition: none;
+}
+.drag-pet:active { cursor: grabbing; }
+.drag-pet .pet-inner {
+  width: 60px; height: 60px; border-radius: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 6px 24px rgba(153,98,55,0.25), 0 0 0 2px rgba(255,255,255,0.5), 0 0 0 4px rgba(198,123,75,0.12);
+  animation: petFloat 3s ease-in-out infinite;
+}
+.drag-pet .pet-inner:hover { transform: rotateY(15deg) rotateX(-8deg) scale(1.1); }
+.drag-pet .pet-inner:active { transform: rotateY(180deg) scale(0.9); }
+.drag-pet img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.drag-pet .pet-glow {
+  position: absolute; inset: -3px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(251,114,153,0.12), rgba(99,102,241,0.08), rgba(255,152,0,0.08));
+  filter: blur(5px); z-index: -1;
+  animation: petGlow 3s ease-in-out infinite alternate;
+}
+.drag-pet .pet-badge {
+  position: absolute; top: -6px; right: -6px;
+  background: linear-gradient(135deg, #FB7299, #F5587C);
+  color: #fff; font-size: 0.5rem; font-weight: 700;
+  padding: 2px 7px; border-radius: 9px;
+  box-shadow: 0 2px 6px rgba(251,114,153,0.4);
+  white-space: nowrap;
+}
+.drag-pet .pet-tooltip {
+  position: absolute; bottom: 100%; right: 0; margin-bottom: 8px;
+  background: rgba(42,32,24,0.92); backdrop-filter: blur(8px);
+  color: #f0e6d8; font-size: 0.68rem; padding: 6px 12px;
+  border-radius: 8px; white-space: nowrap;
+  opacity: 0; transform: translateY(6px);
+  transition: all 0.25s ease; pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.drag-pet:hover .pet-tooltip { opacity: 1; transform: translateY(0); }
+@keyframes petFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes petGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+@media(min-width:768px){ .drag-pet { width: 72px; height: 72px; } .drag-pet .pet-inner { width: 72px; height: 72px; } }
+
 
 /* ===== 欢迎页仪表盘 ===== */
 .hero-stats {
@@ -285,10 +417,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 
 /* ===== 步骤手风琴 ===== */
 .accordion-section { margin: 12px 0; }
-.accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 14px; background: var(--ik-milk); border: 1px solid var(--ik-border); border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 700; font-family: inherit; color: var(--text); transition: all 0.2s ease; } border: 1px solid var(--border);
-  border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 700;
-  font-family: inherit; color: var(--text); transition: all 0.2s ease;
-}
+.accordion-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 14px; background: var(--ik-milk); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 700; font-family: inherit; color: var(--text); transition: all 0.2s ease; }
 .accordion-toggle:hover { background: var(--ik-sand); }
 .accordion-toggle .acc-arrow {
   transition: transform 0.3s ease; font-size: 0.7rem; color: var(--text-light);
@@ -299,7 +428,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
   border: 0 solid var(--border); border-radius: 0 0 10px 10px;
 }
 .accordion-body.open { max-height: 500px; border-width: 0 1px 1px 1px; padding: 0 14px; background: var(--ik-milk); border-color: var(--ik-border); }
-}
 
 /* ===== 注意事项色块 ===== */
 .warning-chips {
@@ -416,9 +544,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 }
 
 /* ===== 欢迎页旅行概览 ===== */
-.journey-overview { margin-top: 16px; padding: 14px; background: var(--ik-milk); border-radius: var(--radius); border: 1px solid var(--ik-border); }
-  border-radius: var(--radius); border: 1px dashed var(--clay-light);
-}
+.journey-overview { margin-top: 16px; padding: 14px; background: var(--ik-milk); border-radius: var(--radius); border: 1px dashed var(--clay-light); }
 .journey-overview .jo-title {
   font-size: 0.78rem; font-weight: 700; color: var(--clay-dark); margin-bottom: 8px;
   display: flex; align-items: center; gap: 5px;
@@ -470,9 +596,7 @@ body::before {
 }
 
 /* 完成祝福卡片 */
-.culture-celebration { text-align: center; padding: 20px 16px; margin-top: 16px; background: var(--ik-milk); border-radius: var(--radius); border: 1px solid var(--ik-border); }
-  border-radius: var(--radius); border: 1px solid var(--clay-light);
-}
+.culture-celebration { text-align: center; padding: 20px 16px; margin-top: 16px; background: var(--ik-milk); border-radius: var(--radius); border: 1px solid var(--clay-light); }
 .culture-celebration .celeb-icon { font-size: 2.5rem; display: block; margin-bottom: 8px; }
 .culture-celebration .celeb-quote { font-size: 0.9rem; color: var(--clay-dark); font-style: italic; line-height: 1.7; margin-bottom: 4px; }
 .culture-celebration .celeb-author { font-size: 0.76rem; color: var(--text-light); }
@@ -480,11 +604,145 @@ body::before {
 /* ===== 视频播放器 ===== */
 .video-wrap { margin: 12px 0; border-radius: 10px; overflow: hidden; background: #000; }
 
-/* 欢迎页陶瓷装饰 */
-.welcome-culture-tip { margin-top: 16px; padding: 12px 14px; background: var(--ik-milk); border-radius: var(--radius); border: 1px solid var(--ik-border); text-align: left; font-size: 0.8rem; color: var(--text); line-height: 1.6; }
-  border-radius: var(--radius); border: 1px dashed var(--clay-light);
-  text-align: left; font-size: 0.8rem; color: var(--clay-dark); line-height: 1.6;
+/* ===== 视频教学卡片 - 可视化 ===== */
+.video-resource-card {
+  margin: 16px 0;
+  background: linear-gradient(170deg, #fff 0%, #fefcf8 100%);
+  border: 1px solid var(--ik-border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(153,98,55,0.06);
 }
+.video-resource-card .vr-thumb {
+  position: relative; width: 100%; height: 160px;
+  background: linear-gradient(135deg, #3d2a1a 0%, #5c3a1e 30%, #7a4e2c 60%, #5c3a1e 100%);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.video-resource-card .vr-thumb::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(232,201,160,0.08) 0px, transparent 120px),
+    radial-gradient(circle at 80% 70%, rgba(232,201,160,0.06) 0px, transparent 100px);
+}
+.video-resource-card .vr-thumb .vr-play-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  border: 2px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; color: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  z-index: 2; transition: all 0.25s;
+}
+.video-resource-card .vr-thumb .vr-play-icon:hover {
+  transform: scale(1.1);
+  background: rgba(255,255,255,0.25);
+}
+.video-resource-card .vr-thumb .vr-badge {
+  position: absolute; bottom: 10px; left: 12px;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  color: #fff; font-size: 0.65rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.video-resource-card .vr-thumb .vr-vessel {
+  position: absolute; bottom: -10px; right: 10px;
+  font-size: 4rem; opacity: 0.08; z-index: 1;
+}
+.video-resource-card .vr-body {
+  padding: 14px 16px 16px;
+}
+.video-resource-card .vr-body .vr-title {
+  font-size: 0.88rem; font-weight: 700; color: var(--clay-dark);
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.video-resource-card .vr-body .vr-title .vr-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--fire); display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+.video-resource-card .vr-platform-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.video-resource-card .vr-platform-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 12px 10px; border-radius: 10px;
+  text-decoration: none; font-weight: 700; font-size: 0.82rem;
+  transition: all 0.25s ease; font-family: inherit;
+}
+.video-resource-card .vr-platform-btn:active { transform: scale(0.95); }
+.vr-pb-bili {
+  background: linear-gradient(135deg, #FB7299, #F5587C);
+  color: #fff; box-shadow: 0 3px 10px rgba(251,114,153,0.25);
+}
+.vr-pb-douyin {
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  color: #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+.video-resource-card .vr-platform-btn .vr-pb-icon { font-size: 1.1rem; }
+.video-resource-card .vr-platform-btn .vr-pb-label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
+.video-resource-card .vr-platform-btn .vr-pb-label .vr-pb-name { font-size: 0.85rem; font-weight: 700; }
+.video-resource-card .vr-platform-btn .vr-pb-label .vr-pb-action { font-size: 0.6rem; font-weight: 400; opacity: 0.8; }
+
+/* AI导师模式中的视频参考按钮 */
+.ai-ref-video-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 8px;
+  width: 100%;
+}
+.ai-ref-video-links .arl-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.66rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+.ai-ref-video-links .arl-btn:active {
+  transform: scale(0.96);
+}
+.ai-ref-video-links .arl-bili {
+  background: rgba(251,114,153,0.18);
+  color: #FB7299;
+  border: 1px solid rgba(251,114,153,0.2);
+}
+.ai-ref-video-links .arl-douyin {
+  background: rgba(255,255,255,0.06);
+  color: #ccc;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* 重新选择泥料提示 */
+.clay-select-hint {
+  text-align: center;
+  margin: 10px 0;
+}
+.clay-select-hint button {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, var(--clay), var(--clay-dark));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(198,123,75,0.3);
+  transition: all 0.2s ease;
+}
+.clay-select-hint button:active {
+  transform: scale(0.96);
+}
+
+/* 欢迎页陶瓷装饰 */
+.welcome-culture-tip { margin-top: 16px; padding: 12px 14px; background: var(--ik-milk); border-radius: var(--radius); border: 1px dashed var(--clay-light); text-align: left; font-size: 0.8rem; color: var(--clay-dark); line-height: 1.6; }
 .welcome-culture-tip .tip-label {
   font-weight: 700; font-size: 0.72rem; color: var(--clay);
   margin-bottom: 4px; display: flex; align-items: center; gap: 4px;
@@ -515,7 +773,7 @@ body::before {
 </head>
 <body>
 
-<div class="header"><h1><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.25em;margin-right:6px"><rect x="3" y="9" width="18" height="13" rx="2"/><path d="M8 6h8M12 6V3"/><circle cx="9" cy="14" r="1.5" fill="currentColor"/><circle cx="15" cy="14" r="1.5" fill="currentColor"/><path d="M9 18h6"/></svg>拉坯AI导师</h1><span class="clay-badge" id="clayBadge" onclick="showClaySheet()"><i class="ri-vase-line" style="font-size:14px;vertical-align:-0.2em;margin-right:4px"></i>选择泥料</span></div>
+<div class="header"><a href="/login.html" style="flex-shrink:0;display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:14px;color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.74rem;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);transition:all 0.2s"><i class="ri-arrow-left-line" style="font-size:14px"></i>切换角色</a><h1 style="margin-left:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.25em;margin-right:6px"><rect x="3" y="9" width="18" height="13" rx="2"/><path d="M8 6h8M12 6V3"/><circle cx="9" cy="14" r="1.5" fill="currentColor"/><circle cx="15" cy="14" r="1.5" fill="currentColor"/><path d="M9 18h6"/></svg>拉坯AI导师</h1><span class="clay-badge" id="clayBadge" onclick="showClaySheet()"><i class="ri-vase-line" style="font-size:14px;vertical-align:-0.2em;margin-right:4px"></i>选择泥料</span></div>
 <div class="ip-banner" id="ipBanner" onclick="copyIP()" style="display:none"></div>
 <div class="progress-wrap"><div class="progress-text"><span class="step-name" id="stepLabel">准备开始</span><span id="stepCount">第 0/10 步</span></div><div class="progress-bar" id="progressBar"></div></div>
 
@@ -537,12 +795,16 @@ body::before {
 
 <button class="tts-btn" id="ttsBtn" onclick="toggleTTS()" title="AI语音播报"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M19.1 4.9a10 10 0 010 14.2"/><path d="M15.5 8.5a5 5 0 010 7.1"/></svg></button>
 
-<!-- ===== AI TUTOR OVERLAY ===== -->
+<!-- ===== AI TUTOR OVERLAY v2 ===== -->
 <div class="ai-tutor-overlay" id="aiTutor">
   <div class="ai-tutor-topbar">
     <span><span class="live-dot"></span>AI导师 · <span id="aiStepLabel">揉泥</span></span>
-    <button onclick="closeAITutor()">✕ 退出</button>
+    <div style="display:flex;gap:6px">
+      <span style="font-size:0.62rem;opacity:0.5;align-self:center" id="aiSubHint">子步骤 1/5</span>
+      <button onclick="closeAITutor()">✕ 退出</button>
+    </div>
   </div>
+
   <div class="ai-tutor-main">
     <div class="ai-self-view">
       <div class="ai-placeholder-art" id="aiPlaceholder">
@@ -551,26 +813,45 @@ body::before {
       </div>
       <span class="no-camera" id="noCam">📷 摄像头未开启</span>
       <video id="aiSelfVid" autoplay playsinline muted style="display:none"></video>
-      <div class="ai-ref-inset" id="aiRefInset"><video id="aiRefVid" muted loop playsinline></video></div>
+      <div class="ai-ref-inset" id="aiRefInset" style="display:flex;flex-direction:column;align-items:stretch;justify-content:center;padding:6px"><div class="ai-ref-video-links"><a href="#" id="aiBiliLink" target="_blank" rel="noopener" class="arl-btn arl-bili">📺 B站搜索教学视频</a><a href="#" id="aiDouyinLink" target="_blank" rel="noopener" class="arl-btn arl-douyin">🎵 抖音搜索教学视频</a></div></div>
+    </div>
+
+    <!-- 浮动麦克风 -->
+    <div class="floating-mic">
+      <button class="btn-mic-float" id="btnMicFloat" onclick="toggleMic()">🎤</button>
+      <div class="mic-hint" id="micHint">点击说话</div>
+    </div>
+
+    <!-- 底部可上拉抽屉 -->
+    <div class="drawer-container" id="drawerContainer">
+      <div class="drawer-handle-zone" id="drawerHandle">
+        <div class="drawer-handle"></div>
+        <div class="handle-label">上拉查看对话记录</div>
+      </div>
+      <div class="drawer-body collapsed" id="drawerBody">
+        <div class="drawer-quick-actions">
+          <button class="qa-btn" onclick="requestVisionCheck()">👀 帮我看看</button>
+          <button class="qa-btn" onclick="markStepDone()">✅ 标记完成</button>
+          <button class="qa-btn" onclick="jumpToSub(S.curSub>0?S.curSub-1:S.curSub)" style="font-size:0.8rem">◀</button>
+          <button class="qa-btn" onclick="jumpToSub(S.curSub<4?S.curSub+1:S.curSub)" style="font-size:0.8rem">▶</button>
+        </div>
+        <div class="drawer-step-panel" id="aiStepPanel"></div>
+        <div class="drawer-chat-area" id="aiChatArea"></div>
+        <div class="drawer-quick-replies" id="quickReplies"></div>
+        <div class="drawer-voice-selector" id="voiceSelectorDiv"><span class="vs-label">🔊 声音：</span><span id="voiceSelector"></span></div>
+        <div class="drawer-input-wrap">
+          <input type="text" id="quickAskInput" placeholder="打字与AI导师对话…" onkeydown="if(event.key==='Enter')sendQuickAsk()">
+          <button onclick="sendQuickAsk()">发送</button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="ai-chat-area" id="aiChatArea"></div>
-  <div class="ai-step-panel" id="aiStepPanel"></div>
-  <div class="voice-selector" id="voiceSelector"><span>🎤 声音：</span></div>
-  <div class="ai-controls">
-    <button class="btn-voice2" id="aiVoiceBtn2" onclick="toggleAIVoice()">🔊 讲解</button>
-    <button class="btn-check2" onclick="showAICheck()">👀 AI检查</button>
-    <button class="btn-done2" onclick="markStepDone()">✅ 完成</button>
-  </div>
-  <div class="voice-status" id="voiceStatus"></div>
-  <div class="quick-input-wrap" id="quickAskWrap" style="display:flex">
-    <input type="text" id="quickAskInput" placeholder="打字与AI导师对话..." onkeydown="if(event.key==='Enter')sendQuickAsk()">
-    <button onclick="sendQuickAsk()">发送</button>
-  </div>
-  <div class="quick-replies" id="quickReplies"></div>
 </div>
 
 <div class="check-overlay" id="checkOverlay"><div class="check-card"><div id="checkContent"></div></div></div>
+
+<!-- 隐藏的 canvas 用于视频截图发送给视觉AI -->
+<canvas id="aiCheckCanvas" style="display:none" width="640" height="480"></canvas>
 
 <!-- Sheets -->
 <div class="sheet-overlay" id="claySheet"><div class="sheet"><div class="sheet-handle"></div>
@@ -600,13 +881,13 @@ body::before {
 // ============ EMBEDDED DATA ============
 const EMBEDDED = {
 steps: [
-  {id:"s01",n:1,name:"揉泥",tagline:"排出气泡，均匀泥料",icon:"knead",video:"videos/step-kneading.mp4",
+  {id:"s01",n:1,name:"揉泥",tagline:"排出气泡，均匀泥料",icon:"knead",video:"videos/step-opening.mp4",
     subs:[
-      {a:"取适量泥料(500g-1kg)放在工作台上",d:"根据要做器型大小取泥，初学者500g-1kg"},
-      {a:"羊头式揉泥（推荐初学者）",d:"双手交替推压泥料，形似羊头，从外向内折叠再推压"},
-      {a:"反复揉压3-5分钟",d:"保持手部微湿，每次都推压到位"},
-      {a:"割线切开检查内部",d:"确认无气泡孔洞、颜色均匀一致"},
-      {a:"揉成紧实圆球状",d:"表面光滑，准备上拉坯机"}
+      {a:"取适量泥料(500g-1kg)放在工作台上",d:"根据要做器型大小取泥，初学者500g-1kg",t:0},
+      {a:"羊头式揉泥（推荐初学者）",d:"双手交替推压泥料，形似羊头，从外向内折叠再推压",t:25},
+      {a:"反复揉压3-5分钟",d:"保持手部微湿，每次都推压到位",t:55},
+      {a:"割线切开检查内部",d:"确认无气泡孔洞、颜色均匀一致",t:85},
+      {a:"揉成紧实圆球状",d:"表面光滑，准备上拉坯机",t:110}
     ],
     warnings:["泥里不能有气泡→拉坯晃动+烧制炸坯","新泥也需要揉→软硬不均匀"],
     completion:"切开泥团内部无气泡，手感软硬均匀",
@@ -614,13 +895,13 @@ steps: [
       {q:"揉好的泥团切开后，里面有没有气泡？",opts:[{t:"✅ 没有气泡，颜色均匀",g:1},{t:"😰 有小气泡",g:0},{t:"😰 颜色深浅不一",g:0}],bad:"泥料还没揉透！继续用羊头式揉3-5分钟，每次推压都要到位。有气泡拉坯会晃、烧制会炸。",good:"揉泥完成得很好！气泡排干净了，可以进行下一步。"}
     ]
   },
-  {id:"s02",n:2,name:"定中心",tagline:"拉坯最关键的基本功",icon:"center",video:"videos/step-centering.mp4",
+  {id:"s02",n:2,name:"定中心",tagline:"拉坯最关键的基本功",icon:"center",video:"videos/step-kneading.mp4",
     subs:[
-      {a:"泥团放置转盘正中央",d:"尽可能一次放正"},
-      {a:"启动拉坯机，低速80-150 RPM",d:"初学者用低速，手臂固定在大腿或托盘上"},
-      {a:"润湿双手和泥团表面",d:"手湿润但不滴水"},
-      {a:"双手配合推压泥团",d:"左手扶泥，右手掌根推压，双臂找好支撑点"},
-      {a:"确认中心定稳",d:"观察泥团顶部——完全静止不晃动即成功"}
+      {a:"泥团放置转盘正中央",d:"尽可能一次放正",t:0},
+      {a:"启动拉坯机，低速80-150 RPM",d:"初学者用低速，手臂固定在大腿或托盘上",t:30},
+      {a:"润湿双手和泥团表面",d:"手湿润但不滴水",t:60},
+      {a:"双手配合推压泥团",d:"左手扶泥，右手掌根推压，双臂找好支撑点",t:90},
+      {a:"确认中心定稳",d:"观察泥团顶部——完全静止不晃动即成功",t:120}
     ],
     warnings:["手臂必须有支撑点","中心没定稳绝不能进入下一步"],
     completion:"泥团顶部旋转时完全静止不晃动",
@@ -628,12 +909,12 @@ steps: [
       {q:"泥团在转盘上是不是完全不晃动了？",opts:[{t:"✅ 完全静止",g:1},{t:"😰 还在晃动",g:0},{t:"😰 晃得快甩飞了",g:0}],bad:"中心还没定稳！降到80-100 RPM，手臂靠大腿做支撑，掌根从侧面轻推。多次失败→泥可能有气泡→重新揉泥。",good:"中心定得很稳！这是拉坯最重要的基本功。"}
     ]
   },
-  {id:"s03",n:3,name:"开孔",tagline:"打开坯体内部空间",icon:"open",video:"videos/step-opening.mp4",
+  {id:"s03",n:3,name:"开孔",tagline:"打开坯体内部空间",icon:"open",video:"videos/step-centering.mp4",
     subs:[
-      {a:"双手拇指并拢",d:"手指保持湿润"},
-      {a:"泥团顶部中心垂直向下压入",d:"匀速施力，保持垂直不可偏斜"},
-      {a:"控制开孔深度",d:"底部保留1-1.5cm厚度，另一只手在外侧感受"},
-      {a:"轻微扩大开口",d:"向外扩宽为下一步拉高做准备"}
+      {a:"双手拇指并拢",d:"手指保持湿润",t:0},
+      {a:"泥团顶部中心垂直向下压入",d:"匀速施力，保持垂直不可偏斜",t:30},
+      {a:"控制开孔深度",d:"底部保留1-1.5cm厚度，另一只手在外侧感受",t:60},
+      {a:"轻微扩大开口",d:"向外扩宽为下一步拉高做准备",t:90}
     ],
     warnings:["底部至少保留1-1.5cm——绝不能穿底","保持垂直——偏斜会导致全盘不对称"],
     completion:"开口居中、垂直，底部保留1-1.5cm",
@@ -643,10 +924,10 @@ steps: [
   },
   {id:"s04",n:4,name:"拉高",tagline:"从底部向上提拉，增高坯体",icon:"raise",video:"videos/step-raising.mp4",
     subs:[
-      {a:"左手入孔支撑，右手外部配合",d:"转速中速150-250 RPM"},
-      {a:"从底部向上均匀提拉",d:"手指内外夹住泥壁，每次提拉高度一致"},
-      {a:"保持壁厚0.5-0.8cm",d:"用手指感受厚度，发现不均及时调整"},
-      {a:"拉至所需高度",d:"段位一：1kg泥拉制20cm以下，可分段逐步拉高"}
+      {a:"左手入孔支撑，右手外部配合",d:"转速中速150-250 RPM",t:0},
+      {a:"从底部向上均匀提拉",d:"手指内外夹住泥壁，每次提拉高度一致",t:35},
+      {a:"保持壁厚0.5-0.8cm",d:"用手指感受厚度，发现不均及时调整",t:70},
+      {a:"拉至所需高度",d:"段位一：1kg泥拉制20cm以下，可分段逐步拉高",t:100}
     ],
     warnings:["提拉要均匀——速度力度幅度一致","不要太快——泥壁瞬间变薄易塌"],
     completion:"高度达到预期，壁厚0.5-0.8cm且均匀",
@@ -656,10 +937,10 @@ steps: [
   },
   {id:"s05",n:5,name:"造型",tagline:"塑造器物的最终形态",icon:"shape",video:"videos/step-shaping.mp4",
     subs:[
-      {a:"确定目标器型",d:"初学者从直筒杯开始——直筒是关键"},
-      {a:"运用造型手法",d:"收口：内侧推压收拢。扩腹：内部推压扩张"},
-      {a:"检查对称性",d:"从各角度观察，有偏斜及时调整"},
-      {a:"精修口沿和底足",d:"海绵修整口沿光滑，底部留修坯余量"}
+      {a:"确定目标器型",d:"初学者从直筒杯开始——直筒是关键",t:0},
+      {a:"运用造型手法",d:"收口：内侧推压收拢。扩腹：内部推压扩张",t:35},
+      {a:"检查对称性",d:"从各角度观察，有偏斜及时调整",t:70},
+      {a:"精修口沿和底足",d:"海绵修整口沿光滑，底部留修坯余量",t:105}
     ],
     warnings:["创意建立在掌控能力之上","造型关键位置决定难度"],
     completion:"器型对称、符合预期、口沿光滑",
@@ -669,10 +950,10 @@ steps: [
   },
   {id:"s06",n:6,name:"修坯",tagline:"精修细节，完成坯体",icon:"trim",video:"videos/step-trimming.mp4",
     subs:[
-      {a:"确认坯体干湿度",d:"初学者修70%皮革硬度的湿坯"},
-      {a:"固定坯体找中心",d:"泥粉固定法或湿泥三点式，敲击找中心"},
-      {a:"从底部和圈足开始修",d:"不要用力过大，用修坯桶辅助感知壁厚"},
-      {a:"修整底足",d:"选择平底/暗足/明足"}
+      {a:"确认坯体干湿度",d:"初学者修70%皮革硬度的湿坯",t:0},
+      {a:"固定坯体找中心",d:"泥粉固定法或湿泥三点式，敲击找中心",t:35},
+      {a:"从底部和圈足开始修",d:"不要用力过大，用修坯桶辅助感知壁厚",t:70},
+      {a:"修整底足",d:"选择平底/暗足/明足",t:105}
     ],
     warnings:["不要追求太薄——初学者安全第一","修穿底了→改做花盆"],
     completion:"壁厚均匀、底足规整、表面光滑",
@@ -682,11 +963,11 @@ steps: [
   },
   {id:"s07",n:7,name:"干燥",tagline:"耐心等待完全脱水",icon:"dry",video:null,
     subs:[
-      {a:"放置在阴凉通风处",d:"避免阳光直射和风扇直吹"},
-      {a:"底部使用吸水托板",d:"帮助底部均匀干燥"},
-      {a:"不变形时倒置干燥",d:"防止收缩不均导致开裂"},
-      {a:"检查是否干透",d:"触感常温、颜色变浅、重量变轻"},
-      {a:"空心作品务必打孔",d:"密封造型必须打孔排气"}
+      {a:"放置在阴凉通风处",d:"避免阳光直射和风扇直吹",t:0},
+      {a:"底部使用吸水托板",d:"帮助底部均匀干燥",t:20},
+      {a:"不变形时倒置干燥",d:"防止收缩不均导致开裂",t:45},
+      {a:"检查是否干透",d:"触感常温、颜色变浅、重量变轻",t:70},
+      {a:"空心作品务必打孔",d:"密封造型必须打孔排气",t:90}
     ],
     warnings:["不能晒干/烘干→急速干燥必开裂","完全干透才能入窑"],
     completion:"坯体颜色变浅、触感常温、完全干透",
@@ -696,11 +977,11 @@ steps: [
   },
   {id:"s08",n:8,name:"素烧",tagline:"第一次烧制500~800℃",icon:"bisque",video:null,
     subs:[
-      {a:"装窑",d:"棚板三点或四点支撑"},
-      {a:"300℃前窑门留5-10cm缝",d:"让残余水分排出"},
-      {a:"250-300℃关键观察",d:"开门检查有无炸裂"},
-      {a:"关窑自动运行8-10小时",d:"正常升温至结束"},
-      {a:"降温至150℃以下取件",d:"戴高温手套！自然降温"}
+      {a:"装窑",d:"棚板三点或四点支撑",t:0},
+      {a:"300℃前窑门留5-10cm缝",d:"让残余水分排出",t:25},
+      {a:"250-300℃关键观察",d:"开门检查有无炸裂",t:50},
+      {a:"关窑自动运行8-10小时",d:"正常升温至结束",t:75},
+      {a:"降温至150℃以下取件",d:"戴高温手套！自然降温",t:100}
     ],
     warnings:["250-300℃是炸坯高发温度段","降温不能急","戴高温手套"],
     completion:"素烧完成，坯体强度增加，无裂纹",
@@ -710,11 +991,11 @@ steps: [
   },
   {id:"s09",n:9,name:"上釉",tagline:"为作品穿上霓衣云裳",icon:"glaze",video:null,
     subs:[
-      {a:"选择釉料类型",d:"透明釉/单色釉/无光釉/裂纹釉/结晶釉/花釉"},
-      {a:"调整釉料浓度至牛奶状",d:"太浓加水，太稀沉淀后倒水"},
-      {a:"施釉前准备",d:"搅拌过滤(100目)，坯体补水除尘"},
-      {a:"施釉",d:"内→荡釉法。外→浸釉法或喷釉法(距15cm)"},
-      {a:"务必擦净底部",d:"圈足擦圈足，平底擦整个底面"}
+      {a:"选择釉料类型",d:"透明釉/单色釉/无光釉/裂纹釉/结晶釉/花釉",t:0},
+      {a:"调整釉料浓度至牛奶状",d:"太浓加水，太稀沉淀后倒水",t:25},
+      {a:"施釉前准备",d:"搅拌过滤(100目)，坯体补水除尘",t:50},
+      {a:"施釉",d:"内→荡釉法。外→浸釉法或喷釉法(距15cm)",t:75},
+      {a:"务必擦净底部",d:"圈足擦圈足，平底擦整个底面",t:100}
     ],
     warnings:["务必擦底→有釉就粘板","流动釉不超过外面1/3高"],
     completion:"釉面均匀、无漏釉、底部擦净",
@@ -724,11 +1005,11 @@ steps: [
   },
   {id:"s10",n:10,name:"釉烧",tagline:"1200~1300℃ 从泥到瓷",icon:"finish",video:null,
     subs:[
-      {a:"装窑前检查",d:"确认底部釉料擦净，流动釉垫氧化铝饼"},
-      {a:"装窑留间隙",d:"流动釉作品放下层"},
-      {a:"设定釉烧程序",d:"1200-1300℃自动运行"},
-      {a:"300℃前留缝→250℃观察→关窑",d:"同素烧流程"},
-      {a:"降温至150℃以下取件",d:"釉烧降温必须慢——防惊釉"}
+      {a:"装窑前检查",d:"确认底部釉料擦净，流动釉垫氧化铝饼",t:0},
+      {a:"装窑留间隙",d:"流动釉作品放下层",t:25},
+      {a:"设定釉烧程序",d:"1200-1300℃自动运行",t:50},
+      {a:"300℃前留缝→250℃观察→关窑",d:"同素烧流程",t:75},
+      {a:"降温至150℃以下取件",d:"釉烧降温必须慢——防惊釉",t:100}
     ],
     warnings:["原料是基础，工艺是前提，烧成是关键","釉烧降温必须慢"],
     completion:"釉面光滑、发色正确——从泥到瓷完成！🎉",
@@ -824,7 +1105,7 @@ culture:{
 }
 };
 
-const REMIX = {knead:'ri-hand',center:'ri-focus-2-line',open:'ri-arrow-down-circle-line',raise:'ri-arrow-up-double-line',shape:'ri-vase-line',trim:'ri-scissors-cut-line',dry:'ri-windy-line',bisque:'ri-fire-line',glaze:'ri-paint-brush-line',finish:'ri-sparkling-line',menu:'ri-menu-line',museum:'ri-building-2-line',book:'ri-book-open-line',chart:'ri-bar-chart-line',fire:'ri-fire-line',wrench:'ri-tools-line',bookOpen:'ri-book-read-line',link:'ri-link',refresh:'ri-refresh-line',robot:'ri-robot-line',home:'ri-home-line',help:'ri-question-line',phone:'ri-phone-line',close:'ri-close-line',camera:'ri-camera-line',mic:'ri-mic-line',eye:'ri-eye-line',check:'ri-check-line',checkS:'ri-check-double-line',user:'ri-user-line',map:'ri-map-pin-line',scroll:'ri-file-text-line',clock:'ri-time-line',chat:'ri-chat-1-line',warning:'ri-error-warning-line',star:'ri-star-line',pause:'ri-pause-line',speaker:'ri-volume-up-line',light:'ri-lightbulb-line',pin:'ri-pushpin-line',toolbox:'ri-briefcase-line',celebrate:'ri-trophy-line',ruler:'ri-ruler-line',mobile:'ri-smartphone-line',wave:'ri-user-smile-line',search:'ri-search-line'};
+const REMIX = {knead:'ri-hand-line',center:'ri-focus-2-line',open:'ri-arrow-down-circle-line',raise:'ri-arrow-up-double-line',shape:'ri-vase-line',trim:'ri-scissors-cut-line',dry:'ri-windy-line',bisque:'ri-fire-line',glaze:'ri-paint-brush-line',finish:'ri-sparkling-line',menu:'ri-menu-line',museum:'ri-building-2-line',book:'ri-book-open-line',chart:'ri-bar-chart-line',fire:'ri-fire-line',wrench:'ri-tools-line',bookOpen:'ri-book-read-line',link:'ri-link',refresh:'ri-refresh-line',robot:'ri-robot-line',home:'ri-home-line',help:'ri-question-line',phone:'ri-phone-line',close:'ri-close-line',camera:'ri-camera-line',mic:'ri-mic-line',eye:'ri-eye-line',check:'ri-check-line',checkS:'ri-check-double-line',user:'ri-user-line',map:'ri-map-pin-line',scroll:'ri-file-text-line',clock:'ri-time-line',chat:'ri-chat-1-line',warning:'ri-error-warning-line',star:'ri-star-line',pause:'ri-pause-line',speaker:'ri-volume-up-line',light:'ri-lightbulb-line',pin:'ri-pushpin-line',toolbox:'ri-briefcase-line',celebrate:'ri-trophy-line',ruler:'ri-ruler-line',mobile:'ri-smartphone-line',wave:'ri-user-smile-line',search:'ri-search-line'};
 
 
 function iconSVG(name, size) {
@@ -834,7 +1115,7 @@ function iconSVG(name, size) {
 }
 
 // ============ STATE ============
-const S={cs:0,comp:new Set(),clay:null,va:false,tts:false,ao:false,av:false,stream:null,voiceIdx:0,curSub:0,availVoices:[]};
+const S={cs:0,comp:new Set(),clay:null,va:false,tts:false,ao:false,av:false,stream:null,voiceIdx:0,curSub:0,availVoices:[],listening:false,paused:false,pausedByUser:false,recognition:null,processingVoice:false};
 try{const x=JSON.parse(localStorage.getItem('pg2'));if(x){S.cs=x.c||0;S.comp=new Set(x.d||[]);S.clay=x.l||null;S.voiceIdx=x.v||0;}}catch(e){}
 function save(){localStorage.setItem('pg2',JSON.stringify({c:S.cs,d:[...S.comp],l:S.clay,v:S.voiceIdx}));}
 
@@ -860,14 +1141,20 @@ s0.innerHTML='<div class="step-card"><div class="step-icon"><i class="ri-user-sm
     h+='<div class="vessel-art '+(['va-ball','va-cone','va-opening','va-cylinder','va-vase','va-bowl','va-drying','va-fire','va-glaze','va-finish'][i])+'"></div><div class="vessel-label">器型示意</div>';
     h+='<h2>'+iconSVG(step.icon,28)+' '+step.name+'</h2><p class="tagline">'+step.tagline+'</p>';
     h+='<button class="ai-guide-btn" onclick="openAITutor('+i+')">'+iconSVG('eye',18)+' 进入AI面对面指导模式</button>';
-    if(step.video){
-      h+='<div style="margin:12px 0;border-radius:10px;overflow:hidden;background:#000">';
-      h+='<video controls playsinline preload="metadata" style="width:100%;max-height:220px;display:block" poster="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22360%22 height=%22200%22><rect fill=%22%231a1a2e%22 width=%22360%22 height=%22200%22/><text fill=%22%23fff%22 x=%22180%22 y=%22100%22 text-anchor=%22middle%22 font-size=%2216%22>'+step.name+'教学视频</text></svg>">';
-      h+='<source src="'+step.video+'" type="video/mp4"></video></div>';
-    }
+    // 视频 → B站/抖音搜索跳转（可视化卡片）
+    var biliQ = encodeURIComponent('陶艺拉坯 ' + step.name + ' 教学');
+    var douyinQ = encodeURIComponent('陶艺拉坯 ' + step.name + ' 教学');
+    var vesselIcons = ['⚱️','🏺','🫙','🍶','🏛️','🥣','💨','🔥','🎨','✨'];
+    h+='<div class="video-resource-card">';
+    h+='<div class="vr-thumb"><div class="vr-play-icon">▶</div><span class="vr-vessel">'+(vesselIcons[i]||'🏺')+'</span><span class="vr-badge">'+(i+1)+'. '+step.name+'</span></div>';
+    h+='<div class="vr-body"><div class="vr-title"><span class="vr-dot"></span> 实操视频参考</div>';
+    h+='<div class="vr-platform-grid">';
+    h+='<a href="https://search.bilibili.com/all?keyword='+biliQ+'" target="_blank" rel="noopener" class="vr-platform-btn vr-pb-bili"><span class="vr-pb-icon">📺</span><span class="vr-pb-label"><span class="vr-pb-name">B站搜索</span><span class="vr-pb-action">'+step.name+' 教学视频</span></span></a>';
+    h+='<a href="https://www.douyin.com/search/'+douyinQ+'" target="_blank" rel="noopener" class="vr-platform-btn vr-pb-douyin"><span class="vr-pb-icon">🎵</span><span class="vr-pb-label"><span class="vr-pb-name">抖音搜索</span><span class="vr-pb-action">'+step.name+' 教学视频</span></span></a>';
+    h+='</div></div></div>';
     // Accordion for sub-steps
     h+='<div class="accordion-section"><div class="accordion-toggle" onclick="this.classList.toggle(\'open\');this.nextElementSibling.classList.toggle(\'open\')"><span>📋 操作步骤（' + step.subs.length + '步）</span><span class="acc-arrow">▼</span></div><div class="accordion-body open">';
-    step.subs.forEach((inst,j)=>{h+='<div class="instruction-item"><div class="instruction-num">'+(j+1)+'</div><div class="instruction-text"><h4>'+inst.a+'</h4><p>'+inst.d+'</p></div></div>';});
+    step.subs.forEach((inst,j)=>{h+='<div class="instruction-item" style="cursor:pointer" onclick="seekStepVideo('+i+','+j+')"><div class="instruction-num">'+(j+1)+'</div><div class="instruction-text"><h4>'+inst.a+'</h4><p>'+inst.d+'</p></div></div>';});
     h+='</div></div>';
     // Warning chips
     if(step.warnings&&step.warnings.length){
@@ -973,22 +1260,59 @@ async function openAITutor(stepIdx){
   await loadVoices();
   renderVoiceSelector();
   // Ref video
-  const step=EMBEDDED.steps[stepIdx];
-  if(step.video){const rv=document.getElementById('aiRefVid');rv.src=step.video;rv.play().catch(()=>{});document.getElementById('aiRefInset').classList.add('show');}
-  else{document.getElementById('aiRefInset').classList.remove('show');}
+  var step2=EMBEDDED.steps[stepIdx];
+  var biliL=document.getElementById('aiBiliLink');var douyinL=document.getElementById('aiDouyinLink');if(biliL)biliL.href='https://search.bilibili.com/all?keyword='+encodeURIComponent('陶艺拉坯 '+step2.name+' 教学');if(douyinL)douyinL.href='https://www.douyin.com/search/'+encodeURIComponent('陶艺拉坯 '+step2.name+' 教学');
   // Welcome
-  aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>','你好！我是你的AI陶艺导师。我们开始<strong>'+step.name+'</strong>的训练吧。我会一步步指导你，过程中随时问我问题。准备好了吗？');
-  setTimeout(()=>aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>','首先，<strong>'+step.subs[0].a+'</strong>。'+(step.subs[0].d)),800);
+  aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>','你好！我是你的AI陶艺导师 👋<br>我们开始<strong>'+step2.name+'</strong>的训练。<br><br>首先，<strong>'+step2.subs[0].a+'</strong>——'+step2.subs[0].d+'<br><br>你可以：<br>🎤 <strong>点击麦克风</strong>跟我对话<br>👀 自动视觉检查每6秒分析你的动作<br>⏸ 说<strong>"暂停"</strong>我就安静');
+  speak('你好！我是你的AI陶艺导师。我们开始'+step2.name+'。首先，'+step2.subs[0].a+'。准备好了就点击麦克风跟我说话。');
+  // Start auto vision check every 6 seconds
+  startAutoVision();
 }
-function closeAITutor(){S.ao=false;stopAIVoice();document.getElementById('aiTutor').classList.remove('open');}
+function closeAITutor(){
+  closeDrawer();stopMic();S.ao=false;stopAIVoice();
+  document.getElementById('aiTutor').classList.remove('open');
+  stopAutoVision();
+}
+
+// ============ 自动视觉检查（每6秒） ============
+var _autoVisionTimer = null;
+function startAutoVision(){
+  stopAutoVision();
+  _autoVisionTimer = setInterval(function(){
+    if (!S.ao || S.processingVoice || S.listening) return;
+    if (!document.getElementById('aiSelfVid').srcObject) return;
+    aiChat('👁️','<em>自动检查中…</em>');
+    doVoiceVisionCheck('帮我看看做得对不对？');
+  }, 6000);
+}
+function stopAutoVision(){
+  if (_autoVisionTimer) { clearInterval(_autoVisionTimer); _autoVisionTimer = null; }
+}
 function updateAITutor(){
   const step=EMBEDDED.steps[S.cs-1];if(!step)return;
   document.getElementById('aiStepLabel').textContent=step.name;
+  document.getElementById('aiSubHint').textContent='子步骤 '+(S.curSub+1)+'/'+step.subs.length;
   const p=document.getElementById('aiStepPanel');
   p.innerHTML=step.subs.map((s,i)=>'<div class="sub-step'+(i===S.curSub?' active':'')+(i<S.curSub?' done':'')+'" onclick="jumpToSub('+i+')"><div class="num">'+(i+1)+'</div><div>'+s.a+'</div></div>').join('');
   updateQuickReplies();
+  // 同步参考视频 → 更新B站/抖音链接
+  var biliL2=document.getElementById('aiBiliLink');
+  var douyinL2=document.getElementById('aiDouyinLink');
+  if(step.video){
+    var bq=encodeURIComponent('陶艺拉坯 '+step.name+' 教学');
+    if(biliL2)biliL2.href='https://search.bilibili.com/all?keyword='+bq;
+    if(douyinL2)douyinL2.href='https://www.douyin.com/search/'+bq;
+    document.getElementById('aiRefInset').classList.add('show');
+  }else{
+    document.getElementById('aiRefInset').classList.remove('show');
+  }
 }
-function jumpToSub(i){S.curSub=i;updateAITutor();const s=EMBEDDED.steps[S.cs-1];aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>','我们来看第'+(i+1)+'步：<strong>'+s.subs[i].a+'</strong>。'+s.subs[i].d);speak(s.subs[i].a+'。'+s.subs[i].d);}
+function jumpToSub(i){S.curSub=i;updateAITutor();openDrawer();const s=EMBEDDED.steps[S.cs-1];aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>','我们来看第'+(i+1)+'步：<strong>'+s.subs[i].a+'</strong>。'+s.subs[i].d);speak(s.subs[i].a+'。'+s.subs[i].d);}
+function seekStepVideo(stepIdx,subIdx){
+  const step=EMBEDDED.steps[stepIdx];if(!step||!step.subs[subIdx])return;
+  // 视频已迁移至B站/抖音 → 自动跳转B站搜索
+  window.open('https://search.bilibili.com/all?keyword='+encodeURIComponent('陶艺拉坯 '+step.name+' 教学'),'_blank');
+}
 
 function aiChat(icon,msg){
   const area=document.getElementById('aiChatArea');
@@ -998,20 +1322,467 @@ function aiChat(icon,msg){
   if(area.children.length>20)area.removeChild(area.firstChild);
 }
 
-// ============ AI CHECK ============
-function showAICheck(){
-  const step=EMBEDDED.steps[S.cs-1];if(!step||!step.checks)return;
-  const ch=step.checks[0];
-  let h='<h4>👀 AI检查：'+step.name+'</h4><p>'+ch.q+'</p><div class="check-options">';
-  ch.opts.forEach(o=>{h+='<div class="check-opt" onclick="handleCheck('+o.g+')">'+o.t+'</div>';});
-  h+='</div>';
-  document.getElementById('checkContent').innerHTML=h;document.getElementById('checkOverlay').classList.add('open');
+
+// ============ 视觉识别提示词 ============
+var VISION_PROMPTS = {
+  0:{step:'揉泥',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在做【揉泥 / Kneading】步骤——这是拉坯前的准备工序。\n\n✅ 正确的做法：\n- 放置在平整的工作台上操作泥料\n- 采用羊头式：双手交替推压泥料，形似羊头，从外向内折叠再推压\n- 或菊花式：旋转揉压泥料成菊花状纹理\n- 泥团应呈紧实圆球状\n- 双手保持湿润不滴水\n- 每次推压都要到位\n\n⚠️ 常见错误：\n- 泥料太干（表面有裂纹、发白）\n- 双手太干粘泥\n- 揉泥不够充分（泥料颜色不均匀）\n- 台面太乱\n\n请完成以下任务：\n1. 先描述照片中你看到的画面\n2. 判断用户是否在做揉泥步骤\n3. 如果正在揉泥，指出手势、泥料状态是否正确\n4. 给出具体的改进建议\n5. 最后给一句鼓励的话\n\n用中文回答，语言温和、鼓励，像老师指导学生一样。'},
+  1:{step:'定中心',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在做【定中心 / Centering】步骤——拉坯最关键的基本功。\n\n✅ 正确的做法：\n- 泥团放置在拉坯机转盘正中央\n- 拉坯机低速旋转（80-150 RPM）\n- 双臂固定在大腿或拉坯机托盘上\n- 双手湿润但不滴水\n- 左手扶泥，右手掌根推压\n- 泥团顶部旋转时完全静止不晃动\n\n⚠️ 常见错误：\n- 泥团晃动、偏心\n- 手臂悬空没有支撑点\n- 转速太快\n- 身体坐姿不稳\n- 双手太干\n\n请完成以下任务：\n1. 先描述照片中你看到的画面\n2. 判断用户是否在拉坯机上操作\n3. 如果正在定中心，泥团是否居中稳定\n4. 手臂姿势和身体姿态是否稳定\n5. 给出具体改进建议\n6. 最后给一句鼓励的话\n\n用中文回答，语言温和、鼓励。'},
+  2:{step:'开孔',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在做【开孔 / Opening】步骤——在定好中心的泥团顶部开孔，打开坯体内部空间。\n\n✅ 正确的做法：\n- 双手拇指并拢\n- 手指保持湿润\n- 在泥团顶部中心垂直向下压入\n- 匀速施力，保持垂直不可偏斜\n- 底部保留1-1.5cm厚度\n- 另一只手在外侧感受底部厚度\n\n⚠️ 常见错误：\n- 开孔偏斜（不在中心）\n- 压入过深快穿底\n- 拇指太干粘泥\n- 泥团晃动（中心没定好）\n\n请完成以下任务：\n1. 先描述照片中你看到的画面\n2. 判断用户是否在开孔\n3. 开孔位置是否居中、深度如何\n4. 手势是否正确\n5. 给出具体改进建议\n6. 最后给一句鼓励的话\n\n用中文回答。'},
+  3:{step:'拉高',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在做【拉高 / Pulling Up】步骤——从底部向上提拉泥壁，使坯体增高。\n\n✅ 正确的做法：\n- 转速中速（150-250 RPM）\n- 左手在内部支撑，右手在外部配合\n- 手指内外夹住泥壁\n- 从底部开始均匀向上提拉\n- 每次提拉高度一致\n- 壁厚保持0.5-0.8cm\n- 直筒是拉坯关键基本功\n\n⚠️ 常见错误：\n- 提拉不均匀导致壁厚不一\n- 提拉太快泥壁塌陷\n- 手指间距不一致\n- 泥太软（水分过多）\n\n请完成以下任务：\n1. 先描述照片中你看到的画面\n2. 判断用户是否在拉高\n3. 泥壁是否均匀、直筒是否竖直\n4. 手势是否正确\n5. 给出具体改进建议\n6. 最后给一句鼓励的话\n\n用中文回答。'},
+  4:{step:'造型',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在做【造型 / Shaping】步骤——在拉高基础上塑造器物最终形态。\n\n✅ 正确的做法：\n- 收口：从内侧推压使口部向内收拢\n- 扩腹：从内部向外推压使腹部扩张\n- 造型对称、从各角度观察不偏斜\n- 口沿用海绵修整光滑\n- 底部留修坯余量\n- 创意建立在掌控能力之上\n\n⚠️ 常见错误：\n- 造型不对称（一边大一边小）\n- 口部开裂（太干）\n- 过度塑形导致塌陷\n- 造型过于复杂超出能力\n\n请完成以下任务：\n1. 先描述照片中你看到的画面\n2. 判断用户正在做的器型\n3. 造型是否对称\n4. 给出具体改进建议\n5. 最后给一句鼓励的话\n\n用中文回答。'},
+  5:{step:'修坯',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在做【修坯 / Trimming】步骤——精修坯体细节。\n\n✅ 正确的做法：\n- 坯体干湿度70%左右（皮革硬度）\n- 坯体固定在转盘上并找好中心\n- 用修坯刀从底部和圈足开始修\n- 用力均匀、平稳\n- 用修坯桶辅助感知壁厚\n- 壁厚均匀、底足规整\n\n⚠️ 常见错误：\n- 用力过大\n- 修得太薄甚至穿底\n- 坯体未固定好\n- 中心没找准\n\n请完成以下任务：\n1. 先描述照片中你看到的画面\n2. 判断用户是否在修坯\n3. 持刀姿势和力度是否正确\n4. 给出具体改进建议\n5. 最后给一句鼓励的话\n\n用中文回答。'},
+  6:{step:'干燥',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在做【干燥 / Drying】步骤。\n\n✅ 正确的做法：\n- 放置在阴凉通风处\n- 避免阳光直射和风扇直吹\n- 底部使用吸水托板\n- 不变形时倒置干燥\n- 空心作品务必打孔排气\n\n⚠️ 注意：\n- 不能晒干或烘干（急速干燥会开裂）\n- 完全干透才能入窑\n\n请完成以下任务：\n1. 描述照片中的画面\n2. 坯体放置位置和方式是否合适\n3. 给出建议\n\n用中文回答。'},
+  7:{step:'素烧',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在准备【素烧 / Bisque Firing】。\n\n✅ 要点：\n- 装窑用三点或四点支撑\n- 300℃前窑门留5-10cm缝\n- 250-300℃是炸坯高发温度段\n- 正常升温8-10小时\n- 降温至150℃以下取件\n\n请完成以下任务：\n1. 描述照片中的画面\n2. 装窑方式是否正确\n3. 给出安全提醒\n\n用中文回答。'},
+  8:{step:'上釉',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在做【上釉 / Glazing】步骤。\n\n✅ 正确做法：\n- 釉料浓度调整至牛奶状\n- 内部用荡釉法，外部用浸釉法或喷釉法\n- 喷釉距坯体15cm，一手喷一手均匀转动\n- 底部与硼板接触处必须擦干净\n\n⚠️ 常见错误：\n- 忘记擦底部釉（会粘板）\n- 釉料太浓或太稀\n- 喷釉不均匀\n\n请完成以下任务：\n1. 描述照片中的画面\n2. 施釉方式是否正确\n3. 釉面是否均匀\n4. 给出建议\n\n用中文回答。'},
+  9:{step:'釉烧',
+prompt:'请仔细分析这张陶艺拉坯照片。用户正在准备【釉烧 / Glaze Firing】。\n\n✅ 要点：\n- 装窑前确认底部釉料擦净\n- 作品间留间隙\n- 流动釉作品放下层并垫氧化铝饼\n- 300℃前留缝→250℃观察→关窑\n- 1200-1300℃烧制\n- 降温必须慢\n\n请完成以下任务：\n1. 描述照片中的画面\n2. 装窑是否正确\n3. 给出安全提醒\n\n用中文回答。'}
+};
+
+// ============ 🎤 语音对话导师 (v3 — 完整诊断) ============
+function toggleMic(){
+  aiChat('🔧','[调试] 点击麦克风。listening='+S.listening+' processingVoice='+S.processingVoice+' paused='+S.paused+' ao='+S.ao);
+  if (S.listening) { stopMic(); return; }
+  if (S.processingVoice) { aiChat('⚠️','上条消息还在处理中，请稍等…'); return; }
+  if (S.paused) { resumeConversation(); return; }
+  if (!S.ao) { aiChat('⚠️','请先进入AI导师模式。'); return; }
+  stopAIVoice();
+  startMic();
 }
+
+function updateMicButton(state){
+  var btn = document.getElementById('btnMicFloat');
+  var hint = document.getElementById('micHint');
+  if (!btn) { console.log('btnMicFloat not found!'); return; }
+  btn.className = 'btn-mic-float';
+  switch(state){
+    case 'listening':
+      btn.classList.add('listening'); btn.textContent = '🎤'; hint.textContent = '正在听…'; break;
+    case 'thinking':
+      btn.classList.add('thinking'); btn.textContent = '⏳'; hint.textContent = '思考中…'; break;
+    case 'speaking':
+      btn.classList.add('speaking'); btn.textContent = '🔊'; hint.textContent = '回复中…'; break;
+    case 'paused':
+      btn.classList.add('paused'); btn.textContent = '⏸'; hint.textContent = '点击继续'; break;
+    default:
+      btn.textContent = '🎤'; hint.textContent = '点击说话';
+  }
+}
+
+function startMic(){
+  // 第一步：检测是否在安全上下文（require HTTPS unless localhost）
+  var isSecure = window.isSecureContext;
+  var isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  aiChat('🔧','[调试] secure='+isSecure+' localhost='+isLocalhost+' hostname='+window.location.hostname);
+
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    aiChat('🚫','<strong>浏览器不支持语音识别</strong>。<br>SpeechRecognition API 未发现。<br>请用 <strong>Chrome 桌面版</strong> 或 <strong>Edge</strong> 打开此页面。<br>当前可用：打字输入。');
+    speak('浏览器不支持语音识别，请用Chrome打开。');
+    return;
+  }
+
+  if (S.recognition) { try { S.recognition.abort(); } catch(e){} S.recognition = null; }
+
+  var rec;
+  try {
+    rec = new SpeechRecognition();
+  } catch(e) {
+    aiChat('🚫','创建语音识别对象失败：'+e.message);
+    return;
+  }
+
+  rec.lang = 'zh-CN';
+  rec.interimResults = false;
+  rec.maxAlternatives = 1;
+  rec.continuous = false;
+  S._retryEn = false;
+
+  rec.onstart = function(){
+    S.listening = true;
+    updateMicButton('listening');
+    aiChat('🎤','<em>正在收音…请说话</em>');
+  };
+
+  rec.onresult = function(event){
+    aiChat('🔧','[调试] onresult 触发，results='+event.results.length);
+    if (S.processingVoice) { aiChat('⚠️','处理中，忽略本次输入'); return; }
+    var text = '';
+    try { text = event.results[0][0].transcript.trim(); } catch(e) {}
+    if (!text || text.length < 1) { aiChat('⚠️','识别为空，请重试'); return; }
+    aiChat('👤', '<em>'+text+'</em>');
+    processVoice(text);
+  };
+
+  rec.onerror = function(event){
+    S.listening = false;
+    aiChat('🔧','[调试] onerror: '+event.error);
+    if (event.error === 'no-speech') {
+      updateMicButton('idle');
+      if (!S._noSpeechRetry) { S._noSpeechRetry = true; setTimeout(function(){ S._noSpeechRetry = false; if (S.ao && !S.listening && !S.paused && !S.processingVoice) startMic(); }, 1200); }
+      return;
+    }
+    if (event.error === 'aborted') { updateMicButton('idle'); return; }
+    updateMicButton('idle');
+    if (event.error === 'not-allowed') {
+      S.micBlocked = true;
+      aiChat('🚫','<strong>麦克风权限被浏览器拒绝</strong>。<br><br>请：<br>1️⃣ 地址栏左侧点 🔒 锁图标<br>2️⃣ 找到"麦克风"→改为"允许"<br>3️⃣ <strong>刷新页面</strong><br>4️⃣ 再点一次麦克风');
+    } else if (event.error === 'network') {
+      // 网络错误：Google 语音服务器可能被墙，尝试 en-US 重试
+      if (!S._retryEn && rec.lang === 'zh-CN') {
+        S._retryEn = true;
+        aiChat('🔧','zh-CN语音识别网络超时，切换到 en-US 重试…');
+        try { rec.abort(); } catch(e){}
+        S.recognition = null;
+        S.listening = false;
+        setTimeout(function(){
+          rec.lang = 'en-US';
+          try { rec.start(); } catch(e){}
+        }, 500);
+        return;
+      }
+      S._retryEn = false;
+      aiChat('🚫','<strong>语音识别网络错误</strong>。<br>请检查网络连接。<br>或者直接用下方的<strong>打字输入</strong>功能。');
+    } else if (event.error === 'service-not-allowed') {
+      aiChat('🚫','<strong>系统语音服务被禁用</strong>。<br>请检查系统"设置→隐私→语音"是否已开启。<br>或直接用打字输入。');
+    } else {
+      aiChat('⚠️','语音识别出错：'+event.error+'。用打字吧。');
+    }
+  };
+
+  rec.onend = function(){
+    aiChat('🔧','[调试] onend 触发, listening='+S.listening);
+    S.listening = false;
+  };
+
+  S.recognition = rec;
+  try {
+    rec.start();
+    aiChat('🔧','[调试] rec.start() 成功');
+  } catch(e) {
+    aiChat('🚫','启动语音识别失败：'+e.message+'<br><br>常见原因：<br>• 已有一个识别实例在运行<br>• 浏览器安全策略限制<br>刷新页面后重试');
+    updateMicButton('idle');
+    S.recognition = null;
+  }
+}
+
+function stopMic(){
+  S.listening = false;
+  if (S.recognition) { try { S.recognition.abort(); } catch(e){} S.recognition = null; }
+  updateMicButton('idle');
+}
+
+// ============ 意图识别与路由 ============
+function processVoice(text){
+  if (S.processingVoice) return;
+  S.processingVoice = true;
+  updateMicButton('thinking');
+  // 停止收音但不重置按钮（由后续路由决定按钮状态）
+  S.listening = false;
+  if (S.recognition) { try { S.recognition.abort(); } catch(e){} S.recognition = null; }
+  // 30秒超时保护
+  clearTimeout(S._processingTimeout);
+  S._processingTimeout = setTimeout(function(){ S.processingVoice = false; updateMicButton('idle'); }, 30000);
+
+  var txt = text.replace(/[，。！？、\s]/g, '').toLowerCase();
+
+  // 1. 暂停命令
+  if (/暂停|等一下|停一下|休息|等等|别说了/.test(txt)) {
+    pauseConversation();
+    S.processingVoice = false;
+    return;
+  }
+
+  // 2. 继续命令（仅在暂停状态下）
+  if (S.paused && /继续|好了|可以了|回来|继续吧|开始吧/.test(txt)) {
+    resumeConversation();
+    S.processingVoice = false;
+    return;
+  }
+
+  // 3. 视觉检查命令
+  if (/看看|检查|帮我看|拍照|看一下|瞅一眼|瞧瞧/.test(txt)) {
+    doVoiceVisionCheck(text);
+    return; // doVoiceVisionCheck 会重置 processingVoice
+  }
+
+  // 4. 普通对话 → DeepSeek
+  sendToDeepSeek(text);
+}
+
+function pauseConversation(){
+  S.paused = true;
+  S.pausedByUser = true;
+  stopMic();
+  updateMicButton('paused');
+  aiChat('👁️','好的，我先安静。需要我的时候点击麦克风或者说"继续"。');
+  speak('好的，我等你。');
+}
+
+function resumeConversation(){
+  S.paused = false;
+  S.pausedByUser = false;
+  updateMicButton('idle');
+  aiChat('👁️','我回来了！有什么需要帮忙的？');
+  speak('我回来了，继续吧。');
+}
+
+// ============ 语音触发视觉检查 ============
+function doVoiceVisionCheck(userText){
+  var stepIdx = S.cs - 1;
+  if (stepIdx < 0) { S.processingVoice = false; return; }
+  var step = EMBEDDED.steps[stepIdx];
+
+  var imgData = captureFrame();
+  if (!imgData) {
+    aiChat('📷','摄像头还没开，我看不到你的操作。请确保摄像头对着拉坯机。');
+    speak('摄像头没画面，我看不到。');
+    S.processingVoice = false;
+    updateMicButton('idle');
+    return;
+  }
+
+  var base = VISION_PROMPTS[stepIdx] || {step:step.name, prompt:'请分析这张陶艺拉坯照片。用户正在做【' + step.name + '】步骤。请描述你看到的画面，判断操作是否正确，给出改进建议。用中文回答，语气鼓励、温和。'};
+  var promptText = String(base.prompt);
+  var currentSub = step.subs[S.curSub];
+  if (currentSub) {
+    promptText += '\n\n【当前子步骤】第'+(S.curSub+1)+'步：'+currentSub.a+'（'+currentSub.d+'）\n请重点检查用户是否正确完成了这个子步骤。';
+  }
+  // 附上用户的原话
+  promptText += '\n\n用户说："'+userText+'"\n请根据用户的话给出针对性回应。';
+
+  var _visionStart = Date.now();
+  aiChat('🔧','视觉API请求中… 步骤='+step.name+' 图片='+Math.round(imgData.length/1024)+'KB');
+
+  fetch('/api/vision', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      messages: [{role: 'user', content: [{type: 'text', text: promptText}, {type: 'image_url', image_url: {url: imgData}}]}],
+      max_tokens: 2000, temperature: 0.7
+    })
+  }).then(function(resp){ if (!resp.ok) throw new Error('HTTP ' + resp.status); return resp.json(); })
+  .then(function(data){
+    var elapsed = ((Date.now() - _visionStart)/1000).toFixed(1);
+    S.processingVoice = false;
+    aiChat('🔧','视觉API返回，耗时='+elapsed+'秒');
+    if (!S.ao) return;
+    var msg = null;
+    if (data.choices && data.choices[0]) msg = data.choices[0].message;
+    var text = (msg && msg.content) || (msg && msg.reasoning_content) || data.content || '';
+    var cLen = (msg && msg.content) ? msg.content.length : 0;
+    var rcLen = (msg && msg.reasoning_content) ? msg.reasoning_content.length : 0;
+    aiChat('🔧','响应 content='+cLen+'字 reasoning='+rcLen+'字 提取='+text.length+'字');
+    if (!text || text.length < 2) {
+      updateMicButton('idle');
+      aiChat('👁️','📷 已拍照，但AI正在思考中，请稍后再试或输入文字告诉我你的问题。');
+      speak('已拍照，但AI还在思考，请等一下再试。');
+      return;
+    }
+
+    updateMicButton('speaking');
+    aiChat('👁️', '<strong>AI视觉分析：</strong><br>'+text.replace(/\n/g, '<br>'));
+    speak(text.replace(/\n/g, '。'));
+    setTimeout(function(){ if (S.ao && !S.paused) updateMicButton('idle'); }, Math.max(2000, text.length * 25));
+  }).catch(function(err){
+    S.processingVoice = false;
+    if (!S.ao) return;
+    updateMicButton('idle');
+    console.log('视觉检查失败:', err);
+    aiChat('⚠️','视觉AI请求失败：'+(err.message||'网络错误')+'<br>请确认服务已启动，再试一次。');
+    speak('抱歉出了点问题，再试一次吧。');
+  });
+}
+
+function requestVisionCheck(){
+  aiChat('🔧','[调试] 视觉检查按钮被点击。processingVoice='+S.processingVoice+' ao='+S.ao);
+  if (S.processingVoice) { aiChat('⚠️','正在处理上一条，请稍等…'); return; }
+  if (!S.ao) { aiChat('⚠️','请先进入AI导师模式再检查。'); return; }
+  S.processingVoice = true;
+  openDrawer();
+  aiChat('📷','正在拍照并发送给AI分析…');
+  doVoiceVisionCheck('帮我看看现在做得对不对？');
+}
+
+// ============ 文字对话 → DeepSeek ============
+function sendToDeepSeek(text){
+  var step = EMBEDDED.steps[S.cs - 1];
+  var stepCtx = step ? ('当前步骤：'+step.name+'（'+step.tagline+'）。子步骤：'+(step.subs[S.curSub] ? step.subs[S.curSub].a+'——'+step.subs[S.curSub].d : '无')) : '';
+
+  var systemMsg = '你是AI陶艺导师，正在指导一位学生做陶艺拉坯。学生现在正在做【'+ (step?step.name:'未知') +'】步骤。请用口语化的语言回复，温和鼓励，每段话控制在100字左右，像聊天一样自然。学生说："'+text+'"。\n\n'+stepCtx;
+
+  fetch('/api/chat', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      messages: [
+        {role: 'system', content: '你是AI陶艺导师，在拉坯工作室指导一位学生。用自然的口语回复，温和鼓励。每段话控制在100字内。不要长篇大论，像聊天一样。'},
+        {role: 'user', content: systemMsg}
+      ],
+      max_tokens: 400, temperature: 0.8
+    })
+  }).then(function(resp){ if (!resp.ok) throw new Error('HTTP ' + resp.status); return resp.json(); })
+  .then(function(data){
+    S.processingVoice = false;
+    if (!S.ao) return;
+    var msg = null;
+    if (data.choices && data.choices[0]) msg = data.choices[0].message;
+    var text = (msg && msg.content) || data.content || '';
+    if (!text) { updateMicButton('idle'); aiChat('⚠️','AI回复为空，请再说一次。'); return; }
+
+    updateMicButton('speaking');
+    aiChat('🤖', text.replace(/\n/g, '<br>'));
+    speak(text);
+    setTimeout(function(){ if (S.ao && !S.paused) updateMicButton('idle'); }, Math.max(2000, text.length * 25));
+  }).catch(function(err){
+    S.processingVoice = false;
+    if (!S.ao) return;
+    updateMicButton('idle');
+    console.log('DeepSeek失败:', err);
+    aiChat('⚠️','抱歉，网络好像不太好。可以打字跟我说，或者再试一次。');
+  });
+}
+
+// ============ AI CHECK (手动检查 + 视觉识别) ============
+function showAICheck(){
+  var stepIdx = S.cs - 1;
+  var step = EMBEDDED.steps[stepIdx];
+  if (!step) return;
+
+  var overlay = document.getElementById('checkOverlay');
+  var content = document.getElementById('checkContent');
+
+  // 检查是否有视觉 API
+  fetch('/api/config').then(function(r){return r.json();}).then(function(cfg){
+    if (!cfg.vision.configured) {
+      showFallbackCheck(step);
+      return;
+    }
+    doVisionCheck(stepIdx, step);
+  }).catch(function(){
+    showFallbackCheck(step);
+  });
+}
+
+function showFallbackCheck(step){
+  // 视觉API不可用时降级为文字问答
+  var content = document.getElementById('checkContent');
+  var h = '<div class="vision-unavailable"><div class="vu-icon">📷</div><h4>视觉AI未配置</h4><p>请在 .env 中设置 VISION_API_KEY 启用真实视觉识别</p></div>';
+  if (step.checks && step.checks[0]) {
+    var ch = step.checks[0];
+    h += '<p style="margin-top:12px">当前为文字模式：<br><strong>' + ch.q + '</strong></p><div class="check-options">';
+    ch.opts.forEach(function(o){
+      h += '<div class="check-opt" onclick="handleCheck(' + o.g + ')">' + o.t + '</div>';
+    });
+    h += '</div>';
+  }
+  content.innerHTML = h;
+  document.getElementById('checkOverlay').classList.add('open');
+}
+
+function captureFrame(){
+  var video = document.getElementById('aiSelfVid');
+  var canvas = document.getElementById('aiCheckCanvas');
+  if (!video) { aiChat('🔧','captureFrame: video元素不存在'); return null; }
+  if (!canvas) { aiChat('🔧','captureFrame: canvas元素不存在'); return null; }
+  if (!video.srcObject) { aiChat('🔧','captureFrame: video.srcObject 为空，摄像头未开启'); return null; }
+  if (video.readyState < 2) { aiChat('🔧','captureFrame: 视频未就绪 readyState='+video.readyState); return null; }
+  var ctx = canvas.getContext('2d');
+  canvas.width = video.videoWidth || 640;
+  canvas.height = video.videoHeight || 480;
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  var dataUrl = canvas.toDataURL('image/jpeg', 0.75);
+  aiChat('🔧','captureFrame: 截图成功 '+canvas.width+'x'+canvas.height+' base64长度='+Math.round(dataUrl.length/1024)+'KB');
+  return dataUrl;
+}
+
+function doVisionCheck(stepIdx, step){
+  var content = document.getElementById('checkContent');
+  var overlay = document.getElementById('checkOverlay');
+  overlay.classList.add('open');
+
+  // 显示加载动画
+  content.innerHTML = '<div class="vision-loading"><div class="vision-spinner"></div><p>🔍 AI正在分析你的操作…</p><p style="font-size:0.75rem;color:var(--text-light)">正在将画面发送给视觉模型</p></div>';
+
+  // 截取摄像头画面
+  var imgData = captureFrame();
+  if (!imgData) {
+    content.innerHTML = '<div class="vision-unavailable"><div class="vu-icon">📷</div><h4>摄像头未开启</h4><p>请先确保摄像头正常工作</p><button style="padding:10px 24px;border-radius:20px;background:var(--clay);color:#fff;border:none;font-size:0.85rem;font-weight:600;cursor:pointer;margin-top:8px" onclick="document.getElementById(\'checkOverlay\').classList.remove(\'open\')">知道了</button></div>';
+    return;
+  }
+
+  // 获取提示词
+  var base = VISION_PROMPTS[stepIdx] || {step:step.name, prompt:'请分析这张陶艺拉坯照片。用户正在做【' + step.name + '】步骤。请描述你看到的画面，判断操作是否正确，给出改进建议。用中文回答，语气鼓励、温和。'};
+  var promptText = String(base.prompt);
+  var currentSub = S.curSub < step.subs.length ? step.subs[S.curSub] : null;
+  if (currentSub) {
+    promptText += '\n\n【当前子步骤】第'+(S.curSub+1)+'步：'+currentSub.a+'（'+currentSub.d+'）\n请重点检查用户是否正确完成了这个子步骤。';
+  }
+
+  // 发送给视觉 API
+  fetch('/api/vision', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      model: 'mimo-v2-omni',
+      messages: [{
+        role: 'user',
+        content: [
+          {type: 'text', text: promptText},
+          {type: 'image_url', image_url: {url: imgData}}
+        ]
+      }],
+      max_tokens: 1200,
+      temperature: 0.7
+    })
+  }).then(function(resp){
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    return resp.json();
+  }).then(function(data){
+    var text = '';
+    if (data.choices && data.choices[0] && data.choices[0].message) {
+      text = data.choices[0].message.content;
+    } else if (data.content) {
+      text = data.content;
+    } else {
+      text = JSON.stringify(data);
+    }
+
+    // 判断反馈类型：积极的还是需要改进的
+    var isGood = /正确|很好|不错|标准|到位|完美|没问题/.test(text) && !/错误|不对|需要|改进|调整|注意|小心/.test(text);
+    var verdict = isGood ? '<div class="vr-verdict vr-good">✅ 看起来不错！继续加油</div>'
+                         : '<div class="vr-verdict vr-fix">💡 有改进空间，请看分析</div>';
+
+    content.innerHTML = '<div class="vision-result">' + verdict +
+      '<div class="vr-detail">' + text.replace(/\n/g, '<br>') + '</div>' +
+      '<div class="vr-actions">' +
+        '<button class="vr-retry" onclick="showAICheck()">📷 再拍一张</button>' +
+        '<button class="vr-close" onclick="document.getElementById(\'checkOverlay\').classList.remove(\'open\')">知道了</button>' +
+      '</div></div>';
+
+    // 语音播报
+    speak(text);
+  }).catch(function(err){
+    console.log('视觉检查失败:', err);
+    content.innerHTML = '<div class="vision-unavailable"><div class="vu-icon">⚠️</div><h4>AI检查暂时失败</h4><p>' + (err.message || '网络错误') + '</p><button style="padding:10px 24px;border-radius:20px;background:var(--clay);color:#fff;border:none;font-size:0.85rem;font-weight:600;cursor:pointer;margin-top:8px" onclick="document.getElementById(\'checkOverlay\').classList.remove(\'open\')">关闭</button><button style="padding:10px 24px;border-radius:20px;background:var(--ik-milk);color:var(--clay-dark);border:1px solid var(--ik-border);font-size:0.85rem;font-weight:600;cursor:pointer;margin:8px 0 0 8px" onclick="showAICheck()">🔄 重试</button></div>';
+  });
+}
+
 function handleCheck(good){
   document.getElementById('checkOverlay').classList.remove('open');
-  const step=EMBEDDED.steps[S.cs-1];const ch=step.checks[0];
-  if(good){aiChat('✅',ch.good);speak(ch.good);}
-  else{aiChat('❌',ch.bad);speak(ch.bad);}
+  var step = EMBEDDED.steps[S.cs-1];
+  if (!step || !step.checks) return;
+  var ch = step.checks[0];
+  if (good) { aiChat('✅', ch.good); speak(ch.good); }
+  else { aiChat('❌', ch.bad); speak(ch.bad); }
 }
 function markStepDone(){
   const i=S.cs-1;
@@ -1024,59 +1795,94 @@ function markStepDone(){
 
 // ============ VOICE SYSTEM ============
 async function loadVoices(){
+  if (window.speechSynthesis) window.speechSynthesis.getVoices();
   return new Promise(resolve=>{
-    const v=window.speechSynthesis.getVoices();
+    var v=window.speechSynthesis.getVoices();
     if(v.length){S.availVoices=v;resolve(v);return;}
-    window.speechSynthesis.onvoiceschanged=()=>{S.availVoices=window.speechSynthesis.getVoices();resolve(S.availVoices);};
-    setTimeout(()=>{S.availVoices=window.speechSynthesis.getVoices();resolve(S.availVoices);},2000);
+    window.speechSynthesis.onvoiceschanged=()=>{
+      S.availVoices=window.speechSynthesis.getVoices();
+      resolve(S.availVoices);
+    };
+    setTimeout(()=>{
+      S.availVoices=window.speechSynthesis.getVoices();
+      resolve(S.availVoices);
+    },3000);
   });
 }
 function renderVoiceSelector(){
-  const zh=S.availVoices.filter(v=>v.lang.includes('zh'));
-  const allVoices=zh.length>=2?zh:S.availVoices.filter(v=>v.lang.includes('zh')||v.lang.includes('en')||v.name.includes('Microsoft'));
-  const voices=allVoices.length>=2?allVoices.slice(0,8):S.availVoices.slice(0,8);
-  if(!voices.length){document.getElementById('voiceSelector').innerHTML='<span>🎤 声音：默认</span>';return;}
-  let h='<span>🎤 声音：</span>';
-  voices.forEach((v,i)=>{
-    const label=v.name.replace(/Microsoft\s*/i,'').replace(/Online.*$/,'').replace(/Desktop.*$/,'').replace(/\(Natural\)/,'').trim()||v.lang;
-    h+='<div class="voice-opt'+(i===S.voiceIdx%voices.length?' selected':'')+'" onclick="selectVoice('+i+')">'+label+'</div>';
-  });
-  document.getElementById('voiceSelector').innerHTML=h;
-}
-function selectVoice(i){
-  const zh=S.availVoices.filter(v=>v.lang.includes('zh'));
-  const voices=zh.length>=2?zh.slice(0,8):S.availVoices.slice(0,8);
-  S.voiceIdx=i;renderVoiceSelector();save();
-  speak('你好，我是你的AI陶艺导师。试试这个声音怎么样？');
-}
-function getSelectedVoice(){
-  const zh=S.availVoices.filter(v=>v.lang.includes('zh'));
-  const voices=zh.length>=2?zh.slice(0,8):S.availVoices.slice(0,8);
-  if(!voices.length)return null;
-  return voices[S.voiceIdx%voices.length];
+  var allVoices = window.speechSynthesis.getVoices();
+  var zhVoices = allVoices.filter(function(v){ return v.lang.startsWith('zh'); });
+  var otherVoices = allVoices.filter(function(v){ return !v.lang.startsWith('zh'); });
+  var displayVoices = zhVoices.concat(otherVoices);
+  if (displayVoices.length === 0) {
+    document.getElementById('voiceSelector').innerHTML = '<span class="voice-opt unavailable">⚠ 本机无可用语音</span>';
+    return;
+  }
+  var h = '';
+  for (var i = 0; i < displayVoices.length; i++) {
+    var v = displayVoices[i];
+    var sel = S._voiceIdx === i || (!S._voiceIdx && i === 0);
+    var name = v.name.replace(/Microsoft|Online|Natural|\(.*?\)/g,'').trim() || v.name;
+    h += '<span class="voice-opt' + (sel ? ' selected' : '') + '" data-idx="' + i + '" onclick="selectVoice(' + i + ', this)">' + name + '</span>';
+  }
+  document.getElementById('voiceSelector').innerHTML = h;
+  if (S._voiceIdx === undefined && displayVoices.length > 0) S._voiceIdx = 0;
+  S._voiceList = displayVoices;
 }
 
-// ============ AI VOICE ============
-function speak(text){
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);u.lang='zh-CN';u.rate=0.9;u.pitch=1.05;
-  const v=getSelectedVoice();if(v)u.voice=v;
-  S.tts=true;u.onend=u.onerror=()=>{S.tts=false;updateVoiceBtn();document.getElementById('ttsBtn').classList.remove('playing');document.getElementById('ttsBtn').innerHTML='<svg width=22 height=22 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=1.8 stroke-linecap=round stroke-linejoin=round><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M19.1 4.9a10 10 0 010 14.2"/><path d="M15.5 8.5a5 5 0 010 7.1"/></svg>';};
-  setTimeout(()=>window.speechSynthesis.speak(u),30);
+function selectVoice(idx, el){
+  S._voiceIdx = idx;
+  document.querySelectorAll('.voice-opt').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  if (S._voiceList && S._voiceList[idx]) {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance('你好，我是你的陶艺导师。');
+    u.lang = 'zh-CN'; u.rate = 0.9;
+    u.voice = S._voiceList[idx];
+    window.speechSynthesis.speak(u);
+  }
 }
-function stopAIVoice(){window.speechSynthesis.cancel();S.tts=false;S.av=false;updateVoiceBtn();}
-function toggleAIVoice(){if(S.tts){stopAIVoice();return;}S.av=true;const step=EMBEDDED.steps[S.cs-1];if(!step)return;let t=step.name+'。'+step.tagline+'。';step.subs.forEach((s,i)=>{t+='第'+(i+1)+'步：'+s.a+'。'+s.d+'。';});speak(t);updateVoiceBtn();}
-function updateVoiceBtn(){const b=document.getElementById('aiVoiceBtn2');b.classList.toggle('active',S.tts||S.av);b.textContent=(S.tts||S.av)?'⏸ 停止':'🔊 讲解';}
+
+function getVoice(){
+  if (S._voiceList && S._voiceList.length > 0) {
+    var idx = S._voiceIdx !== undefined ? S._voiceIdx : 0;
+    return S._voiceList[idx] || S._voiceList[0];
+  }
+  var voices = window.speechSynthesis.getVoices();
+  if (voices.length > 0) return voices[0];
+  return null;
+}
+
+// ============ TTS 语音系统 (浏览器原生语音) ============
+function speak(text){
+  if (!text) return;
+  S.tts = true;
+  window.speechSynthesis.cancel();
+  setTimeout(function(){
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN'; u.rate = 0.9; u.pitch = 1.0;
+    var voice = getVoice();
+    if (voice) u.voice = voice;
+    u.onend = u.onerror = function(){ S.tts = false; };
+    window.speechSynthesis.speak(u);
+  }, 80);
+}
+
+function stopAIVoice(){
+  S.tts = false;
+  window.speechSynthesis.cancel();
+}
+
+function toggleAIVoice(){ if(S.tts){stopAIVoice();return;} S.av=true; var step=EMBEDDED.steps[S.cs-1]; if(!step)return; var t=step.name+'。'+step.tagline+'。'; step.subs.forEach(function(s,i){t+='第'+(i+1)+'步：'+s.a+'。'+s.d+'。';}); speak(t); }
+function updateVoiceBtn(){}
 
 // ============ QUICK ASK ============
 function showQuickAsk(){document.getElementById('quickAskInput').focus();}
 function sendQuickAsk(){
-  const inp=document.getElementById('quickAskInput');const q=inp.value.trim();if(!q)return;
+  var inp=document.getElementById('quickAskInput');var q=inp.value.trim();if(!q)return;
   aiChat('👤',q);inp.value='';
-  setTimeout(()=>{
-    const ans=findAnswer(q);
-    aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>',ans);speak(ans);
-  },500);
+  // 打字也走意图识别，和语音一样
+  processVoice(q);
 }
 
 // ============ QUICK REPLIES ============
@@ -1084,64 +1890,19 @@ function updateQuickReplies(){
   const step=EMBEDDED.steps[S.cs-1];
   if(!step)return;
   const replies=[
+    '帮我看看做得对不对',
     '这一步要注意什么？',
-    '我的'+step.name+'做对了吗？',
     '常见的错误有哪些？',
     '下一步是什么？'
   ];
-  if(step.checks&&step.checks[0]){
-    replies.push(step.checks[0].q);
-  }
   document.getElementById('quickReplies').innerHTML=replies.map(r=>
     '<div class="quick-reply" onclick="sendQuickReply(\''+r.replace(/'/g,'&#39;')+'\')">'+r+'</div>'
   ).join('');
 }
 function sendQuickReply(text){
   aiChat('👤',text);
-  const ans=findAnswer(text);
-  setTimeout(()=>{aiChat('<i class="ri-robot-line" style="font-size:14px;vertical-align:-0.15em"></i>',ans);speak(ans);},300);
+  processVoice(text);
 }
-function findAnswer(q){
-  const stopSet=new Set(['怎么办','是什么','为什么','有什么区别','要注意','有什么','怎么做','如何','哪个','怎么','什么','应该','需要','的方法','的技巧','怎样','怎么样','在哪','哪里','哪些','注意','要不要']);
-  // Clean: strip punctuation, then remove stop phrases
-  let clean=q.toLowerCase().replace(/[？?！!，,。.、\s]+/g,'');
-  for(const st of stopSet){clean=clean.split(st).join('');}
-  if(!clean)clean=q.replace(/[？?！!，,。.、\s]+/g,''); // fallback if everything was stripped
-
-  // 1. Search errors
-  let best=null,bestS=0;
-  for(const e of EMBEDDED.errors){
-    let s=0;for(const kw of e.kw){if(clean.includes(kw))s+=kw.length*3;}
-    if(e.s.toLowerCase().replace(/[？?！!，,。.、\s]+/g,'').includes(clean))s+=10;
-    if(s>bestS){bestS=s;best=e;}
-  }
-  if(best&&bestS>=3)return '关于<strong>'+best.s+'</strong>：'+best.cr.st.join('；')+'。'+best.cr.tp;
-  // 2. Search step subs
-  const step=EMBEDDED.steps[S.cs-1];
-  if(step){
-    let bestSub=null,subS=0;
-    for(const sub of step.subs){
-      const t=(sub.a+sub.d).toLowerCase();
-      let s=0;
-      // ngram 2-4 on clean keyword
-      for(let len=4;len>=2;len--){
-        for(let i=0;i<=clean.length-len;i++){
-          if(t.includes(clean.slice(i,i+len)))s+=len*1.5;
-        }
-      }
-      // Also check original query against sub text
-      const orig=q.replace(/[？?！!，,。.、\s]+/g,'');
-      if(t.includes(orig))s+=15;
-      for(const ch of clean){if(t.includes(ch))s+=0.5;}
-      if(s>subS){subS=s;bestSub=sub;}
-    }
-    if(bestSub&&subS>=2)return '关于这个问题：'+bestSub.a+'——'+bestSub.d;
-    // Fallback: step summary
-    if(subS>=1)return '关于<strong>'+step.name+'</strong>：'+step.subs.map(s=>s.a).join('；')+'。';
-  }
-  return '这个问题我需要更多信息。你可以试试：1. 点击「👀 AI检查」让AI诊断你的操作 2. 在「🆘求助」菜单搜索具体症状 3. 或者问问真人教师。';
-}
-
 // ============ TTS (standalone) ============
 async function toggleTTS(){
   if(S.tts){window.speechSynthesis.cancel();S.tts=false;document.getElementById('ttsBtn').classList.remove('playing');return;}
@@ -1169,6 +1930,8 @@ document.addEventListener('keydown',e=>{
   if(e.target.closest('video')||e.target.closest('input')||e.target.closest('textarea')) return;
   if(e.key==='ArrowRight'&&S.cs<10)goToStep(S.cs+1);
   if(e.key==='ArrowLeft'&&S.cs>0)goToStep(S.cs-1);
+  // 空格键 = 麦克风开关（仅在AI导师模式下）
+  if(e.key===' '&&S.ao){e.preventDefault();toggleMic();}
 });
 // 桌面端鼠标滚轮翻页
 let _wheelT=0;
@@ -1182,10 +1945,80 @@ document.getElementById('mainContent').addEventListener('wheel',function(e){
 },{passive:true});
 document.getElementById('checkOverlay').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
 
+// ============ 底部抽屉交互 ============
+var _drawerOpen = false;
+var _drawerStartY = 0;
+var _drawerStartT = 0;
+
+function openDrawer(){
+  if (_drawerOpen) return;
+  _drawerOpen = true;
+  document.getElementById('drawerBody').classList.remove('collapsed');
+  document.getElementById('drawerContainer').classList.add('pulled');
+  document.querySelector('.drawer-handle-zone .handle-label').textContent = '下拉收起';
+  autoCloseDrawer();
+}
+
+function closeDrawer(){
+  if (!_drawerOpen) return;
+  _drawerOpen = false;
+  document.getElementById('drawerContainer').classList.remove('pulled');
+  setTimeout(function(){
+    if (!_drawerOpen) document.getElementById('drawerBody').classList.add('collapsed');
+  }, 350);
+  document.querySelector('.drawer-handle-zone .handle-label').textContent = '上拉查看对话记录';
+}
+
+function toggleDrawer(){
+  if (_drawerOpen) closeDrawer(); else openDrawer();
+}
+
+// 点击拉手切换
+document.getElementById('drawerHandle').addEventListener('click', function(e){
+  toggleDrawer();
+});
+
+// 触控拖拽
+document.getElementById('drawerHandle').addEventListener('touchstart', function(e){
+  _drawerStartY = e.touches[0].clientY;
+  _drawerStartT = Date.now();
+}, {passive: true});
+
+document.getElementById('drawerHandle').addEventListener('touchend', function(e){
+  var dy = _drawerStartY - e.changedTouches[0].clientY;
+  var dt = Date.now() - _drawerStartT;
+  // 快速滑动或拖拽超过30px才切换
+  if (Math.abs(dy) > 30 || (Math.abs(dy) > 10 && dt < 300)) {
+    if (dy > 0) openDrawer();
+    else closeDrawer();
+  }
+});
+
+// 鼠标滚轮在抽屉拉手上
+document.getElementById('drawerHandle').addEventListener('wheel', function(e){
+  if (e.deltaY > 10) openDrawer();
+  else if (e.deltaY < -10) closeDrawer();
+}, {passive: true});
+
+// 自动收起计时器
+var _drawerAutoTimer = null;
+function autoCloseDrawer(){
+  clearTimeout(_drawerAutoTimer);
+  _drawerAutoTimer = setTimeout(function(){
+    if (_drawerOpen) closeDrawer();
+  }, 12000); // 12秒后自动收起
+}
+// AI回复时重置计时
+var _origAiChat = aiChat;
+aiChat = function(icon, msg){
+  _origAiChat(icon, msg);
+  if (S.ao) { openDrawer(); autoCloseDrawer(); }
+};
+
 function showCultureToast(i){
   const fact=EMBEDDED.culture.stepFacts[i];
   if(!fact)return;
-  const t=document.createElement('div');t.className='culture-toast';t.textContent='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.2em;margin-right:4px"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> '+fact;
+  const t=document.createElement('div');t.className='culture-toast';t.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.2em;margin-right:4px"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> '+fact;
   document.body.appendChild(t);
   requestAnimationFrame(()=>{t.classList.add('show');});
   setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400);},3000);
@@ -1201,6 +2034,76 @@ function showCelebration(){
 }
 function init(){renderAll();document.addEventListener('click',function w(){loadVoices();},{once:true});}
 init();
+</script>
+
+<div class="drag-pet" id="dragPet" onclick="window.location.href='/explore.html'" title="陶瓷知识助手">
+  <div class="pet-inner">
+    <div class="pet-glow"></div>
+    <img src="/images/character.png" alt="陶瓷知识助手" loading="lazy">
+    <span class="pet-badge">知识</span>
+  </div>
+  <div class="pet-tooltip">拖动我~ 点击探索陶瓷文化</div>
+</div>
+
+<script>
+(function(){
+  var pet = document.getElementById('dragPet');
+  if (!pet) return;
+  var saved = localStorage.getItem('pottery_pet_pos');
+  if (saved) {
+    var pos = JSON.parse(saved);
+    pet.style.left = pos.left;
+    pet.style.top = pos.top;
+    pet.style.right = 'auto';
+    pet.style.bottom = 'auto';
+  } else {
+    pet.style.right = '20px';
+    pet.style.top = '60px';
+    pet.style.left = 'auto';
+    pet.style.bottom = 'auto';
+  }
+  var offsetX, offsetY;
+  pet.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    var rect = pet.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+  pet.addEventListener('touchstart', function(e) {
+    var t = e.touches[0];
+    var rect = pet.getBoundingClientRect();
+    offsetX = t.clientX - rect.left;
+    offsetY = t.clientY - rect.top;
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd);
+  });
+  function onMove(e) {
+    pet.style.left = (e.clientX - offsetX) + 'px';
+    pet.style.top = (e.clientY - offsetY) + 'px';
+    pet.style.right = 'auto';
+    pet.style.bottom = 'auto';
+  }
+  function onTouchMove(e) {
+    e.preventDefault();
+    var t = e.touches[0];
+    pet.style.left = (t.clientX - offsetX) + 'px';
+    pet.style.top = (t.clientY - offsetY) + 'px';
+    pet.style.right = 'auto';
+    pet.style.bottom = 'auto';
+  }
+  function onUp() {
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    localStorage.setItem('pottery_pet_pos', JSON.stringify({ left: pet.style.left, top: pet.style.top }));
+  }
+  function onTouchEnd() {
+    document.removeEventListener('touchmove', onTouchMove);
+    document.removeEventListener('touchend', onTouchEnd);
+    localStorage.setItem('pottery_pet_pos', JSON.stringify({ left: pet.style.left, top: pet.style.top }));
+  }
+})();
 </script>
 </body>
 </html>

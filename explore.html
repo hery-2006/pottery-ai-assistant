@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陶瓷知识探索 — 陶艺AI学习系统</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:root {
+  --ik-brown: #996237; --ik-milk: #F8F3E9; --ik-sand: #E9DBCD;
+  --ik-border: #D4B99C; --ik-bg: #FCF9F2; --clay: #c67b4b;
+  --clay-dark: #8b4513; --clay-warm: #faf0e6; --glaze: #5b8c85;
+  --fire: #d4534a; --bg: #fdfaf6; --card: #ffffff;
+  --text: #3d3226; --text-light: #7a6f64; --border: #e8ddd0;
+  --shadow: 0 4px 16px rgba(61,50,38,0.07); --shadow-lg: 0 8px 32px rgba(61,50,38,0.1);
+  --radius: 14px; --radius-lg: 20px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Serif SC", serif;
+  background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh;
+  scroll-behavior: smooth;
+}
+.header {
+  background: linear-gradient(135deg, #4a2a10 0%, #7a4a24 35%, #9a6a44 65%, #b0805a 100%);
+  color: #fff; padding: 16px 0; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 24px rgba(61,50,38,0.18);
+}
+.header::after { content:''; position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(232,201,160,0.5),transparent); }
+.header-inner { max-width: 1400px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.header h1 { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.back-btn { display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:16px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.76rem;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);transition:all 0.2s;flex-shrink:0 }
+.back-btn:hover{background:rgba(255,255,255,0.14);color:#fff}
+
+.main { max-width: 1400px; margin: 0 auto; padding: 24px 28px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, rgba(153,98,55,0.08), rgba(91,140,133,0.06));
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 40px 36px; text-align: center; margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.hero h2 { font-size: 1.5rem; color: var(--clay-dark); margin-bottom: 8px; }
+.hero p { font-size: 0.9rem; color: var(--text-light); max-width: 600px; margin: 0 auto; }
+.hero .hero-stats { display: flex; justify-content: center; gap: 32px; margin-top: 20px; flex-wrap: wrap; }
+.hero .hs-item { text-align: center; }
+.hero .hs-num { font-size: 1.5rem; font-weight: 800; color: var(--ik-brown); }
+.hero .hs-lbl { font-size: 0.7rem; color: var(--text-light); }
+
+/* Section title */
+.section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--clay-dark); scroll-margin-top: 120px; }
+
+/* 窑系卡片 */
+.kiln-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
+.kiln-card {
+  background: var(--card); border-radius: var(--radius); padding: 20px 14px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  text-align: center; cursor: pointer; transition: all 0.25s;
+  position: relative; overflow: hidden;
+}
+.kiln-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--ik-brown); }
+.kiln-card .kc-icon {
+  width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 10px;
+}
+.kiln-card .kc-icon svg { width: 100%; height: 100%; }
+.kc-ru { background: linear-gradient(135deg, #dceef0, #c0dce0); }
+.kc-guan { background: linear-gradient(135deg, #e8e0d0, #d8d0c0); }
+.kc-ge { background: linear-gradient(135deg, #f0e8d8, #e0d4c0); }
+.kc-jun { background: linear-gradient(135deg, #e8d8f0, #dcc8e8); }
+.kc-ding { background: linear-gradient(135deg, #f8f4f0, #f0ece0); }
+.kiln-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 3px; }
+.kiln-card .kc-era { font-size: 0.68rem; color: var(--text-light); margin-bottom: 6px; }
+.kiln-card .kc-trait { font-size: 0.7rem; color: var(--ik-brown); line-height: 1.4; }
+
+/* 知识卡片双栏 */
+.know-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+.know-card {
+  background: var(--card); border-radius: var(--radius); padding: 20px 22px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  cursor: pointer; transition: all 0.25s; display: flex; gap: 14px; align-items: flex-start;
+}
+.know-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--ik-brown); }
+.know-card .ki-icon { font-size: 2rem; flex-shrink: 0; width: 48px; text-align: center; }
+.know-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+.know-card p { font-size: 0.8rem; color: var(--text-light); line-height: 1.55; }
+
+/* 陶瓷诗歌 */
+.poem-bar {
+  background: linear-gradient(135deg, var(--ik-milk), #fdf8f2);
+  border: 1px solid var(--ik-border); border-radius: var(--radius);
+  padding: 24px 28px; margin-bottom: 28px; box-shadow: var(--shadow);
+}
+.poem-bar .poem-text { font-size: 1.05rem; color: var(--clay-dark); font-style: italic; text-align: center; line-height: 1.8; }
+.poem-bar .poem-author { font-size: 0.8rem; color: var(--text-light); text-align: center; margin-top: 8px; }
+
+/* 釉色色卡画廊 */
+.glaze-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+.glaze-card {
+  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+  border: 1px solid var(--border); overflow: hidden; transition: all 0.25s;
+}
+.glaze-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--ik-brown); }
+.glaze-swatch { height: 80px; position: relative; display: flex; align-items: flex-end; padding: 6px 10px; }
+.glaze-swatch .gs-era {
+  font-size: 0.6rem; color: rgba(255,255,255,0.85); background: rgba(0,0,0,0.3);
+  padding: 2px 8px; border-radius: 8px; font-weight: 600;
+}
+.glaze-info { padding: 12px 14px 14px; }
+.glaze-info h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 3px; }
+.glaze-info p { font-size: 0.72rem; color: var(--text-light); line-height: 1.5; }
+
+/* 历代名瓷赏析 */
+.master-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 28px; }
+.master-card {
+  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+  border: 1px solid var(--border); overflow: hidden; transition: all 0.3s;
+  position: relative;
+}
+.master-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--ik-brown); }
+.master-card .mc-top {
+  height: 120px; display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; position: relative; overflow: hidden;
+}
+.master-card .mc-top::after {
+  content:''; position:absolute;bottom:0;left:0;right:0;height:40px;
+  background:linear-gradient(transparent, var(--card));
+}
+.master-card .mc-body { padding: 12px 14px 16px; }
+.master-card .mc-body h4 { font-size: 0.82rem; font-weight: 700; margin-bottom: 2px; }
+.master-card .mc-era { font-size: 0.65rem; color: var(--ik-brown); font-weight: 600; margin-bottom: 4px; }
+.master-card .mc-body p { font-size: 0.72rem; color: var(--text-light); line-height: 1.5; }
+.mc-bg-1 { background: linear-gradient(135deg, #f5e6d0, #eddcc0); }
+.mc-bg-2 { background: linear-gradient(135deg, #e8dcc8, #dcc8b0); }
+.mc-bg-3 { background: linear-gradient(135deg, #dceef0, #c8dde0); }
+.mc-bg-4 { background: linear-gradient(135deg, #d8e0f0, #c0d0e8); }
+.mc-bg-5 { background: linear-gradient(135deg, #f0e0d0, #e8c8b0); }
+.mc-bg-6 { background: linear-gradient(135deg, #f0d8d0, #e8c8c0); }
+.mc-bg-7 { background: linear-gradient(135deg, #e0d0e0, #d0c0d8); }
+.mc-bg-8 { background: linear-gradient(135deg, #f0e8d8, #e8dcc8); }
+.mc-bg-9 { background: linear-gradient(135deg, #f8f0e0, #f0e4d0); }
+.mc-bg-10 { background: linear-gradient(135deg, #d8e8e0, #c0d8d0); }
+
+/* 陶瓷术语速查（手风琴） */
+.glossary { margin-bottom: 28px; }
+.gloss-item {
+  background: var(--card); border-radius: var(--radius);
+  border: 1px solid var(--border); margin-bottom: 8px;
+  box-shadow: var(--shadow); overflow: hidden; transition: all 0.2s;
+}
+.gloss-item:hover { border-color: var(--ik-border); }
+.gloss-term {
+  padding: 14px 18px; display: flex; align-items: center; gap: 10px;
+  cursor: pointer; font-size: 0.88rem; font-weight: 600; user-select: none;
+  transition: background 0.2s;
+}
+.gloss-term:hover { background: #fdfaf6; }
+.gloss-term .gt-icon {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; flex-shrink: 0;
+}
+.gloss-term .gt-arrow { margin-left: auto; transition: transform 0.25s; font-size: 0.8rem; color: var(--text-light); }
+.gloss-term.open .gt-arrow { transform: rotate(180deg); }
+.gloss-def {
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s;
+  padding: 0 18px; font-size: 0.8rem; color: var(--text-light); line-height: 1.6;
+}
+.gloss-def.open { max-height: 300px; padding: 0 18px 16px; }
+
+/* 时间线 */
+.timeline { margin-bottom: 28px; }
+.tl-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+.tl-item:last-child { border-bottom: none; }
+.tl-year {
+  flex-shrink: 0; min-width: 72px; text-align: center;
+  background: var(--ik-sand); border-radius: 8px; padding: 6px 4px;
+  font-weight: 700; font-size: 0.8rem; color: var(--ik-brown);
+}
+.tl-body h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+.tl-body p { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
+
+/* 冷知识快问按钮 */
+.quick-qs { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 18px 4px; }
+.qk-btn {
+  padding: 5px 12px; border-radius: 14px; border: 1px solid var(--ik-border);
+  background: #fdfaf6; font-size: 0.72rem; cursor: pointer; font-family: inherit;
+  color: var(--ik-brown); transition: all 0.2s; white-space: nowrap;
+}
+.qk-btn:hover { background: var(--ik-milk); border-color: var(--ik-brown); color: var(--clay-dark); }
+
+.btn-row { display: flex; gap: 10px; justify-content: center; margin-top: 24px; margin-bottom: 32px; }
+.btn-primary {
+  padding: 10px 22px; border-radius: 22px; border: none; font-weight: 700;
+  font-size: 0.85rem; cursor: pointer; text-decoration: none; font-family: inherit;
+  background: var(--ik-brown); color: #fff; box-shadow: 0 4px 12px rgba(153,98,55,0.25);
+  transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+}
+.btn-primary:hover { background: var(--clay-dark); transform: translateY(-1px); }
+
+/* ===== 浮动问答气泡 ===== */
+.chat-bubble-btn {
+  position: fixed; bottom: 100px; right: 24px; z-index: 900;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--glaze), #3d6a64);
+  color: #fff; border: none; cursor: pointer;
+  box-shadow: 0 6px 24px rgba(91,140,133,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; transition: all 0.25s ease;
+}
+.chat-bubble-btn:active { transform: scale(0.9); }
+.chat-bubble-btn .badge-dot {
+  position: absolute; top: -2px; right: -2px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--fire); color: #fff;
+  font-size: 0.6rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(212,83,74,0.4);
+}
+.chat-popup {
+  position: fixed; bottom: 168px; right: 24px; z-index: 899;
+  width: 380px; max-height: 520px;
+  background: var(--card); border-radius: var(--radius-lg);
+  box-shadow: 0 8px 40px rgba(61,50,38,0.2);
+  border: 1px solid var(--ik-border);
+  display: none; flex-direction: column;
+  overflow: hidden;
+  animation: chatSlideUp 0.3s cubic-bezier(0.32,0.72,0,1);
+}
+.chat-popup.open { display: flex; }
+@keyframes chatSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.chat-popup-header {
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  font-weight: 700; font-size: 0.9rem; color: var(--clay-dark);
+  background: linear-gradient(180deg, #fdfaf5, #fff);
+  cursor: grab; user-select: none;
+}
+.chat-popup-header:active { cursor: grabbing; }
+.chat-popup-header button { background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--text-light);padding:2px 6px;border-radius:6px;transition:background 0.2s; }
+.ec-messages {
+  flex: 1; padding: 14px 16px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 10px;
+  background: linear-gradient(180deg, #fefdfb, #fdfaf6);
+  min-height: 200px; max-height: 320px;
+}
+.ec-msg { max-width: 92%; }
+.ec-msg.user { align-self: flex-end; }
+.ec-msg.assistant { align-self: flex-start; }
+.ec-bubble {
+  padding: 10px 14px; border-radius: 14px; font-size: 0.84rem; line-height: 1.6;
+}
+.ec-msg.user .ec-bubble {
+  background: linear-gradient(135deg, var(--clay), #b87040);
+  color: #fff; border-bottom-right-radius: 4px;
+}
+.ec-msg.assistant .ec-bubble {
+  background: #f8f4ee; color: var(--text); border-bottom-left-radius: 4px;
+  border: 1px solid #f0e8dc;
+}
+.ec-input-row {
+  display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border);
+  background: #fefdfb;
+}
+.ec-input-row input {
+  flex: 1; padding: 9px 14px; border-radius: 20px; border: 1.5px solid var(--border);
+  font-size: 0.84rem; outline: none; font-family: inherit; background: #fdfaf6;
+}
+.ec-input-row input:focus { border-color: var(--ik-brown); }
+.ec-input-row button {
+  padding: 9px 18px; border-radius: 20px; border: none;
+  background: linear-gradient(135deg, var(--glaze), #3d6a64);
+  color: #fff; font-weight: 600; cursor: pointer; font-size: 0.82rem;
+  font-family: inherit; display: flex; align-items: center; gap: 4px;
+  transition: all 0.2s; box-shadow: 0 2px 8px rgba(91,140,133,0.25);
+}
+.ec-input-row button:hover { background: linear-gradient(135deg, #3d6a64, #2a4a46); }
+.ec-typing { opacity: 0.5; animation: ecPulse 1.2s infinite; }
+@keyframes ecPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+@media(max-width:480px) {
+  .chat-popup { width: calc(100vw - 32px); right: 16px; bottom: 160px; }
+  .chat-bubble-btn { right: 16px; bottom: 90px; }
+}
+
+@media(max-width:1024px) { .master-grid { grid-template-columns: repeat(3, 1fr); } }
+@media(max-width:900px) {
+  .kiln-grid { grid-template-columns: repeat(3, 1fr); }
+  .know-grid { grid-template-columns: 1fr; }
+  .glaze-grid { grid-template-columns: repeat(2, 1fr); }
+  .master-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width:600px) {
+  .glaze-grid { grid-template-columns: 1fr 1fr; }
+  .master-grid { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:480px) {
+  .kiln-grid { grid-template-columns: 1fr 1fr; }
+  .glaze-grid { grid-template-columns: 1fr; }
+  .master-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== 创意参考（文创+纹样） ===== */
+.ref-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 28px;
+}
+.ref-card {
+  background: var(--card); border-radius: var(--radius-lg); padding: 22px 20px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  text-align: center; cursor: pointer; transition: all 0.3s;
+  text-decoration: none; display: block;
+}
+.ref-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--ik-brown); }
+.ref-card .rc-icon { font-size: 2.2rem; display: block; margin-bottom: 6px; }
+.ref-card .rc-name { font-size: 0.95rem; font-weight: 700; color: var(--text); display: block; }
+.ref-card .rc-desc { font-size: 0.75rem; color: var(--text-light); display: block; margin-top: 3px; line-height: 1.5; }
+.ref-card .rc-tag { display: inline-block; font-size: 0.6rem; padding: 3px 10px; border-radius: 8px; margin-top: 6px; font-weight: 600; }
+.rt-redbook { background: #fff2f0; color: #ff2442; }
+.rt-bili { background: #fce8ef; color: #FB7299; }
+.rt-douyin { background: #f0f0f0; color: #333; }
+.rt-pattern { background: var(--ik-milk); color: var(--ik-brown); }
+
+/* ===== 学生作品墙 ===== */
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px;
+}
+.gallery-card {
+  border-radius: var(--radius); overflow: hidden; position: relative;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  background: linear-gradient(180deg, #fefdfb, #fdfaf6);
+  min-height: 140px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.25s;
+}
+.gallery-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.gallery-card .gc-placeholder {
+  font-size: 2.5rem; opacity: 0.3; margin-bottom: 4px;
+}
+.gallery-card .gc-label {
+  font-size: 0.68rem; color: var(--text-light); font-weight: 500;
+}
+.gallery-card.upload-card {
+  border: 2px dashed var(--ik-border);
+  background: linear-gradient(180deg, #fdfaf5, #fefdfb);
+  cursor: pointer;
+}
+.gallery-card.upload-card:hover {
+  border-color: var(--ik-brown);
+  background: var(--ik-milk);
+}
+.gallery-card .gc-placeholder.upload-icon {
+  font-size: 2rem; opacity: 0.5;
+}
+@media(max-width:900px) { .ref-grid { grid-template-columns: 1fr 1fr; } .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:480px) { .ref-grid { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ===== 可拖拽IP形象 ===== */
+.drag-pet {
+  position: fixed; z-index: 999;
+  cursor: grab; perspective: 800px;
+  width: 64px; height: 64px;
+  touch-action: none;
+  transition: none;
+}
+.drag-pet:active { cursor: grabbing; }
+.drag-pet .pet-inner {
+  width: 64px; height: 64px; border-radius: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 6px 24px rgba(153,98,55,0.2), 0 0 0 2px rgba(255,255,255,0.5), 0 0 0 4px rgba(198,123,75,0.1);
+  animation: petFloat 3s ease-in-out infinite;
+}
+.drag-pet .pet-inner:hover { transform: rotateY(15deg) rotateX(-8deg) scale(1.08); }
+.drag-pet .pet-inner:active { transform: rotateY(180deg) scale(0.92); }
+.drag-pet img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.drag-pet .pet-glow {
+  position: absolute; inset: -3px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(251,114,153,0.12), rgba(99,102,241,0.08), rgba(255,152,0,0.08));
+  filter: blur(5px); z-index: -1;
+  animation: petGlow 3s ease-in-out infinite alternate;
+}
+.drag-pet .pet-badge {
+  position: absolute; top: -6px; right: -6px;
+  background: linear-gradient(135deg, #FB7299, #F5587C);
+  color: #fff; font-size: 0.5rem; font-weight: 700;
+  padding: 2px 7px; border-radius: 9px;
+  box-shadow: 0 2px 6px rgba(251,114,153,0.4);
+  white-space: nowrap;
+}
+.drag-pet .pet-tooltip {
+  position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(6px);
+  background: rgba(42,32,24,0.92); backdrop-filter: blur(8px);
+  color: #f0e6d8; font-size: 0.68rem; padding: 6px 12px;
+  border-radius: 8px; white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.drag-pet:hover .pet-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
+@keyframes petFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes petGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+/* ===== 快捷导航栏（跟随滚动） ===== */
+.quick-nav {
+  display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px;
+  padding: 10px 14px; background: var(--card); border-radius: var(--radius);
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  position: sticky; top: 56px; z-index: 50;
+  backdrop-filter: blur(8px); background: rgba(255,255,255,0.92);
+}
+.quick-nav a {
+  padding: 4px 10px; border-radius: 12px; font-size: 0.7rem;
+  text-decoration: none; color: var(--text-light); font-weight: 500;
+  background: var(--ik-milk); border: 1px solid var(--border);
+  transition: all 0.2s; white-space: nowrap;
+}
+.quick-nav a:hover { background: var(--ik-brown); color: #fff; border-color: var(--ik-brown); }
+
+/* ===== 折叠板块 ===== */
+.collapse-toggle {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.72rem; color: var(--clay); font-weight: 600;
+  cursor: pointer; padding: 6px 12px; margin-top: 4px;
+  border-radius: 8px; transition: all 0.2s;
+  user-select: none; width: fit-content;
+}
+.collapse-toggle:hover { background: var(--ik-milk); }
+.collapse-toggle .ct-arrow { transition: transform 0.25s; font-size: 0.6rem; }
+.collapse-toggle.open .ct-arrow { transform: rotate(180deg); }
+.collapse-body { overflow: hidden; max-height: 0; transition: max-height 0.4s ease; }
+.collapse-body.open { max-height: 6000px; }
+.collapse-body .collapse-fade {
+  max-height: 260px; overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.collapse-body.open .collapse-fade { max-height: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <a href="/login.html" class="back-btn"><i class="ri-arrow-left-line"></i>切换角色</a>
+    <h1>🏺 陶瓷知识探索</h1>
+    <span></span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="hero">
+    <h2>🏺 探索中国陶瓷的千年魅力</h2>
+    <p>中国是瓷器的故乡。从新石器时代的彩陶到宋代的五大名窑，从元青花到清粉彩——陶瓷史就是一部中华文明史。</p>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-num">2万+</div><div class="hs-lbl">年陶瓷历史</div></div>
+      <div class="hs-item"><div class="hs-num">5</div><div class="hs-lbl">大名窑</div></div>
+      <div class="hs-item"><div class="hs-num">10</div><div class="hs-lbl">项拉坯工艺</div></div>
+      <div class="hs-item"><div class="hs-num">72</div><div class="hs-lbl">道制瓷工序</div></div>
+      <div class="hs-item"><div class="hs-num">14</div><div class="hs-lbl">种经典釉色</div></div>
+      <div class="hs-item"><div class="hs-num">10</div><div class="hs-lbl">件传世名瓷</div></div>
+    </div>
+  </div>
+
+  <div class="poem-bar" id="poemBar">
+
+  <!-- 快捷导航 -->
+  <div class="quick-nav">
+    <a href="#sec-kiln">五大名窑</a>
+    <a href="#sec-creative">文创参考</a>
+    <a href="#sec-pattern">纹样创新</a>
+    <a href="#sec-gallery">学生作品</a>
+    <a href="#sec-know">知识长廊</a>
+    <a href="#sec-glaze">釉色色卡</a>
+    <a href="#sec-master">名瓷赏析</a>
+    <a href="#sec-glossary">术语速查</a>
+    <a href="#sec-timeline">发展简史</a>
+  </div>
+    <div class="poem-text" id="poemText">九秋风露越窑开，夺得千峰翠色来。</div>
+    <div class="poem-author" id="poemAuthor">—— 陆龟蒙《秘色越器》</div>
+  </div>
+
+  <div class="section-title" id="sec-kiln">🏺 五大名窑</div>
+  <div class="kiln-grid" id="kilnGrid"></div>
+
+  <div class="section-title" id="sec-creative">🎨 文创参考 <span style="font-size:0.72rem;color:var(--text-light);font-weight:400">（搜灵感 · 做设计）</span></div>
+  <div class="ref-grid" id="creativeRefGrid"></div>
+
+  <div class="section-title" id="sec-pattern">〰️ 纹样创新 <span style="font-size:0.72rem;color:var(--text-light);font-weight:400">（传统纹样 · 现代演绎）</span></div>
+  <div class="ref-grid" id="patternRefGrid"></div>
+
+  <div class="section-title" id="sec-gallery">🖼️ 学生作品 <span style="font-size:0.72rem;color:var(--text-light);font-weight:400">（点击上传你的陶艺作品）</span></div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+
+  <div class="section-title" id="sec-know">📚 陶瓷知识长廊 <span style="font-size:0.7rem;color:var(--text-light);font-weight:400">（16个陶瓷知识点）</span></div>
+  <div class="collapse-body open" id="collapseKnow"><div class="collapse-fade">
+  <div class="know-grid" id="knowGrid"></div>
+  </div><div class="collapse-toggle open" id="toggleKnow" onclick="toggleCollapse('know')"><span class="ct-arrow">▼</span> <span id="toggleKnowLabel">收起</span></div></div>
+
+  <div class="section-title" id="sec-glaze">🎨 釉色色卡画廊 <span style="font-size:0.7rem;color:var(--text-light);font-weight:400">（14种经典釉色）</span></div>
+  <div class="collapse-body open" id="collapseGlaze"><div class="collapse-fade">
+  <div class="glaze-grid" id="glazeGrid"></div>
+  </div><div class="collapse-toggle open" id="toggleGlaze" onclick="toggleCollapse('glaze')"><span class="ct-arrow">▼</span> <span id="toggleGlazeLabel">收起</span></div></div>
+
+  <div class="section-title" id="sec-master">🏺 历代名瓷赏析 <span style="font-size:0.7rem;color:var(--text-light);font-weight:400">（10件传世名瓷）</span></div>
+  <div class="collapse-body open" id="collapseMaster"><div class="collapse-fade">
+  <div class="master-grid" id="masterGrid"></div>
+  </div><div class="collapse-toggle open" id="toggleMaster" onclick="toggleCollapse('master')"><span class="ct-arrow">▼</span> <span id="toggleMasterLabel">收起</span></div></div>
+
+  <div class="section-title" id="sec-glossary">📖 陶瓷术语速查 <span style="font-size:0.7rem;color:var(--text-light);font-weight:400">（点击展开）</span></div>
+  <div class="collapse-body open" id="collapseGlossary"><div class="collapse-fade">
+  <div class="glossary" id="glossary"></div>
+  </div><div class="collapse-toggle open" id="toggleGlossary" onclick="toggleCollapse('glossary')"><span class="ct-arrow">▼</span> <span id="toggleGlossaryLabel">收起</span></div></div>
+
+  <div class="section-title" id="sec-timeline">📜 陶瓷发展简史 <span style="font-size:0.7rem;color:var(--text-light);font-weight:400">（12个历史阶段）</span></div>
+  <div class="collapse-body open" id="collapseTimeline"><div class="collapse-fade">
+  <div class="timeline" id="timeline"></div>
+  </div><div class="collapse-toggle open" id="toggleTimeline" onclick="toggleCollapse('timeline')"><span class="ct-arrow">▼</span> <span id="toggleTimelineLabel">收起</span></div></div>
+
+  <!-- 浮动问答 -->
+  <button class="chat-bubble-btn" id="chatBubbleBtn" onclick="toggleChatPopup()">
+    <i class="ri-chat-3-line"></i>
+    <span class="badge-dot">!</span>
+  </button>
+  <div class="chat-popup" id="chatPopup">
+    <div class="chat-popup-header" id="chatDragHandle">
+      <span><i class="ri-chat-smile-2-line" style="color:var(--glaze)"></i> 陶瓷文化问答</span>
+      <button onclick="toggleChatPopup()">✕</button>
+    </div>
+    <div class="ec-messages" id="ecMessages">
+      <div class="ec-msg assistant"><div class="ec-bubble">你好！我是陶瓷文化助手。关于中国陶瓷的历史、名窑、器型、釉色、工艺……任何陶瓷文化相关的问题，都可以问我～</div></div>
+    </div>
+    <div class="quick-qs" id="quickQs" style="padding:0 16px 8px;display:flex;flex-wrap:wrap;gap:4px"></div>
+    <div class="ec-input-row">
+      <input type="text" id="ecInput" placeholder="比如：宋代五大名窑各有什么特点？" onkeydown="if(event.key==='Enter')sendEcMsg()">
+      <button onclick="sendEcMsg()"><i class="ri-send-plane-fill"></i> 提问</button>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <a href="/login.html" class="btn-primary"><i class="ri-arrow-left-line"></i>返回登录</a>
+  </div>
+
+</div>
+
+<script>
+var POEMS = [
+  { text: "九秋风露越窑开，夺得千峰翠色来。", author: "陆龟蒙《秘色越器》" },
+  { text: "雨过天青云破处，这般颜色做将来。", author: "传周世宗柴荣语" },
+  { text: "白釉青花一火成，花从釉里透分明。", author: "龚轼《陶歌》" },
+  { text: "入窑一色，出窑万彩。", author: "钧窑谚语" },
+  { text: "白玉金边素瓷胎，雕龙描凤巧安排。", author: "乾隆《咏白玉金边瓷》" },
+  { text: "纵有家财万贯，不如汝瓷一片。", author: "古玩行谚语" },
+  { text: "陶尽门前土，屋上无片瓦。", author: "梅尧臣《陶者》" },
+  { text: "花落青瓷映绿苔，一炉春雪待君来。", author: "现代·陶艺随笔" }
+];
+
+var KILNS = [
+  { name: "汝窑", era: "北宋", loc: "河南汝州", trait: "天青釉、玛瑙入釉、蝉翼纹开片", rank: "五大名窑之首", cls: "kc-ru" },
+  { name: "官窑", era: "北宋—南宋", loc: "河南开封/浙江杭州", trait: "紫口铁足、粉青釉色、大开片", rank: "五大名窑之一", cls: "kc-guan" },
+  { name: "哥窑", era: "南宋", loc: "浙江龙泉", trait: "金丝铁线、冰裂纹、米黄/灰青", rank: "五大名窑之一", cls: "kc-ge" },
+  { name: "钧窑", era: "北宋—金元", loc: "河南禹州", trait: "窑变釉色、蚯蚓走泥纹、入窑一色出窑万彩", rank: "五大名窑之一", cls: "kc-jun" },
+  { name: "定窑", era: "北宋", loc: "河北曲阳", trait: "白釉印花、刻花、覆烧芒口", rank: "五大名窑之一", cls: "kc-ding" }
+];
+
+var FACTS = [
+  { icon: "🏺", title: "最早的陶器", text: "中国最早的陶器可追溯到约2万年前，江西万年仙人洞遗址出土的陶片是世界上最早的陶器之一。" },
+  { icon: "🫖", title: "紫砂壶", text: "产自江苏宜兴，始于明正德年间。双气孔结构'透气不透水'，被誉为'世间茶具称为首'。" },
+  { icon: "💙", title: "青花瓷", text: "蓝色颜料苏麻离青在元代从波斯传入，成就了元青花的辉煌。景德镇由此成为千年瓷都。" },
+  { icon: "🍵", title: "冰裂纹", text: "原是宋代哥窑的烧成缺陷，却因纹理如冰裂般自然奇美，成为独特的审美追求。" },
+  { icon: "🔥", title: "祭红釉", text: "景德镇最难烧的颜色釉之一，有'千窑一宝'之说。配方加入了黄金、珊瑚等名贵材料。" },
+  { icon: "🌏", title: "China之名", text: "'China'一词的来源之一即是中国瓷器，可见陶瓷在中国文化中的代表性地位。" },
+  { icon: "🕯️", title: "秘色瓷", text: "唐代越窑青瓷的极品，专供宫廷使用，其配方至今成谜。陆龟蒙赞为'千峰翠色'。" },
+  { icon: "⭐", title: "曜变天目", text: "宋代建盏极品，存世仅三件，全部在日本被定为国宝，产自中国福建建阳。" },
+  { icon: "🐫", title: "唐三彩", text: "唐代低温铅釉陶器，以黄绿褐三色为主。'三彩'是多彩之意，非仅三色。多用于随葬明器。" },
+  { icon: "❤️", title: "釉里红", text: "以氧化铜为着色剂的釉下彩绘，元代与青花并称。铜红发色极难控制，素有'釉里红贵'之说。" },
+  { icon: "✨", title: "玲珑瓷", text: "景德镇传统名瓷，在坯体上镂雕米粒状透光孔，施釉烧成后如玻璃般透光，又称'米通瓷'。" },
+  { icon: "🎨", title: "珐琅彩", text: "清代宫廷御用瓷器，在景德镇烧白胎后，送至京城由宫廷画师彩绘，再入窑低温二次烧成。" },
+  { icon: "💠", title: "青白瓷", text: "宋代景德镇创烧，釉色介于青白之间，'青如天、白如玉、薄如纸、声如磬'，又称'影青'。" },
+  { icon: "🔲", title: "绞胎瓷", text: "将黑白两种瓷土揉和拉坯，形成黑白交融的纹理，每件独一无二。唐代巩义窑首创。" },
+  { icon: "🌸", title: "釉下五彩", text: "在素坯上以五种以上颜料彩绘后施釉烧成。色料在釉下被封护，永不褪色，又称'窑彩'。" },
+  { icon: "🍑", title: "象生瓷", text: "清代乾隆年间创烧，仿花生、莲藕、螃蟹等动植物形态，栩栩如生。体现极高工艺水准。" }
+];
+
+var GLAZES = [
+  { name: "天青釉", dynasty: "北宋·汝窑", color: "#9dbdcd", desc: "汝窑标志性釉色，雨过天青云破处。玛瑙入釉，釉面蝉翼纹开片，宋代美学巅峰。" },
+  { name: "粉青釉", dynasty: "南宋·官窑", color: "#b5c8b8", desc: "南宋官窑典型釉色，釉质如玉、温润含蓄。釉面有疏密不等的开片，紫口铁足为其特征。" },
+  { name: "梅子青", dynasty: "南宋·龙泉", color: "#5a8f6e", desc: "龙泉窑极品釉色，青翠如青梅。厚釉多次施挂，需1300℃还原焰烧成，堪称青瓷绝唱。" },
+  { name: "豆青釉", dynasty: "清代·景德镇", color: "#a8b88a", desc: "青釉衍生品种，呈豆青色。清代大量烧造，釉色匀净，常饰以堆白或刻花，淡雅宜人。" },
+  { name: "霁红釉", dynasty: "明代·永乐", color: "#b33a3a", desc: "又称'祭红'、'鲜红'。永乐年间创烧，以铜为着色剂。'千窑一宝'，极难烧成。" },
+  { name: "郎窑红", dynasty: "清代·康熙", color: "#c02929", desc: "康熙年间郎廷极督陶所创。釉色浓艳如初凝牛血，'脱口垂足郎不流'乃其鉴定要诀。" },
+  { name: "豇豆红", dynasty: "清代·康熙", color: "#c87070", desc: "康熙朝名贵铜红釉，呈淡粉红色带绿色苔点，宛如红豆豇。'绿如春水初生日，红似朝霞欲上时'。" },
+  { name: "茶叶末釉", dynasty: "清代·雍正", color: "#6b6b3a", desc: "铁结晶釉代表，釉面呈失透状，色如茶叶细末。黄绿相间，古朴耐看，雍正乾隆时极盛。" },
+  { name: "紫金釉", dynasty: "宋代·定窑", color: "#8b5a3a", desc: "以铁为着色剂的高温釉，呈酱紫色。宋代定窑、耀州窑多见，明代景德镇称'紫金釉'。" },
+  { name: "兔毫釉", dynasty: "宋代·建窑", color: "#3a3024", desc: "建窑黑釉盏中的名品，釉面析出细密条纹如兔毫纤毛。宋代斗茶风靡，蔡襄《茶录》特推。" },
+  { name: "孔雀蓝釉", dynasty: "明代·正德", color: "#1a7a9a", desc: "以氧化钴为着色剂，碧蓝如孔雀翎羽。明代正德、嘉靖年间流行，多用于宗教供器。" },
+  { name: "霁蓝釉", dynasty: "元代·景德镇", color: "#0a4a7a", desc: "又称'祭蓝'、'宝石蓝'。以钴料高温烧成，釉色深沉如蓝宝石。元代始创，明清延续。" },
+  { name: "茄皮紫釉", dynasty: "清代·康熙", color: "#5a3a7a", desc: "康熙朝创新色釉，以锰为发色剂。釉色紫中泛蓝，如熟透的茄子。传世品稀少，弥足珍贵。" },
+  { name: "鳝鱼黄釉", dynasty: "清代·雍正", color: "#8a7a3a", desc: "铁结晶釉品种之一，呈黄褐色带结晶斑点，似鳝鱼皮色。雍正朝创烧，又称'鳝皮釉'。" }
+];
+
+var MASTERS = [
+  { name: "人面鱼纹彩陶盆", dynasty: "新石器时代·仰韶文化", desc: "半坡类型典型器，内壁绘人面与鱼纹组合图案。反映了原始先民的图腾崇拜与艺术创造力。", emoji: "🏺", cls: "mc-bg-1" },
+  { name: "唐三彩骆驼载乐俑", dynasty: "唐代", desc: "1957年西安出土。驼背上载有胡人乐师七人，反映唐代丝绸之路盛景与中外文化交流。", emoji: "🐫", cls: "mc-bg-2" },
+  { name: "汝窑天青釉弦纹樽", dynasty: "北宋", desc: "汝官窑经典器型，通体施天青釉，釉面开细碎冰裂纹。存世汝瓷不足百件，极为珍罕。", emoji: "💎", cls: "mc-bg-3" },
+  { name: "元青花鬼谷子下山图罐", dynasty: "元代", desc: "2005年伦敦佳士得拍出2.3亿元天价。绘鬼谷子下山故事，青花发色浓艳，画工精湛。", emoji: "🔵", cls: "mc-bg-4" },
+  { name: "明成化斗彩鸡缸杯", dynasty: "明代·成化", desc: "成化皇帝御用酒杯，绘子母鸡图。2014年以2.8亿港元成交，创明代瓷器拍卖纪录。", emoji: "🐔", cls: "mc-bg-5" },
+  { name: "清乾隆粉彩百鹿尊", dynasty: "清代·乾隆", desc: "圆筒形尊体绘百鹿山林图，寓意'禄'。粉彩柔和绚丽，是乾隆宫廷陈设重器。", emoji: "🦌", cls: "mc-bg-6" },
+  { name: "建窑曜变天目盏", dynasty: "宋代·建窑", desc: "天目盏中至宝，油滴斑在光照下呈现七彩晕彩。存世仅三件，均藏于日本，为日本国宝。", emoji: "⭐", cls: "mc-bg-7" },
+  { name: "清雍正珐琅彩雉鸡牡丹纹碗", dynasty: "清代·雍正", desc: "雍正朝珐琅彩巅峰之作。胎薄釉润，绘雉鸡牡丹富贵图，诗书画印合一，宫廷艺术极致。", emoji: "🌸", cls: "mc-bg-8" },
+  { name: "北宋定窑白釉孩儿枕", dynasty: "北宋·定窑", desc: "定窑瓷塑珍品，以童子伏卧为枕形。胎质洁白、釉色牙白，造型生动可爱，现藏故宫博物院。", emoji: "👶", cls: "mc-bg-9" },
+  { name: "明永乐青花缠枝莲纹压手杯", dynasty: "明代·永乐", desc: "永乐青花名品，杯体厚重适中握于手心恰如其分。外壁绘缠枝莲纹，底部有'永乐年制'篆款。", emoji: "🏵️", cls: "mc-bg-10" }
+];
+
+var GLOSSARY = [
+  { term: "拉坯", icon: "🔄", bg: "#e8e0d0", def: "陶艺成型基本技法之一。将泥料置于旋转的辘轳车上，用手与泥的相互作用力将泥团塑造成型。是陶艺创作的'基本功'，需要长时间练习才能掌握。定中心是拉坯的第一步也是最关键的一步。" },
+  { term: "修坯", icon: "🔪", bg: "#e0d8c8", def: "拉坯成型后，待坯体半干（皮革硬度）时，将其重新置于辘轳车上，用修坯刀修整器皿表面和底部，使器型规整、厚薄均匀、表面光洁的工序。" },
+  { term: "素烧", icon: "🔥", bg: "#e8d0b8", def: "将未施釉的生坯在800-1000℃温度下进行第一次烧制，使坯体具有一定机械强度，便于后续上釉操作。素烧后的坯体称为'素坯'，吸水性增强，利于釉层附着。" },
+  { term: "釉烧", icon: "✨", bg: "#d0d8e0", def: "在素烧后的坯体上施釉，再进行第二次高温烧制（通常在1200-1300℃以上）。釉料熔融后在坯体表面形成玻璃质薄层，使瓷器具有光亮、防渗、美观等特性。" },
+  { term: "青花", icon: "💙", bg: "#d0d8f0", def: "以氧化钴为着色剂的釉下彩绘瓷。在素坯上以钴料绘画，施透明釉后高温一次烧成，呈现白地蓝花。唐代巩义窑发端，元代景德镇成熟，明清两朝为瓷器生产主流。" },
+  { term: "斗彩", icon: "🎨", bg: "#f0d8d0", def: "釉下青花与釉上彩绘相结合的装饰技法。先在素坯上以青花勾勒轮廓，施釉烧成后，在釉上填绘红、黄、绿、紫等多种色彩，再经低温二次烧成。创烧于明成化年间。" },
+  { term: "粉彩", icon: "🌈", bg: "#f0e0d8", def: "清代康熙晚期创烧的釉上彩品种。在烧成的白瓷上，用含砷的玻璃白粉打底，再以彩料描绘渲染。色彩柔和淡雅，层次丰富，有'瓷中皇后'之美誉。" },
+  { term: "开片 / 冰裂纹", icon: "❄️", bg: "#dce8e0", def: "瓷器釉面因胎釉膨胀系数不同而产生的裂纹。原是宋代哥窑的烧制缺陷，却因其自然天成、奇美别致而成为独特的审美追求。开片纹路包括冰裂纹、鱼子纹、蟹爪纹等。" },
+  { term: "窑变", icon: "🌈", bg: "#e0d0e8", def: "瓷器在烧制过程中，由于窑内温度、气氛等变化导致釉色产生非预期的色彩变化。钧窑独创'入窑一色，出窑万彩'的窑变釉，将偶然转化为艺术之美。" },
+  { term: "苏麻离青", icon: "🌊", bg: "#d0e0e8", def: "元代从波斯（今伊朗地区）进口的青花钴料。含铁高、含锰低，烧成后青花呈色浓艳深沉，有自然晕散和黑色铁锈斑特征。元青花和明早期青花均使用此料。" },
+  { term: "芒口 / 覆烧", icon: "🏛️", bg: "#f0e8d8", def: "宋代定窑创制的装烧工艺。将碗盘倒扣在支圈上入窑烧制，一次可装烧多件，提高产量。但因口沿不施釉形成涩边，称为'芒口'，常以金银铜镶口为饰。" },
+  { term: "紫口铁足", icon: "👑", bg: "#e0d0c8", def: "南宋官窑和哥窑瓷器的重要特征。因胎骨含铁量高，烧成后器物口沿釉薄处泛紫色，底部无釉处呈深铁色。这一特征成为鉴定官窑瓷器的重要依据。" },
+  { term: "化妆土", icon: "🧴", bg: "#e8dcc8", def: "施于陶瓷坯体表面的有色泥浆薄层。用以掩盖坯体瑕疵、改善表面光洁度，或为釉下彩绘提供良好底色。宋代磁州窑大量使用白色化妆土，成就了白地黑花的独特风格。" },
+  { term: "支钉烧", icon: "📌", bg: "#d8d8e0", def: "为避免器物与匣钵粘连，用细小的耐火泥钉（支钉）支撑器物底部入窑烧制。汝窑采用极细的'芝麻钉'，烧成后底足仅留细小钉痕，工艺极为精湛。" }
+];
+
+var TIMELINE = [
+  { year: "约2万年前", title: "陶器起源", text: "江西万年仙人洞遗址出土世界最早陶片，人类开始用火烧制泥土。河北徐水南庄头遗址发现约1.2万年前的陶器。" },
+  { year: "约7000年前", title: "彩陶文化", text: "仰韶文化半坡类型彩陶，人面鱼纹盆为代表作。马家窑文化彩陶纹饰繁缛，蛙纹、水波纹、四大圆圈纹极具特色。" },
+  { year: "约4000年前", title: "黑陶与白陶", text: "龙山文化蛋壳黑陶，壁薄如蛋壳、漆黑光亮。大汶口文化白陶使用高岭土原料，为瓷器诞生奠定物质基础。" },
+  { year: "商代", title: "原始青瓷", text: "中国建成1200℃以上高温窑，在浙江地区出现原始青釉瓷器。釉色青黄，领先世界千年，标志着从陶到瓷的飞跃。" },
+  { year: "秦汉", title: "陶塑辉煌", text: "秦始皇陵兵马俑，规模宏大、写实传神，被誉为世界第八大奇迹。汉代低温铅釉陶盛行，绿釉、褐釉为主。" },
+  { year: "魏晋南北朝", title: "青瓷大发展", text: "越窑、瓯窑、婺州窑等青瓷窑系形成。青瓷大量使用划花、贴塑装饰。佛教艺术影响瓷器造型，莲花尊为代表。" },
+  { year: "隋唐", title: "南青北白", text: "越窑青瓷与邢窑白瓷并立，'秘色瓷'成为越窑极品。唐三彩开创低温多彩铅釉先河。长沙窑首开釉下彩绘先河。" },
+  { year: "宋代", title: "五大名窑·巅峰时期", text: "汝官哥钧定五大名窑各具特色。建窑黑釉兔毫盏因斗茶风靡，龙泉窑粉青梅子青达到青瓷顶峰。中国陶瓷美学至高标准。" },
+  { year: "元代", title: "青花崛起·景德镇中心", text: "景德镇设浮梁磁局，青花瓷享誉世界。苏麻离青从波斯传入，成就元青花。釉里红同时创烧。枢府卵白釉为朝廷用瓷。" },
+  { year: "明代", title: "彩瓷盛世", text: "永乐甜白、宣德青花、成化斗彩、万历五彩百花齐放。紫砂壶始于正德年间。景德镇御窑厂规模空前，'工匠来八方，器成天下走'。" },
+  { year: "清代", title: "集大成·技术巅峰", text: "康熙郎窑红、豇豆红，雍正粉彩、珐琅彩登峰造极。乾隆象生瓷、转心瓶工艺繁复。景德镇成为世界瓷都。" },
+  { year: "近现代", title: "传承与复兴", text: "清末民初瓷业一度衰落。1949年后恢复发展，'7501'毛瓷为特殊时期精粹。当代陶艺不断创新，非遗保护推动传统工艺复兴。" }
+];
+
+var QUICK_QS = [
+  "五大名窑各有什么特点？",
+  "青花瓷是用什么颜料画的？",
+  "汝窑为什么那么珍贵？",
+  "唐三彩是瓷器还是陶器？",
+  "斗彩和粉彩有什么区别？",
+  "为什么China既是中国又是瓷器？",
+  "紫砂壶为什么适合泡茶？",
+  "什么叫窑变？",
+  "元青花为什么那么值钱？"
+];
+
+var CREATIVE_ITEMS = [
+  { icon: '🏺', name: '陶艺文创', desc: '小红书搜灵感', tag: '小红书', cls: 'rt-redbook', url: 'https://www.xiaohongshu.com/search_result?keyword=陶艺文创' },
+  { icon: '🎨', name: '陶瓷设计', desc: 'B站看创意', tag: 'B站', cls: 'rt-bili', url: 'https://search.bilibili.com/all?keyword=陶艺文创设计' },
+  { icon: '✨', name: '手工好物', desc: '抖音搜教程', tag: '抖音', cls: 'rt-douyin', url: 'https://www.douyin.com/search/陶艺手工文创' },
+  { icon: '🫖', name: '茶器设计', desc: '小红书搜茶具', tag: '小红书', cls: 'rt-redbook', url: 'https://www.xiaohongshu.com/search_result?keyword=陶瓷茶器文创' },
+  { icon: '🖼️', name: '装饰画', desc: 'B站搜创意', tag: 'B站', cls: 'rt-bili', url: 'https://search.bilibili.com/all?keyword=陶瓷装饰画创意' },
+  { icon: '💡', name: 'DIY教程', desc: '抖音学制作', tag: '抖音', cls: 'rt-douyin', url: 'https://www.douyin.com/search/陶艺DIY文创' }
+];
+
+var PATTERN_ITEMS = [
+  { icon: '〰️', name: '回纹', desc: '传统几何纹样·现代极简应用', kw: '陶瓷回纹创新设计', tag: '看设计', cls: 'rt-pattern' },
+  { icon: '🪷', name: '莲瓣纹', desc: '佛教艺术·现代文创演绎', kw: '陶瓷莲瓣纹创意', tag: '看设计', cls: 'rt-pattern' },
+  { icon: '🌿', name: '缠枝纹', desc: '生生不息·灵活运用于器型', kw: '陶瓷缠枝纹现代设计', tag: '看设计', cls: 'rt-pattern' },
+  { icon: '☁️', name: '云雷纹', desc: '商周经典·几何重构再创造', kw: '云雷纹陶瓷创新', tag: '看设计', cls: 'rt-pattern' },
+  { icon: '🌊', name: '海水纹', desc: '波涛汹涌·层次丰富的表现', kw: '陶瓷海水纹设计', tag: '看设计', cls: 'rt-pattern' },
+  { icon: '☯️', name: '如意纹', desc: '吉祥寓意·对称与不对称美', kw: '陶瓷如意纹文创', tag: '看设计', cls: 'rt-pattern' }
+];
+
+// 随机诗歌
+var p = POEMS[Math.floor(Math.random() * POEMS.length)];
+document.getElementById('poemText').textContent = '"' + p.text + '"';
+document.getElementById('poemAuthor').textContent = '—— ' + p.author;
+
+// 窑系（使用SVG器型图标，与index.html一致）
+var vesselSvg = [
+  '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="10" rx="4" ry="2" stroke="#996237" stroke-width="1.3"/><path d="M16 10v.5c0 2 1 4 1.5 6l1 6-1 2c-.5 2-2 4-3 5.5h13c-1-1.5-2.5-3.5-3-5.5l-1-2 1-6c.5-2 1.5-4 1.5-6V10" stroke="#996237" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 26h16" stroke="#996237" stroke-width="0.8" stroke-linecap="round"/></svg>',
+  '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="9" rx="5" ry="2.5" stroke="#996237" stroke-width="1.3"/><path d="M15 9v2c0 1 .2 2 .5 3l1.5 8 1 3c.3 1.5 1 3 1 4v1.5h2v-1.5c0-1 .7-2.5 1-4l1-3 1.5-8c.3-1 .5-2 .5-3V9" stroke="#996237" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 27h14" stroke="#996237" stroke-width="0.8" stroke-linecap="round"/></svg>',
+  '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="10" rx="6" ry="3" stroke="#996237" stroke-width="1.3"/><path d="M14 10v2c0 1.5.5 3 1 5l1.5 7 .8 2c.4 1 1.2 2.5 1.2 4.5 0 .8.2 1.5.5 1.5H20h1c.3 0 .5-.7.5-1.5 0-2 .8-3.5 1.2-4.5l.8-2 1.5-7c.5-2 1-3.5 1-5v-2" stroke="#996237" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 26h16M13 22h14M15 18h10" stroke="#996237" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/></svg>',
+  '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="8" rx="5" ry="2.5" stroke="#996237" stroke-width="1.3"/><path d="M15 8v2c0 1 .3 2.2.7 3.8l.7 3.7c.3 1.5.5 3 .6 4-.1 1.5-.3 3.2-.5 4.5l-.3 2c-.1.8 0 1.5 0 2h7.5c0-.5.1-1.2 0-2l-.3-2c-.2-1.3-.4-3-.5-4.5.1-1 .3-2.5.6-4l.7-3.7c.4-1.6.7-2.8.7-3.8V8" stroke="#996237" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  '<svg width="36" height="36" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="7" rx="10" ry="3" stroke="#996237" stroke-width="1.5"/><path d="M10 7v1.5c0 1 1 2 1.5 2.5l2 2.5 1 3.5c.3 1 .8 2.5 1.2 4l.5 2.5c.2 1.5.5 3 .3 4 0 .8-.2 1.5-.5 2h8c-.3-.5-.5-1.2-.5-2-.2-1 .1-2.5.3-4l.5-2.5c.4-1.5.9-3 1.2-4l1-3.5 2-2.5c.5-.5 1.5-1.5 1.5-2.5V7" stroke="#996237" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 27h16M14 24h12" stroke="#996237" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/></svg>'
+];
+document.getElementById('kilnGrid').innerHTML = KILNS.map(function(k, i) {
+  var kw = encodeURIComponent('宋代' + k.name + '瓷器鉴赏教学');
+  return '<div class="kiln-card" onclick="window.open(\'https://search.bilibili.com/all?keyword=' + kw + '\',\'_blank\')"><div class="kc-icon ' + k.cls + '">' + vesselSvg[i] + '</div><h4>' + k.name + '</h4><div class="kc-era">' + k.era + ' · ' + k.loc + '</div><div class="kc-trait">' + k.trait + '</div><div style="font-size:0.62rem;color:var(--text-light);margin-top:4px">' + k.rank + '</div></div>';
+}).join('');
+
+// 知识卡片（16条）
+document.getElementById('knowGrid').innerHTML = FACTS.map(function(f) {
+  return '<div class="know-card"><span class="ki-icon">' + f.icon + '</span><div><h4>' + f.title + '</h4><p>' + f.text + '</p></div></div>';
+}).join('');
+
+// 釉色色卡画廊
+document.getElementById('glazeGrid').innerHTML = GLAZES.map(function(g) {
+  var r = g.color.match(/^#([0-9a-f]{6})$/i);
+  var bg = g.color;
+  var txt = '#fff';
+  if (r) {
+    var hex = parseInt(r[1], 16);
+    var lum = ((hex >> 16) * 299 + ((hex >> 8) & 0xFF) * 587 + (hex & 0xFF) * 114) / 1000;
+    if (lum > 160) txt = '#3d3226';
+  }
+  return '<div class="glaze-card"><div class="glaze-swatch" style="background:' + bg + '"><span class="gs-era" style="color:' + txt + '">' + g.dynasty + '</span></div><div class="glaze-info"><h4>' + g.name + '</h4><p>' + g.desc + '</p></div></div>';
+}).join('');
+
+// 历代名瓷赏析
+document.getElementById('masterGrid').innerHTML = MASTERS.map(function(m) {
+  return '<div class="master-card"><div class="mc-top ' + m.cls + '">' + m.emoji + '</div><div class="mc-body"><h4>' + m.name + '</h4><div class="mc-era">' + m.dynasty + '</div><p>' + m.desc + '</p></div></div>';
+}).join('');
+
+// 陶瓷术语速查（手风琴）
+document.getElementById('glossary').innerHTML = GLOSSARY.map(function(g, i) {
+  return '<div class="gloss-item"><div class="gloss-term" onclick="toggleGloss(' + i + ')"><span class="gt-icon" style="background:' + g.bg + '">' + g.icon + '</span>' + g.term + '<span class="gt-arrow"><i class="ri-arrow-down-s-line"></i></span></div><div class="gloss-def" id="glossDef' + i + '">' + g.def + '</div></div>';
+}).join('');
+
+function toggleGloss(i) {
+  var def = document.getElementById('glossDef' + i);
+  var term = def.previousElementSibling;
+  var isOpen = def.classList.contains('open');
+  document.querySelectorAll('.gloss-def.open').forEach(function(d) {
+    d.classList.remove('open');
+    d.previousElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    def.classList.add('open');
+    term.classList.add('open');
+  }
+}
+
+// 时间线（12条）
+document.getElementById('timeline').innerHTML = TIMELINE.map(function(t) {
+  return '<div class="tl-item"><div class="tl-year">' + t.year + '</div><div class="tl-body"><h4>' + t.title + '</h4><p>' + t.text + '</p></div></div>';
+}).join('');
+
+// 文创参考
+document.getElementById('creativeRefGrid').innerHTML = CREATIVE_ITEMS.map(function(i) {
+  return '<a href="' + i.url + '" target="_blank" rel="noopener" class="ref-card"><span class="rc-icon">' + i.icon + '</span><span class="rc-name">' + i.name + '</span><span class="rc-desc">' + i.desc + '</span><span class="rc-tag ' + i.cls + '">' + i.tag + '</span></a>';
+}).join('');
+
+// 纹样创新
+document.getElementById('patternRefGrid').innerHTML = PATTERN_ITEMS.map(function(p) {
+  var url = 'https://search.bilibili.com/all?keyword=' + encodeURIComponent(p.kw);
+  return '<a href="' + url + '" target="_blank" rel="noopener" class="ref-card"><span class="rc-icon">' + p.icon + '</span><span class="rc-name">' + p.name + '</span><span class="rc-desc">' + p.desc + '</span><span class="rc-tag ' + p.cls + '">' + p.tag + '</span></a>';
+}).join('');
+
+// 学生作品墙
+renderGallery();
+
+// 快速提问按钮
+document.getElementById('quickQs').innerHTML = QUICK_QS.map(function(q) {
+  return '<button class="qk-btn" onclick="quickAsk(\'' + q.replace(/'/g, "\\'") + '\')">' + q + '</button>';
+}).join('');
+
+function quickAsk(q) {
+  document.getElementById('ecInput').value = q;
+  sendEcMsg();
+}
+
+// ===== 陶瓷文化交流问答 =====
+// 折叠板块
+function toggleCollapse(id) {
+  var body = document.getElementById('collapse' + id.charAt(0).toUpperCase() + id.slice(1));
+  var toggle = document.getElementById('toggle' + id.charAt(0).toUpperCase() + id.slice(1));
+  var label = document.getElementById('toggle' + id.charAt(0).toUpperCase() + id.slice(1) + 'Label');
+  if (!body || !toggle) return;
+  var isOpen = body.classList.toggle('open');
+  toggle.classList.toggle('open');
+  label.textContent = isOpen ? '收起' : '展开全部';
+}
+
+function toggleChatPopup() {
+  document.getElementById('chatPopup').classList.toggle('open');
+}
+function addEcMsg(role, text) {
+  var msgs = document.getElementById('ecMessages');
+  var div = document.createElement('div');
+  div.className = 'ec-msg ' + role;
+  div.innerHTML = '<div class="ec-bubble">' + text + '</div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+var ecTyping = false;
+function sendEcMsg() {
+  var input = document.getElementById('ecInput');
+  var q = input.value.trim();
+  if (!q || ecTyping) return;
+  addEcMsg('user', q);
+  input.value = '';
+  ecTyping = true;
+  var typing = document.createElement('div');
+  typing.className = 'ec-msg assistant ec-typing';
+  typing.id = 'ecTyping';
+  typing.innerHTML = '<div class="ec-bubble">思考中...</div>';
+  document.getElementById('ecMessages').appendChild(typing);
+
+  fetch('/api/chat', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'deepseek-chat',
+      temperature: 0.7, max_tokens: 1200,
+      messages: [
+        { role: 'system', content: '你是中国陶瓷文化专家助手。你专注于回答关于陶瓷历史、名窑鉴赏、器型美学、釉色工艺、非遗传承、陶瓷文化等人文知识。你也了解现代陶艺，但侧重点是文化层面的欣赏和理解。用生动有趣的中文回答，200-400字为宜。' },
+        { role: 'user', content: q }
+      ]
+    })
+  }).then(function(r) { return r.json(); })
+    .then(function(d) {
+      var el = document.getElementById('ecTyping'); if(el) el.remove();
+      ecTyping = false;
+      var ans = d.choices[0].message.content || '(暂无回复)';
+      addEcMsg('assistant', ans.replace(/\n/g, '<br>'));
+    })
+    .catch(function() {
+      var el = document.getElementById('ecTyping'); if(el) el.remove();
+      ecTyping = false;
+      addEcMsg('assistant', '抱歉，AI服务暂时不可用，请稍后重试。');
+    });
+}
+
+// 学生作品墙
+function renderGallery() {
+  var saved = localStorage.getItem('pottery_gallery');
+  var items = saved ? JSON.parse(saved) : [];
+  var html = '';
+  html += '<div class="gallery-card upload-card" onclick="uploadWork()"><div class="gc-placeholder upload-icon">📤</div><div class="gc-label">上传作品</div></div>';
+  items.forEach(function(img, idx) {
+    html += '<div class="gallery-card" onclick="window.open(\'' + img + '\',\'_blank\')"><img src="' + img + '" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0" loading="lazy"><div class="gc-label" style="position:absolute;bottom:4px;left:4px;right:4px;background:rgba(0,0,0,0.5);color:#fff;font-size:0.55rem;padding:2px 6px;border-radius:4px;text-align:center">学生作品</div></div>';
+  });
+  document.getElementById('galleryGrid').innerHTML = html;
+}
+
+function uploadWork() {
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var dataUrl = ev.target.result;
+      var saved = localStorage.getItem('pottery_gallery');
+      var items = saved ? JSON.parse(saved) : [];
+      items.push(dataUrl);
+      localStorage.setItem('pottery_gallery', JSON.stringify(items));
+      renderGallery();
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+// 可拖拽IP形象
+(function(){
+  function initDragPet() {
+    var pet = document.getElementById('dragPet');
+    if (!pet) return;
+  var saved = localStorage.getItem('pottery_pet_pos');
+  if (saved) {
+    var pos = JSON.parse(saved);
+    pet.style.left = pos.left;
+    pet.style.top = pos.top;
+    pet.style.right = 'auto';
+    pet.style.bottom = 'auto';
+  } else {
+    pet.style.right = '24px';
+    pet.style.top = '80px';
+    pet.style.left = 'auto';
+    pet.style.bottom = 'auto';
+  }
+  var offsetX, offsetY, mouseX, mouseY;
+  pet.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    var rect = pet.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+  pet.addEventListener('touchstart', function(e) {
+    var t = e.touches[0];
+    var rect = pet.getBoundingClientRect();
+    offsetX = t.clientX - rect.left;
+    offsetY = t.clientY - rect.top;
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd);
+  });
+  function onMove(e) {
+    pet.style.left = (e.clientX - offsetX) + 'px';
+    pet.style.top = (e.clientY - offsetY) + 'px';
+    pet.style.right = 'auto';
+    pet.style.bottom = 'auto';
+  }
+  function onTouchMove(e) {
+    e.preventDefault();
+    var t = e.touches[0];
+    pet.style.left = (t.clientX - offsetX) + 'px';
+    pet.style.top = (t.clientY - offsetY) + 'px';
+    pet.style.right = 'auto';
+    pet.style.bottom = 'auto';
+  }
+  function onUp() {
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    localStorage.setItem('pottery_pet_pos', JSON.stringify({ left: pet.style.left, top: pet.style.top }));
+  }
+  function onTouchEnd() {
+    document.removeEventListener('touchmove', onTouchMove);
+    document.removeEventListener('touchend', onTouchEnd);
+    localStorage.setItem('pottery_pet_pos', JSON.stringify({ left: pet.style.left, top: pet.style.top }));
+  }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDragPet);
+  } else {
+    initDragPet();
+  }
+})();
+
+// 可拖拽浮动问答
+(function(){
+  function initChatDrag() {
+    var handle = document.getElementById('chatDragHandle');
+    var popup = document.getElementById('chatPopup');
+    if (!handle || !popup) return;
+    var saved = localStorage.getItem('pottery_chat_pos');
+    if (saved) {
+      var pos = JSON.parse(saved);
+      popup.style.left = pos.left;
+      popup.style.top = pos.top;
+      popup.style.right = 'auto';
+      popup.style.bottom = 'auto';
+    }
+    var offsetX, offsetY;
+    handle.addEventListener('mousedown', function(e) {
+      if (e.target.tagName === 'BUTTON') return;
+      e.preventDefault();
+      var rect = popup.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+    handle.addEventListener('touchstart', function(e) {
+      if (e.target.tagName === 'BUTTON') return;
+      var t = e.touches[0];
+      var rect = popup.getBoundingClientRect();
+      offsetX = t.clientX - rect.left;
+      offsetY = t.clientY - rect.top;
+      document.addEventListener('touchmove', onTouchMove, { passive: false });
+      document.addEventListener('touchend', onTouchEnd);
+    });
+    function onMove(e) {
+      popup.style.left = (e.clientX - offsetX) + 'px';
+      popup.style.top = (e.clientY - offsetY) + 'px';
+      popup.style.right = 'auto'; popup.style.bottom = 'auto';
+    }
+    function onTouchMove(e) {
+      e.preventDefault();
+      var t = e.touches[0];
+      popup.style.left = (t.clientX - offsetX) + 'px';
+      popup.style.top = (t.clientY - offsetY) + 'px';
+      popup.style.right = 'auto'; popup.style.bottom = 'auto';
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      localStorage.setItem('pottery_chat_pos', JSON.stringify({ left: popup.style.left, top: popup.style.top }));
+    }
+    function onTouchEnd() {
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+      localStorage.setItem('pottery_chat_pos', JSON.stringify({ left: popup.style.left, top: popup.style.top }));
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChatDrag);
+  } else {
+    initChatDrag();
+  }
+})();
+</script>
+
+<div class="drag-pet" id="dragPet" onclick="toggleChatPopup()" title="陶瓷知识助手">
+  <div class="pet-inner">
+    <div class="pet-glow"></div>
+    <img src="/images/character.png" alt="陶瓷知识助手" loading="lazy">
+    <span class="pet-badge">知识</span>
+  </div>
+  <div class="pet-tooltip">我在这里~ 拖动我</div>
+</div>
+
+</body>
+</html>

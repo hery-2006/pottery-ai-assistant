@@ -1,0 +1,83 @@
+[
+  {
+    "studentId": "200",
+    "studentName": "00",
+    "question": "为什么揉泥很重要？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T08:08:41.589Z"
+  },
+  {
+    "studentId": "200",
+    "studentName": "00",
+    "question": "揉泥到什么标准才算合格？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T08:08:42.875Z"
+  },
+  {
+    "studentId": "200",
+    "studentName": "00",
+    "question": "为什么揉泥很重要？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T08:16:58.865Z"
+  },
+  {
+    "studentId": "200",
+    "studentName": "00",
+    "question": "宋代五大陶瓷有哪些代表",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T08:17:34.559Z"
+  },
+  {
+    "studentId": "200",
+    "studentName": "00",
+    "question": "烧制注意哪些",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-17T08:18:09.410Z"
+  },
+  {
+    "studentId": "11",
+    "studentName": "11",
+    "question": "为什么揉泥很重要？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "teacher",
+    "timestamp": "2026-06-19T10:42:03.841Z"
+  },
+  {
+    "studentId": "11",
+    "studentName": "11",
+    "question": "羊头式和菊花式揉泥有什么区别？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "teacher",
+    "timestamp": "2026-06-19T10:42:04.496Z"
+  },
+  {
+    "studentId": "11",
+    "studentName": "11",
+    "question": "羊头式和菊花式揉泥有什么区别？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "teacher",
+    "timestamp": "2026-06-19T10:53:00.649Z"
+  },
+  {
+    "studentId": "111",
+    "studentName": "00",
+    "question": "羊头式和菊花式揉泥有什么区别？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-19T14:18:50.580Z"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "studentId": "0000",
+    "studentName": "00",
+    "question": "上釉前要注意什么？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-17T08:21:22.472Z"
+  },
+  {
+    "studentId": "00",
+    "studentName": "00",
+    "question": "羊头式和菊花式揉泥有什么区别？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "teacher",
+    "timestamp": "2026-06-19T05:01:12.007Z"
+  },
+  {
+    "studentId": "00",
+    "studentName": "0000",
+    "question": "为什么揉泥很重要？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "teacher",
+    "timestamp": "2026-06-19T09:11:44.458Z"
+  },
+  {
+    "studentId": "00",
+    "studentName": "0000",
+    "question": "羊头式和菊花式揉泥有什么区别？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "teacher",
+    "timestamp": "2026-06-19T09:11:45.105Z"
+  }
+]

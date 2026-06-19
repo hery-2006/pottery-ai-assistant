@@ -1,0 +1,72 @@
+[
+  {
+    "role": "assistant",
+    "text": "<strong>你好，威威！欢迎使用陶艺拉坯全流程AI知识库！</strong><br><br>本系统基于《中国陶瓷艺术赏析与创作基础》课程体系构建，覆盖拉坯成型的<strong>10个核心环节</strong>。<br><br><em>\"拉坯需要专心和不厌其烦的练习\"</em>",
+    "time": 1781511917958
+  },
+  {
+    "role": "assistant",
+    "text": "<div class=\"welcome-panel\"><div class=\"welcome-hero\"><div class=\"hero-quote\">\"素瓷雪色缥沫香，何似诸仙琼蕊浆。\"</div><div class=\"hero-author\">—— 皎然《饮茶歌》</div></div><div class=\"welcome-grid\"><div class=\"welcome-card\" onclick=\"document.getElementById('chatInput').value='揉泥有什么技巧？';sendMessage();\"><div class=\"wc-icon\"><span style=\"display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;vertical-align:-0.15em\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 28 28\" fill=\"none\"><ellipse cx=\"10\" cy=\"7\" rx=\"5.5\" ry=\"4.5\" stroke=\"#996237\" stroke-width=\"1.5\"/><path d=\"M5.5 11c-.8 1.2-1 2.8-.3 3.8M14.5 11c.8 1.2 1 2.8.3 3.8\" stroke=\"#996237\" stroke-width=\"1.2\" stroke-linecap=\"round\"/><circle cx=\"8.5\" cy=\"15\" r=\"4\" stroke=\"#996237\" stroke-width=\"1.3\"/><circle cx=\"15.5\" cy=\"15\" r=\"4\" stroke=\"#996237\" stroke-width=\"1.3\"/></svg></span></div><div class=\"wc-text\">揉泥有什么技巧？</div></div><div class=\"welcome-card\" onclick=\"document.getElementById('chatInput').value='定中心总是晃怎么办？';sendMessage();\"><div class=\"wc-icon\"><span style=\"display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;vertical-align:-0.15em\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 28 28\" fill=\"none\"><circle cx=\"14\" cy=\"14\" r=\"9\" stroke=\"#996237\" stroke-width=\"1.6\"/><circle cx=\"14\" cy=\"14\" r=\"4.5\" stroke=\"#996237\" stroke-width=\"1.2\"/><circle cx=\"14\" cy=\"14\" r=\"1.2\" fill=\"#996237\"/><path d=\"M14 3v4M14 21v4M3 14h4M21 14h4\" stroke=\"#996237\" stroke-width=\"1\" stroke-linecap=\"round\" opacity=\"0.5\"/></svg></span></div><div class=\"wc-text\">定中心总是晃怎么办？</div></div><div class=\"welcome-card\" onclick=\"document.getElementById('chatInput').value='修坯应该修多薄？';sendMessage();\"><div class=\"wc-icon\"><span style=\"display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;vertical-align:-0.15em\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 28 28\" fill=\"none\"><path d=\"M15.5 4l-9.5 9 3 3.5 9.5-9\" stroke=\"#996237\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M6 13l-3 3.5 6 6 3-3.5\" stroke=\"#996237\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span></div><div class=\"wc-text\">修坯应该修多薄？</div></div><div class=\"welcome-card\" onclick=\"document.getElementById('chatInput').value='上釉前要注意什么？';sendMessage();\"><div class=\"wc-icon\"><span style=\"display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;vertical-align:-0.15em\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 28 28\" fill=\"none\"><path d=\"M7 10v1.5c0 4 3.5 7.5 7 7.5s7-3.5 7-7.5V10\" stroke=\"#996237\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><path d=\"M10 7.5V5.5c0-.5.5-1 1-1h6c.5 0 1 .5 1 1v2\" stroke=\"#996237\" stroke-width=\"1.2\" stroke-linecap=\"round\"/><path d=\"M9 14h10\" stroke=\"#996237\" stroke-width=\"0.7\" stroke-linecap=\"round\" opacity=\"0.4\"/></svg></span></div><div class=\"wc-text\">上釉前要注意什么？</div></div></div><div class=\"welcome-nav\"><span class=\"welcome-nav-chip wn-s1\" onclick=\"setActiveStep(0)\">段位一 · 基础成型</span><span class=\"welcome-nav-chip wn-s2\" onclick=\"setActiveStep(5)\">段位二 · 精修提升</span><span class=\"welcome-nav-chip wn-s3\" onclick=\"setActiveStep(7)\">段位三 · 烧成艺术</span></div></div>",
+    "time": 1781511917972
+  },
+  {
+    "role": "user",
+    "text": "羊头式和菊花式揉泥有什么区别？",
+    "time": 1781511924958
+  },
+  {
+    "role": "assistant",
+    "text": "<strong>【揉泥】</strong><br><br>羊头式相对适合初学者，通过双手交替推压的方式揉泥；菊花式旋转揉压效率更高，但相对难掌握。建议初学者先掌握羊头式，熟练后再尝试菊花式。<br><br><em>（本地知识库精确匹配 · 课程审核内容）</em>",
+    "time": 1781511924965
+  },
+  {
+    "role": "user",
+    "text": "羊头式和菊花式揉泥有什么区别？",
+    "time": 1781511926246
+  },
+  {
+    "role": "assistant",
+    "text": "<strong>【揉泥】</strong><br><br>羊头式相对适合初学者，通过双手交替推压的方式揉泥；菊花式旋转揉压效率更高，但相对难掌握。建议初学者先掌握羊头式，熟练后再尝试菊花式。<br><br><em>（本地知识库精确匹配 · 课程审核内容）</em>",
+    "time": 1781511926250
+  },
+  {
+    "role": "user",
+    "text": "新买的泥需要揉吗？",
+    "time": 1781511931530
+  },
+  {
+    "role": "assistant",
+    "text": "<strong>【揉泥】</strong><br><br>需要。新泥虽然没有气泡，但软硬不均匀，必须通过揉泥使其均匀才能拉坯。<br><br><em>（本地知识库精确匹配 · 课程审核内容）</em>",
+    "time": 1781511931533
+  },
+  {
+    "role": "user",
+    "text": "揉泥到什么标准才算合格？",
+    "time": 1781511933139
+  },
+  {
+    "role": "assistant",
+    "text": "<strong>【揉泥】</strong><br><br>切开泥团检查内部无气泡，泥料软硬均匀一致，手感柔韧适中。<br><br><em>（本地知识库精确匹配 · 课程审核内容）</em>",
+    "time": 1781511933143
+  },
+  {
+    "role": "user",
+    "text": "揉泥到什么标准才算合格？",
+    "time": 1781511939021
+  },
+  {
+    "role": "assistant",
+    "text": "<strong>【揉泥】</strong><br><br>切开泥团检查内部无气泡，泥料软硬均匀一致，手感柔韧适中。<br><br><em>（本地知识库精确匹配 · 课程审核内容）</em>",
+    "time": 1781511939025
+  },
+  {
+    "role": "user",
+    "text": "天气",
+    "time": 1781511944902
+  },
+  {
+    "role": "assistant",
+    "text": "<strong>【揉泥】</strong><br><br>根据知识库内容，关于“天气”与揉泥的关系，知识库中没有直接提及。不过，揉泥的关键是保持泥料适当湿度，不宜过干或过湿。如果天气导致泥料过干，可以适当喷水调整；如果过湿，可以放置一段时间让水分蒸发。具体操作建议咨询老师，因为不同天气对泥料的影响需要根据实际情况灵活处理。<br><br><em>（基于知识库 · AI辅助整理）</em>",
+    "time": 1781511946898
+  }
+]

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教师面板 — 陶艺AI学习系统</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:root {
+  --ik-brown: #996237; --ik-milk: #F8F3E9; --ik-sand: #E9DBCD;
+  --ik-border: #D4B99C; --ik-bg: #FCF9F2; --clay: #c67b4b;
+  --clay-dark: #8b4513; --glaze: #5b8c85; --fire: #d4534a;
+  --bg: #fdfaf6; --card: #ffffff; --text: #3d3226; --text-light: #7a6f64;
+  --border: #e8ddd0; --shadow: 0 4px 16px rgba(61,50,38,0.07);
+  --shadow-lg: 0 8px 32px rgba(61,50,38,0.1);
+  --radius: 14px; --radius-lg: 20px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.65; min-height: 100vh;
+}
+.header {
+  background: linear-gradient(135deg, #4a2a10 0%, #7a4a24 35%, #9a6a44 65%, #b0805a 100%);
+  color: #fff; padding: 18px 0;
+  box-shadow: 0 4px 24px rgba(61,50,38,0.18); position: sticky; top: 0; z-index: 100;
+}
+.header::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(232,201,160,0.5), transparent);
+}
+.header-inner {
+  max-width: 1400px; margin: 0 auto; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header h1 { font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.header h1 i { color: var(--ik-sand); }
+.nav-links { display: flex; gap: 12px; align-items: center; }
+.nav-links a {
+  padding: 6px 14px; border-radius: 18px; color: rgba(255,255,255,0.8);
+  text-decoration: none; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+}
+.nav-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* ===== 可拖拽IP形象 ===== */
+.drag-pet {
+  position: fixed; z-index: 999;
+  cursor: grab; perspective: 800px;
+  width: 72px; height: 72px;
+  touch-action: none;
+  transition: none;
+  top: 80px; right: 24px;
+}
+.drag-pet:active { cursor: grabbing; }
+.drag-pet .pet-inner {
+  width: 72px; height: 72px; border-radius: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 8px 32px rgba(153,98,55,0.2), 0 0 0 3px rgba(255,255,255,0.6), 0 0 0 5px rgba(198,123,75,0.15);
+  animation: petFloat 3s ease-in-out infinite;
+}
+.drag-pet .pet-inner:hover { transform: rotateY(15deg) rotateX(-8deg) scale(1.08); }
+.drag-pet .pet-inner:active { transform: rotateY(180deg) scale(0.92); }
+.drag-pet img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.drag-pet .pet-glow {
+  position: absolute; inset: -4px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(251,114,153,0.15), rgba(99,102,241,0.1), rgba(255,152,0,0.1));
+  filter: blur(6px); z-index: -1;
+  animation: petGlow 3s ease-in-out infinite alternate;
+}
+.drag-pet .pet-badge {
+  position: absolute; top: -8px; right: -8px;
+  background: linear-gradient(135deg, #FB7299, #F5587C);
+  color: #fff; font-size: 0.55rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(251,114,153,0.4);
+  white-space: nowrap;
+}
+.drag-pet .pet-tooltip {
+  position: absolute; bottom: 100%; right: 0; margin-bottom: 10px;
+  background: rgba(42,32,24,0.92); backdrop-filter: blur(8px);
+  color: #f0e6d8; font-size: 0.72rem; padding: 8px 14px;
+  border-radius: 10px; white-space: nowrap;
+  opacity: 0; transform: translateY(6px);
+  transition: all 0.25s ease; pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.drag-pet:hover .pet-tooltip { opacity: 1; transform: translateY(0); }
+@keyframes petFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes petGlow { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+
+.main { max-width: 1400px; margin: 0 auto; padding: 24px 28px; }
+
+/* 统计卡片 */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-card {
+  background: var(--card); border-radius: var(--radius); padding: 20px 18px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.stat-icon {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+}
+.sc-q { background: linear-gradient(135deg, #e8f0fe, #c8d8f8); color: #3b5998; }
+.sc-s { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); color: #2e7d32; }
+.sc-h { background: linear-gradient(135deg, #fff3e0, #ffe0b2); color: #e65100; }
+.sc-a { background: linear-gradient(135deg, #fce4ec, #f8bbd0); color: #c62828; }
+.stat-info .stat-num { font-size: 1.6rem; font-weight: 800; line-height: 1.2; }
+.stat-info .stat-label { font-size: 0.76rem; color: var(--text-light); }
+
+/* 双栏 */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.panel {
+  background: var(--card); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden;
+}
+.panel-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  font-weight: 700; font-size: 0.95rem;
+  background: linear-gradient(180deg, #fdfaf5, #fff);
+  display: flex; align-items: center; gap: 8px;
+}
+.panel-header i { color: var(--ik-brown); }
+.panel-body { padding: 16px 20px; max-height: 420px; overflow-y: auto; }
+
+/* 热门问题排行 */
+.hot-item {
+  display: flex; align-items: flex-start; gap: 10px; padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.hot-item:last-child { border-bottom: none; }
+.hot-rank {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700;
+  background: var(--ik-sand); color: var(--ik-brown);
+}
+.hot-rank.r1 { background: linear-gradient(135deg, #ff9800, #f57c00); color: #fff; }
+.hot-rank.r2 { background: linear-gradient(135deg, #bdbdbd, #9e9e9e); color: #fff; }
+.hot-rank.r3 { background: linear-gradient(135deg, #cd7f32, #a0522d); color: #fff; }
+.hot-text .ht-q { font-size: 0.84rem; font-weight: 600; margin-bottom: 2px; }
+.hot-text .ht-meta { font-size: 0.68rem; color: var(--text-light); }
+
+/* 步骤热度条 */
+.step-bar { margin-bottom: 12px; }
+.step-bar .sb-label { display: flex; justify-content: space-between; font-size: 0.76rem; margin-bottom: 3px; }
+.step-bar .sb-name { font-weight: 600; }
+.step-bar .sb-count { color: var(--text-light); }
+.sb-track {
+  height: 10px; border-radius: 5px; background: #f0ece4; overflow: hidden;
+}
+.sb-fill {
+  height: 100%; border-radius: 5px; transition: width 0.6s ease;
+  background: linear-gradient(90deg, var(--ik-brown), var(--clay));
+}
+
+/* 最近问题 */
+.rq-item {
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  display: flex; gap: 10px; font-size: 0.8rem;
+}
+.rq-item:last-child { border-bottom: none; }
+.rq-avatar {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: var(--ik-sand); color: var(--ik-brown);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.65rem;
+}
+.rq-body { flex: 1; min-width: 0; }
+.rq-body .rq-q { font-weight: 600; margin-bottom: 2px; }
+.rq-body .rq-meta { font-size: 0.68rem; color: var(--text-light); display: flex; gap: 10px; }
+
+/* 按钮 */
+.btn-row { display: flex; gap: 10px; margin-top: 20px; }
+.btn {
+  padding: 10px 20px; border-radius: 22px; border: none; font-weight: 600;
+  font-size: 0.85rem; cursor: pointer; font-family: inherit;
+  transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+}
+.btn-refresh { background: var(--ik-brown); color: #fff; box-shadow: 0 4px 12px rgba(153,98,55,0.25); }
+.btn-refresh:hover { background: var(--clay-dark); }
+.btn-clear { background: #fff; color: var(--fire); border: 1.5px solid var(--fire); }
+.btn-clear:hover { background: #fce4ec; }
+.btn-back { background: #fff; color: var(--text); border: 1.5px solid var(--border); }
+.btn-back:hover { background: var(--ik-milk); }
+.btn-ai {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff;
+  box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+}
+.btn-ai:hover { background: linear-gradient(135deg, #4f46e5, #7c3aed); transform: translateY(-1px); }
+.btn-ai:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* 教学建议 */
+.teach-tip {
+  background: linear-gradient(135deg, #fff8e1, #ffecb3);
+  border: 1px solid #ffca28; border-radius: var(--radius);
+  padding: 18px 20px; margin-top: 16px;
+}
+.teach-tip h3 { font-size: 0.9rem; color: #e65100; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.teach-tip p { font-size: 0.82rem; color: #795548; line-height: 1.6; }
+.teach-tip ul { margin: 6px 0 0 18px; font-size: 0.8rem; color: #795548; line-height: 1.7; }
+
+.empty-state { text-align: center; padding: 48px; color: var(--text-light); }
+.empty-state i { font-size: 3rem; display: block; margin-bottom: 12px; opacity: 0.4; }
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: 1fr; }
+  .header-inner { flex-direction: column; gap: 8px; }
+}
+
+/* ===== 陶瓷装饰纹样 ===== */
+/* 页脚回纹装饰 */
+.main::after {
+  content: ''; display: block; margin: 20px auto 0;
+  width: 120px; height: 2px;
+  background: repeating-linear-gradient(90deg,
+    var(--ik-border) 0px, var(--ik-border) 3px,
+    transparent 3px, transparent 7px
+  );
+  opacity: 0.4;
+}
+/* 统计卡片底部装饰 */
+.stat-card::after {
+  content: ''; position: absolute; bottom: 0; left: 20%; right: 20%;
+  height: 2px; border-radius: 1px;
+  background: linear-gradient(90deg, transparent, var(--ik-sand), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.stat-card:hover::after { opacity: 1; }
+.stat-card { position: relative; }
+/* panel header 装饰 */
+.panel-header::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: repeating-linear-gradient(90deg,
+    var(--ik-border) 0px, var(--ik-border) 2px,
+    transparent 2px, transparent 4px,
+    var(--clay) 4px, var(--clay) 6px,
+    transparent 6px, transparent 10px
+  );
+  opacity: 0.3;
+}
+.panel-header { position: relative; }
+
+/* ===== 浮动问答气泡（可拖拽） ===== */
+.chat-float-btn {
+  position: fixed; bottom: 100px; right: 24px; z-index: 900;
+  width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--clay), var(--clay-dark));
+  color: #fff; border: none; cursor: pointer;
+  box-shadow: 0 6px 24px rgba(198,123,75,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; transition: all 0.25s ease;
+}
+.chat-float-btn:active { transform: scale(0.9); }
+.chat-float-popup {
+  position: fixed; bottom: 168px; right: 24px; z-index: 899;
+  width: 360px; max-height: 480px;
+  background: var(--card); border-radius: var(--radius-lg);
+  box-shadow: 0 8px 40px rgba(61,50,38,0.2);
+  border: 1px solid var(--ik-border);
+  display: none; flex-direction: column; overflow: hidden;
+  animation: chatSlideUp 0.3s ease;
+}
+.chat-float-popup.open { display: flex; }
+@keyframes chatSlideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.cfp-header {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  font-weight: 700; font-size: 0.85rem; color: var(--clay-dark);
+  background: linear-gradient(180deg, #fdfaf5, #fff);
+  cursor: grab; user-select: none;
+}
+.cfp-header:active { cursor: grabbing; }
+.cfp-header button { background:none;border:none;cursor:pointer;font-size:1rem;color:var(--text-light);padding:2px 6px;border-radius:6px; }
+.cfp-header button:hover { background:var(--border); }
+.cfp-body { display:flex;flex-direction:column;flex:1;min-height:0; }
+.cfp-msgs {
+  flex:1; padding:12px 14px; overflow-y:auto;
+  display:flex; flex-direction:column; gap:8px;
+  max-height: 200px;
+}
+.cfp-msg { max-width: 92%; }
+.cfp-msg.user { align-self: flex-end; }
+.cfp-msg.ai { align-self: flex-start; }
+.cfp-bubble {
+  padding: 8px 12px; border-radius: 12px; font-size: 0.82rem; line-height: 1.5;
+}
+.cfp-msg.user .cfp-bubble {
+  background: linear-gradient(135deg, var(--clay), #b87040);
+  color: #fff; border-bottom-right-radius: 4px;
+}
+.cfp-msg.ai .cfp-bubble {
+  background: #f8f4ee; color: var(--text);
+  border: 1px solid #f0e8dc; border-bottom-left-radius: 4px;
+}
+.cfp-input-row {
+  display:flex; gap:6px; padding:8px 14px 12px; border-top:1px solid var(--border);
+}
+.cfp-input-row input {
+  flex:1; padding:8px 12px; border-radius:16px; border:1.5px solid var(--border);
+  font-size:0.8rem; outline:none; font-family:inherit; background:#fdfaf6;
+}
+.cfp-input-row input:focus { border-color:var(--ik-brown); }
+.cfp-input-row button {
+  padding:8px 14px; border-radius:16px; border:none;
+  background:linear-gradient(135deg, var(--clay), var(--clay-dark));
+  color:#fff; font-weight:600; cursor:pointer; font-size:0.78rem;
+  font-family:inherit; transition:all 0.2s;
+}
+.cfp-input-row button:active { transform:scale(0.95); }
+@media(max-width:480px) {
+  .chat-float-popup { width:calc(100vw - 32px); right:16px; bottom:160px; }
+  .chat-float-btn { right:16px; bottom:90px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>🏺 教师教学面板</h1>
+    <div class="nav-links">
+      <span style="color:rgba(255,255,255,0.9);font-size:0.82rem;margin-right:8px;background:rgba(255,255,255,0.12);padding:4px 12px;border-radius:14px">👨‍🏫 <span id="teacherName">--</span>（<span id="teacherIdDisplay">--</span>）</span>
+      <a href="/login.html" style="background:rgba(255,255,255,0.06);font-weight:600"><i class="ri-arrow-left-line"></i>切换角色</a>
+      <a href="/index.html"><i class="ri-chat-3-line"></i>💬问答</a>
+      <a href="/guide.html"><i class="ri-guide-line"></i>🎓指导</a>
+      <a href="/explore.html">📖知识</a>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <!-- 学生筛选 + AI 分析 -->
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+    <span style="font-size:0.82rem;font-weight:600;color:var(--text-light)"><i class="ri-filter-3-line"></i> 分析范围：</span>
+    <select id="studentFilter" onchange="onStudentFilterChange()" style="padding:8px 14px;border-radius:10px;border:1.5px solid var(--border);font-size:0.82rem;font-family:inherit;background:#fff;color:var(--text);cursor:pointer;min-width:150px">
+      <option value="">全班学生</option>
+    </select>
+    <button class="btn btn-ai" onclick="doAnalysis()" style="margin-left:4px"><i class="ri-robot-line"></i>AI分析教学重点</button>
+  </div>
+  <!-- 统计卡片 -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon sc-q"><i class="ri-question-answer-line"></i></div>
+      <div class="stat-info">
+        <div class="stat-num" id="totalQuestions">--</div>
+        <div class="stat-label">总提问数</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon sc-s"><i class="ri-user-line"></i></div>
+      <div class="stat-info">
+        <div class="stat-num" id="uniqueStudents">--</div>
+        <div class="stat-label">参与学生</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon sc-h"><i class="ri-fire-line"></i></div>
+      <div class="stat-info">
+        <div class="stat-num" id="hotStep">--</div>
+        <div class="stat-label">最热环节</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon sc-a"><i class="ri-lightbulb-line"></i></div>
+      <div class="stat-info">
+        <div class="stat-num" id="topQuestion">--</div>
+        <div class="stat-label">最热问题被问</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 双栏布局 -->
+  <div class="grid-2">
+    <!-- 热门问题排行 -->
+    <div class="panel">
+      <div class="panel-header"><i class="ri-fire-line"></i>热门问题排行</div>
+      <div class="panel-body" id="hotQuestions"></div>
+    </div>
+
+    <!-- 学习环节热度 -->
+    <div class="panel">
+      <div class="panel-header"><i class="ri-bar-chart-grouped-line"></i>学习环节热度分布</div>
+      <div class="panel-body" id="stepHeat"></div>
+    </div>
+  </div>
+
+  <!-- 最近提问 -->
+  <div class="panel" style="margin-bottom:20px">
+    <div class="panel-header"><i class="ri-history-line"></i>最近提问记录</div>
+    <div class="panel-body" id="recentQuestions" style="max-height:360px"></div>
+  </div>
+
+  <!-- 教学建议 -->
+  <div class="teach-tip" id="teachTip">
+    <h3><i class="ri-lightbulb-flash-line"></i>AI教学建议</h3>
+    <p>点击下方 <strong>"AI分析教学重点"</strong> 按钮，让AI基于学生提问数据给出下节课的讲课建议。</p>
+  </div>
+
+  <!-- 按钮 -->
+  <div class="btn-row">
+    <button class="btn btn-refresh" onclick="loadStats()"><i class="ri-refresh-line"></i>刷新数据</button>
+    <a href="/index.html" class="btn btn-back"><i class="ri-arrow-left-line"></i>返回知识库</a>
+    <button class="btn btn-clear" onclick="clearData()"><i class="ri-delete-bin-line"></i>清空数据</button>
+  </div>
+</div>
+
+<script>
+var currentUser=null;try{currentUser=JSON.parse(localStorage.getItem("pottery_user"))}catch(e){}
+// 🔒 登录保护：未登录或非教师角色重定向到登录页
+if (!currentUser || !currentUser.id || currentUser.role !== 'teacher') {
+  window.location.href = '/login.html';
+}
+// 显示当前教师信息
+(function() {
+  var el = document.getElementById('teacherName');
+  if (el && currentUser) el.textContent = currentUser.name || currentUser.id;
+  var el2 = document.getElementById('teacherIdDisplay');
+  if (el2 && currentUser) el2.textContent = currentUser.id;
+})();
+function loadStats() {
+  fetch('/api/teacher/stats?teacherId='+encodeURIComponent((currentUser&&currentUser.id)||''))
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      renderStats(d);
+      // 填充学生下拉
+      var sel = document.getElementById('studentFilter');
+      var current = sel.value;
+      sel.innerHTML = '<option value="">全班学生</option>';
+      (d.activeStudents || []).forEach(function(s) {
+        sel.innerHTML += '<option value="' + s.name + '"' + (current === s.name ? ' selected' : '') + '>' + s.name + ' (' + s.count + '条提问)</option>';
+      });
+    })
+    .catch(function(err) { showEmpty('请求失败: ' + (err.message || '网络错误')); });
+}
+
+function doAnalysis() {
+  var filterVal = document.getElementById('studentFilter').value;
+  generateAISuggestion(filterVal || null);
+}
+
+function onStudentFilterChange() {
+  window._aiSuggestionActive = false;
+  loadStats();
+}
+
+function renderStats(d) {
+  // 统计卡片
+  document.getElementById('totalQuestions').textContent = d.totalQuestions || 0;
+  document.getElementById('uniqueStudents').textContent = d.uniqueStudents || 0;
+  document.getElementById('hotStep').textContent = d.hotSteps.length ? d.hotSteps[0].step : '--';
+  document.getElementById('topQuestion').textContent = d.hotQuestions.length ? d.hotQuestions[0].count + '次' : '--';
+
+  // 热门问题
+  var hq = document.getElementById('hotQuestions');
+  if (!d.hotQuestions.length) {
+    var tid = (currentUser&&currentUser.id)||'未知';
+    hq.innerHTML = '<div class="empty-state"><i class="ri-inbox-line"></i><p style="font-weight:600">暂无数据</p><p style="font-size:0.78rem;color:var(--text-light)">教师工号：<strong>' + tid + '</strong></p><p style="font-size:0.72rem;color:#8D6E63;margin-top:4px">学生登录时「教师工号」填 <strong>' + tid + '</strong> 即可关联</p></div>';
+  }
+  else {
+    hq.innerHTML = d.hotQuestions.map(function(item, i) {
+      var rc = i === 0 ? ' r1' : i === 1 ? ' r2' : i === 2 ? ' r3' : '';
+      var q = item.question;
+      // Find which step this question belongs to
+      var step = '';
+      if (d.allData) {
+        var match = d.allData.filter(function(x) { return x.question.substring(0,20) === q; })[0];
+        if (match) step = match.step;
+      }
+      return '<div class="hot-item"><div class="hot-rank' + rc + '">' + (i+1) + '</div><div class="hot-text"><div class="ht-q">' + q + (q.length >= 20 ? '...' : '') + '</div><div class="ht-meta">被问 ' + item.count + ' 次' + (step ? ' · ' + step : '') + '</div></div></div>';
+    }).join('');
+  }
+
+  // 步骤热度条
+  var sh = document.getElementById('stepHeat');
+  if (!d.hotSteps.length) { sh.innerHTML = '<div class="empty-state"><i class="ri-bar-chart-line"></i><p>暂无环节数据</p><p style="font-size:0.72rem;color:var(--text-light)">学生提问后将自动统计</p></div>'; }
+  else {
+    var maxCount = d.hotSteps[0].count;
+    sh.innerHTML = d.hotSteps.map(function(item) {
+      var pct = Math.round(item.count / maxCount * 100);
+      return '<div class="step-bar"><div class="sb-label"><span class="sb-name">' + item.step + '</span><span class="sb-count">' + item.count + '次</span></div><div class="sb-track"><div class="sb-fill" style="width:' + pct + '%"></div></div></div>';
+    }).join('');
+  }
+
+  // 最近提问
+  var rq = document.getElementById('recentQuestions');
+  if (!d.recentQuestions.length) { rq.innerHTML = '<div class="empty-state"><i class="ri-chat-3-line"></i><p>还没有学生提问</p><p style="font-size:0.72rem;color:var(--text-light)">通知学生用你的工号登录后提问</p></div>'; }
+  else {
+    rq.innerHTML = d.recentQuestions.map(function(item) {
+      var t = new Date(item.timestamp);
+      var ts = t.getMonth() + 1 + '/' + t.getDate() + ' ' + t.getHours() + ':' + String(t.getMinutes()).padStart(2,'0');
+      return '<div class="rq-item"><div class="rq-avatar">' + (item.studentName||item.student||'匿').charAt(0) + '</div><div class="rq-body"><div class="rq-q">' + item.question + '</div><div class="rq-meta"><span>' + (item.studentName||item.student||'匿名') + '</span><span>' + (item.step || '--') + '</span><span>' + ts + '</span></div></div></div>';
+    }).join('');
+  }
+
+  // 教学建议 — 只在没有AI建议时显示静态分析
+  if (!window._aiSuggestionActive) {
+    var tip = document.getElementById('teachTip');
+    var topSteps = d.hotSteps.slice(0, 3).map(function(s) { return s.step; }).join('、');
+    var topQs = d.hotQuestions.slice(0, 3).map(function(q) { return '"' + q.question + '"'; }).join('、');
+    tip.innerHTML = '<h3><i class="ri-lightbulb-flash-line"></i>AI教学建议</h3>';
+    if (d.totalQuestions > 0) {
+      tip.innerHTML += '<p>点击 <strong>"AI分析教学重点"</strong> 获取深度教学建议</p><ul>';
+      if (topSteps) tip.innerHTML += '<li><strong>最受关注的环节：</strong>' + topSteps + '</li>';
+      if (topQs) tip.innerHTML += '<li><strong>高频问题：</strong>' + topQs + '</li>';
+      if (d.uniqueStudents > 0) tip.innerHTML += '<li>共 <strong>' + d.uniqueStudents + '</strong> 名学生参与提问，总提问 <strong>' + d.totalQuestions + '</strong> 条</li>';
+      tip.innerHTML += '</ul>';
+    } else {
+      var tid = (currentUser&&currentUser.id)||'未设置';
+      tip.innerHTML += '<div style="background:#FFF9E6;border:1px solid #FFD54F;border-radius:10px;padding:14px 16px;margin-top:8px">';
+      tip.innerHTML += '<p style="margin:0 0 8px 0;font-weight:700;color:#E65100">📋 当前还没有学生提问数据</p>';
+      tip.innerHTML += '<p style="margin:0 0 6px 0;font-size:0.82rem">你的教师工号是：<strong style="background:#FFE0B2;padding:2px 8px;border-radius:4px">' + tid + '</strong></p>';
+      tip.innerHTML += '<p style="margin:0;font-size:0.78rem;color:#8D6E63">请让学生登录时在「教师工号」一栏填写此工号，之后学生的提问数据就会出现在这里。</p>';
+      tip.innerHTML += '</div>';
+    }
+  }
+}
+
+function showEmpty(errMsg) {
+  document.getElementById('totalQuestions').textContent = '0';
+  document.getElementById('uniqueStudents').textContent = '0';
+  document.getElementById('hotStep').textContent = '--';
+  document.getElementById('topQuestion').textContent = '--';
+  var reason = errMsg ? '<p style="font-size:0.7rem;color:var(--text-light);margin-top:4px">' + errMsg + '</p>' : '';
+  document.getElementById('hotQuestions').innerHTML = '<div class="empty-state"><i class="ri-inbox-line"></i><p>加载失败</p>' + reason + '</div>';
+  document.getElementById('stepHeat').innerHTML = '<div class="empty-state"><i class="ri-inbox-line"></i><p>加载失败</p></div>';
+  document.getElementById('recentQuestions').innerHTML = '<div class="empty-state"><i class="ri-chat-3-line"></i><p>加载失败</p></div>';
+  document.getElementById('teachTip').innerHTML = '<h3><i class="ri-error-warning-line"></i>数据加载失败</h3><p>无法连接到服务器。请确认：</p><ul style="font-size:0.82rem"><li>服务器是否已启动（node server.js）</li><li>端口 3456 是否被占用</li><li>当前教师工号：<strong>' + ((currentUser&&currentUser.id)||'未设置') + '</strong></li></ul>';
+}
+
+function clearData() {
+  if (!confirm('确定要清空所有提问数据吗？此操作不可恢复。')) return;
+  fetch('/api/teacher/clear', { method: 'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({teacherId:(currentUser&&currentUser.id)||''}) })
+    .then(function() { loadStats(); })
+    .catch(function() { alert('清空失败'); });
+}
+
+var aiSuggestionLoading = false;
+window._aiSuggestionActive = false;
+
+function generateAISuggestion(filterStudent) {
+  if (aiSuggestionLoading) return;
+  var btn = document.querySelector('.btn-ai');
+  aiSuggestionLoading = true;
+  window._aiSuggestionActive = true;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ri-loader-4-line"></i> AI分析中...';
+
+  var tip = document.getElementById('teachTip');
+  tip.innerHTML = '<h3><i class="ri-loader-4-line" style="animation:spin 1s linear infinite"></i>AI正在分析学生提问数据...</h3><p>请稍候，正在生成教学建议...</p>';
+
+  fetch('/api/teacher/stats?teacherId='+encodeURIComponent((currentUser&&currentUser.id)||''))
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      // 筛选数据
+      var allData = d.allData || [];
+      if (filterStudent) {
+        allData = allData.filter(function(x) { return (x.studentName||x.student) === filterStudent; });
+      }
+
+      var questions = allData.map(function(x) {
+        return x.student + '在【' + x.step + '】中问：' + x.question;
+      }).join('；') || '暂无数据';
+
+      // 重新统计筛选后数据
+      var qc = {}, sc = {};
+      allData.forEach(function(x) {
+        var k = x.question.length > 15 ? x.question.substring(0, 15) : x.question;
+        qc[k] = (qc[k] || 0) + 1;
+        if (x.step) sc[x.step] = (sc[x.step] || 0) + 1;
+      });
+      var hotQs = Object.entries(qc).sort(function(a,b){return b[1]-a[1]}).slice(0,5).map(function(e){return e[0]+'(被问'+e[1]+'次)';}).join('、');
+      var hotSt = Object.entries(sc).sort(function(a,b){return b[1]-a[1]}).map(function(e){return e[0]+'('+e[1]+'次)';}).join('、');
+
+      var scopeText = filterStudent ? '【仅分析' + filterStudent + '的数据】' : '【分析全班数据】';
+
+      return fetch('/api/chat', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'deepseek-chat', temperature: 0.7, max_tokens: 2000,
+          messages: [{
+            role: 'system',
+            content: '你是陶瓷艺术教学顾问。' + (filterStudent ? '你正在分析单个学生(' + filterStudent + ')的提问，找出TA的个人薄弱环节和学习需求。' : '你正在分析全班学生的提问，找出共性问题和教学重点。') + '建议应具体可操作：1)最困惑的知识点 2)讲课重点 3)课堂练习设计 4)推荐教学资源。用中文，专业亲切，分段清晰。'
+          }, {
+            role: 'user',
+            content: scopeText + '\n\n热门问题：' + hotQs + '\n\n热门环节：' + hotSt + '\n\n详细记录：' + questions + '\n\n分析数据量：' + allData.length + '条提问'
+          }]
+        })
+      });
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var ans = (data.choices[0].message.content || '暂无建议').replace(/\n/g, '<br>');
+      var scopeLabel = filterStudent ? '仅分析 ' + filterStudent + ' 的数据' : '分析全班数据';
+      document.getElementById('teachTip').innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><h3 style="margin:0"><i class="ri-lightbulb-flash-line"></i>AI教学建议</h3><span style="font-size:0.7rem;background:rgba(99,102,241,0.1);color:#6366f1;padding:3px 10px;border-radius:10px;font-weight:600">' + scopeLabel + '</span></div><div style="font-size:0.84rem;color:#5d4037;line-height:1.8">' + ans + '</div><div style="margin-top:8px;font-size:0.68rem;color:var(--text-light)"><em>AI生成 · ' + new Date().toLocaleString() + ' · <a href="javascript:void(0)" onclick="window._aiSuggestionActive=false;loadStats()" style="color:var(--fire)">清除此建议</a></em></div>';
+      aiSuggestionLoading = false;
+      var btnEl = document.querySelector('.btn-ai');
+      btnEl.disabled = false;
+      btnEl.innerHTML = '<i class="ri-robot-line"></i>AI分析教学重点';
+    })
+    .catch(function() {
+      window._aiSuggestionActive = false;
+      document.getElementById('teachTip').innerHTML = '<h3><i class="ri-error-warning-line"></i>分析失败</h3><p>AI服务暂时不可用，请稍后重试。</p>';
+      aiSuggestionLoading = false;
+      var btnEl = document.querySelector('.btn-ai');
+      btnEl.disabled = false;
+      btnEl.innerHTML = '<i class="ri-robot-line"></i>AI分析教学重点';
+    });
+}
+
+// 自动刷新每10秒
+loadStats();
+setInterval(loadStats, 10000);
+
+// 可拖拽IP形象
+(function(){
+  function initDragPet() {
+    var pet = document.getElementById('dragPet');
+    if (!pet) return;
+    var saved = localStorage.getItem('pottery_pet_pos');
+    if (saved) {
+      var pos = JSON.parse(saved);
+      pet.style.left = pos.left;
+      pet.style.top = pos.top;
+      pet.style.right = 'auto';
+      pet.style.bottom = 'auto';
+    }
+    var offsetX, offsetY;
+    pet.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      var rect = pet.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+    pet.addEventListener('touchstart', function(e) {
+      var t = e.touches[0];
+      var rect = pet.getBoundingClientRect();
+      offsetX = t.clientX - rect.left;
+      offsetY = t.clientY - rect.top;
+      document.addEventListener('touchmove', onTouchMove, { passive: false });
+      document.addEventListener('touchend', onTouchEnd);
+    });
+    function onMove(e) {
+      pet.style.left = (e.clientX - offsetX) + 'px';
+      pet.style.top = (e.clientY - offsetY) + 'px';
+      pet.style.right = 'auto'; pet.style.bottom = 'auto';
+    }
+    function onTouchMove(e) {
+      e.preventDefault();
+      var t = e.touches[0];
+      pet.style.left = (t.clientX - offsetX) + 'px';
+      pet.style.top = (t.clientY - offsetY) + 'px';
+      pet.style.right = 'auto'; pet.style.bottom = 'auto';
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      localStorage.setItem('pottery_pet_pos', JSON.stringify({ left: pet.style.left, top: pet.style.top }));
+    }
+    function onTouchEnd() {
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+      localStorage.setItem('pottery_pet_pos', JSON.stringify({ left: pet.style.left, top: pet.style.top }));
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDragPet);
+  } else {
+    initDragPet();
+  }
+})();
+
+// ===== 浮动问答 =====
+function toggleFloatChat() {
+  document.getElementById('chatFloatPopup').classList.toggle('open');
+}
+function sendFloatQ() {
+  var input = document.getElementById('cfpInput');
+  var q = input.value.trim();
+  if (!q) return;
+  var msgs = document.getElementById('cfpMsgs');
+  var div = document.createElement('div');
+  div.className = 'cfp-msg user';
+  div.innerHTML = '<div class="cfp-bubble">' + q + '</div>';
+  msgs.appendChild(div);
+  input.value = '';
+  // Call AI
+  fetch('/api/chat', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      model:'deepseek-chat', temperature:0.7, max_tokens:500,
+      messages:[{role:'system',content:'你是陶艺教学助手。'},{role:'user',content:q}]
+    })
+  }).then(function(r){return r.json();})
+  .then(function(d){
+    var ans = d.choices ? d.choices[0].message.content : '(暂无回复)';
+    var ai = document.createElement('div');
+    ai.className = 'cfp-msg ai';
+    ai.innerHTML = '<div class="cfp-bubble">' + ans.replace(/\n/g,'<br>') + '</div>';
+    msgs.appendChild(ai);
+    msgs.scrollTop = msgs.scrollHeight;
+  }).catch(function(){
+    var ai = document.createElement('div');
+    ai.className = 'cfp-msg ai';
+    ai.innerHTML = '<div class="cfp-bubble">抱歉，AI服务暂时不可用。</div>';
+    msgs.appendChild(ai);
+  });
+  msgs.scrollTop = msgs.scrollHeight;
+}
+</script>
+
+<button class="chat-float-btn" id="chatFloatBtn" onclick="toggleFloatChat()">
+  <i class="ri-chat-3-line"></i>
+</button>
+<div class="chat-float-popup" id="chatFloatPopup" data-type="teacher-chat">
+  <div class="cfp-header" id="chatDragHandle">
+    <span><i class="ri-chat-3-line" style="color:var(--clay)"></i> AI教学助手</span>
+    <button onclick="toggleFloatChat()">✕</button>
+  </div>
+  <div class="cfp-body">
+    <div class="cfp-msgs" id="cfpMsgs">
+      <div class="cfp-msg ai"><div class="cfp-bubble">有什么教学问题可以问我～</div></div>
+    </div>
+    <div class="cfp-input-row">
+      <input type="text" id="cfpInput" placeholder="输入问题..." onkeydown="if(event.key==='Enter')sendFloatQ()">
+      <button onclick="sendFloatQ()">发送</button>
+    </div>
+  </div>
+</div>
+
+<div class="drag-pet" id="dragPet" onclick="window.location.href='/explore.html'" title="陶瓷知识助手">
+  <div class="pet-inner">
+    <div class="pet-glow"></div>
+    <img src="/images/character.png" alt="陶瓷知识助手" loading="lazy">
+    <span class="pet-badge">知识</span>
+  </div>
+  <div class="pet-tooltip">拖动我~ 点击探索陶瓷文化</div>
+</div>
+
+</body>
+</html>

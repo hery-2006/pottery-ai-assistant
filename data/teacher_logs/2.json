@@ -1,0 +1,38 @@
+[
+  {
+    "studentId": "20265100",
+    "studentName": "买",
+    "question": "羊头式和菊花式揉泥有什么区别？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T07:47:38.617Z"
+  },
+  {
+    "studentId": "20265100",
+    "studentName": "买",
+    "question": "新买的泥需要揉吗？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T07:47:45.720Z"
+  },
+  {
+    "studentId": "20265100",
+    "studentName": "买",
+    "question": "揉泥到什么标准才算合格？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T07:47:50.931Z"
+  },
+  {
+    "studentId": "22",
+    "studentName": "00",
+    "question": "羊头式和菊花式揉泥有什么区别？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T14:19:56.047Z"
+  }
+]
