@@ -1,0 +1,373 @@
+{
+  "T001": {
+    "id": "T001",
+    "name": "张明远",
+    "role": "teacher",
+    "title": "高级陶艺讲师",
+    "createdAt": "2026-06-01T00:00:00.000Z"
+  },
+  "T002": {
+    "id": "T002",
+    "name": "李素华",
+    "role": "teacher",
+    "title": "陶艺副教授",
+    "createdAt": "2026-06-01T00:00:00.000Z"
+  },
+  "T003": {
+    "id": "T003",
+    "name": "王建国",
+    "role": "teacher",
+    "title": "工艺美术师",
+    "createdAt": "2026-06-01T00:00:00.000Z"
+  },
+  "S2024001": {
+    "id": "S2024001",
+    "name": "赵梦韩",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-05-31T16:00:00.000Z"
+  },
+  "S2024002": {
+    "id": "S2024002",
+    "name": "钱思远",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-05-31T16:00:00.000Z"
+  },
+  "S2024003": {
+    "id": "S2024003",
+    "name": "孙婉清",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-05-31T16:00:00.000Z"
+  },
+  "S2024004": {
+    "id": "S2024004",
+    "name": "李慕白",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-01T16:00:00.000Z"
+  },
+  "S2024005": {
+    "id": "S2024005",
+    "name": "周子璇",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-01T16:00:00.000Z"
+  },
+  "S2024006": {
+    "id": "S2024006",
+    "name": "吴文昊",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-01T16:00:00.000Z"
+  },
+  "S2024007": {
+    "id": "S2024007",
+    "name": "郑雅琴",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-02T16:00:00.000Z"
+  },
+  "S2024008": {
+    "id": "S2024008",
+    "name": "王浩然",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-02T16:00:00.000Z"
+  },
+  "S2024009": {
+    "id": "S2024009",
+    "name": "冯雨萱",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-02T16:00:00.000Z"
+  },
+  "S2024010": {
+    "id": "S2024010",
+    "name": "陈思睿",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-03T16:00:00.000Z"
+  },
+  "S2024011": {
+    "id": "S2024011",
+    "name": "褚天宇",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-03T16:00:00.000Z"
+  },
+  "S2024012": {
+    "id": "S2024012",
+    "name": "卫诗琪",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-03T16:00:00.000Z"
+  },
+  "S2024013": {
+    "id": "S2024013",
+    "name": "蒋一鸣",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-04T16:00:00.000Z"
+  },
+  "S2024014": {
+    "id": "S2024014",
+    "name": "沈佩珊",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-04T16:00:00.000Z"
+  },
+  "S2024015": {
+    "id": "S2024015",
+    "name": "韩子轩",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-04T16:00:00.000Z"
+  },
+  "S2024016": {
+    "id": "S2024016",
+    "name": "杨灵儿",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-05T16:00:00.000Z"
+  },
+  "S2024017": {
+    "id": "S2024017",
+    "name": "朱子玉",
+    "role": "student",
+    "teacherId": "T001",
+    "createdAt": "2026-06-05T16:00:00.000Z"
+  },
+  "S2024018": {
+    "id": "S2024018",
+    "name": "秦雨桐",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-05T16:00:00.000Z"
+  },
+  "S2024019": {
+    "id": "S2024019",
+    "name": "许晨曦",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-06T16:00:00.000Z"
+  },
+  "S2024020": {
+    "id": "S2024020",
+    "name": "何嘉文",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-06T16:00:00.000Z"
+  },
+  "S2024021": {
+    "id": "S2024021",
+    "name": "吕思涵",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-06T16:00:00.000Z"
+  },
+  "S2024022": {
+    "id": "S2024022",
+    "name": "张欣怡",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-07T16:00:00.000Z"
+  },
+  "S2024023": {
+    "id": "S2024023",
+    "name": "施俊杰",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-07T16:00:00.000Z"
+  },
+  "S2024024": {
+    "id": "S2024024",
+    "name": "孔令仪",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-07T16:00:00.000Z"
+  },
+  "S2024025": {
+    "id": "S2024025",
+    "name": "曹梦琪",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-08T16:00:00.000Z"
+  },
+  "S2024026": {
+    "id": "S2024026",
+    "name": "严志远",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-08T16:00:00.000Z"
+  },
+  "S2024027": {
+    "id": "S2024027",
+    "name": "华语瞳",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-08T16:00:00.000Z"
+  },
+  "S2024028": {
+    "id": "S2024028",
+    "name": "金明熙",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-09T16:00:00.000Z"
+  },
+  "S2024029": {
+    "id": "S2024029",
+    "name": "魏雨桐",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-09T16:00:00.000Z"
+  },
+  "S2024030": {
+    "id": "S2024030",
+    "name": "陶子安",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-09T16:00:00.000Z"
+  },
+  "S2024031": {
+    "id": "S2024031",
+    "name": "姜雨欣",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-10T16:00:00.000Z"
+  },
+  "S2024032": {
+    "id": "S2024032",
+    "name": "戚雨桐",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-10T16:00:00.000Z"
+  },
+  "S2024033": {
+    "id": "S2024033",
+    "name": "谢博文",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-10T16:00:00.000Z"
+  },
+  "S2024034": {
+    "id": "S2024034",
+    "name": "邹雨萱",
+    "role": "student",
+    "teacherId": "T002",
+    "createdAt": "2026-06-11T16:00:00.000Z"
+  },
+  "S2024035": {
+    "id": "S2024035",
+    "name": "苏子涵",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-11T16:00:00.000Z"
+  },
+  "S2024036": {
+    "id": "S2024036",
+    "name": "潘雨桐",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-11T16:00:00.000Z"
+  },
+  "S2024037": {
+    "id": "S2024037",
+    "name": "葛天宇",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-12T16:00:00.000Z"
+  },
+  "S2024038": {
+    "id": "S2024038",
+    "name": "范雨欣",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-12T16:00:00.000Z"
+  },
+  "S2024039": {
+    "id": "S2024039",
+    "name": "彭思远",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-12T16:00:00.000Z"
+  },
+  "S2024040": {
+    "id": "S2024040",
+    "name": "鲁雨桐",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-13T16:00:00.000Z"
+  },
+  "S2024041": {
+    "id": "S2024041",
+    "name": "马天宇",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-13T16:00:00.000Z"
+  },
+  "S2024042": {
+    "id": "S2024042",
+    "name": "方雨萱",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-13T16:00:00.000Z"
+  },
+  "S2024043": {
+    "id": "S2024043",
+    "name": "谭志远",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-14T16:00:00.000Z"
+  },
+  "S2024044": {
+    "id": "S2024044",
+    "name": "贺雨桐",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-14T16:00:00.000Z"
+  },
+  "S2024045": {
+    "id": "S2024045",
+    "name": "陆思涵",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-14T16:00:00.000Z"
+  },
+  "S2024046": {
+    "id": "S2024046",
+    "name": "孟子欣",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-15T16:00:00.000Z"
+  },
+  "S2024047": {
+    "id": "S2024047",
+    "name": "叶俊杰",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-15T16:00:00.000Z"
+  },
+  "S2024048": {
+    "id": "S2024048",
+    "name": "胡雨桐",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-15T16:00:00.000Z"
+  },
+  "S2024049": {
+    "id": "S2024049",
+    "name": "林晨曦",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-16T16:00:00.000Z"
+  },
+  "S2024050": {
+    "id": "S2024050",
+    "name": "唐语嫣",
+    "role": "student",
+    "teacherId": "T003",
+    "createdAt": "2026-06-16T16:00:00.000Z"
+  }
+}

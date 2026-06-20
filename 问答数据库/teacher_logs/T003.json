@@ -1,0 +1,1037 @@
+[
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧温度控制在多少度最合适？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-25T05:26:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧时窑门什么时候关？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-26T06:04:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "300度前为什么要留缝？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-27T07:57:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧过程中能开窑检查吗？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-28T08:51:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧要烧多长时间？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-29T09:03:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧后坯体颜色变成什么样算正常？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-10T00:21:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧时炸坯了是什么原因？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-11T01:54:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧完多久能开窑取件？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-12T02:25:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧和釉烧有什么区别？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-13T03:53:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "素烧前坯体需要检查什么？",
+    "step": "素烧",
+    "stepIndex": 7,
+    "role": "student",
+    "timestamp": "2026-06-14T04:29:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "釉烧温度一般控制在多少度？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-15T05:44:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "釉烧升温曲线是怎样的？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-16T06:43:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "釉烧时作品之间要留空隙吗？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-17T07:08:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "为什么釉烧后釉面有针孔？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-18T08:27:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "釉烧后釉面流釉了是什么原因？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-19T09:00:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "釉烧和素烧的升温速度一样吗？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-20T00:53:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "釉烧后开窑温度多少合适？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-21T01:18:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "窑内不同位置烧制效果不同怎么办？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-22T02:19:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "釉烧失败的作品能重烧吗？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-23T03:39:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "如何判断釉烧是否成功？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-24T04:02:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "喷釉时距离多远合适？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-25T05:46:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "开孔的直径怎么确定？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-26T06:53:00.000Z"
+  },
+  {
+    "studentId": "S2024035",
+    "studentName": "苏子涵",
+    "question": "坯体没干透就入窑会怎么样？",
+    "step": "干燥",
+    "stepIndex": 6,
+    "role": "student",
+    "timestamp": "2026-06-27T07:32:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "揉泥的主要目的是什么？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-28T08:39:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "羊头式和菊花式揉泥有什么区别？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-29T09:04:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "揉泥要揉到什么程度才算好？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-10T00:07:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "揉泥时手太干粘泥怎么办？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-11T01:04:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "泥料太硬揉不动怎么处理？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-12T02:39:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "揉泥过程中出现气泡怎么办？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-13T03:42:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "揉泥一般需要多长时间？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-14T04:11:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "揉泥台面有什么要求？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-15T05:19:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "揉泥时身体姿势应该是怎样的？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-16T06:56:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "如何判断泥料已经揉好了？",
+    "step": "揉泥",
+    "stepIndex": 0,
+    "role": "student",
+    "timestamp": "2026-06-17T07:43:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "定中心总是定不稳怎么办？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-18T08:18:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "泥团在拉坯机上晃动怎么解决？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-19T09:18:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "定中心时手臂应该放哪里？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-20T00:45:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "定中心转速多少合适？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-21T01:57:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "泥团偏心怎么调整？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-22T02:34:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "定中心时手要一直保持湿润吗？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-23T03:01:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "泥团太大定不了中心怎么办？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-24T04:36:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "定中心需要用到什么工具吗？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-25T05:08:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "怎么判断中心已经定好了？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-26T06:15:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "定中心时泥料总是飞出去怎么办？",
+    "step": "定中心",
+    "stepIndex": 1,
+    "role": "student",
+    "timestamp": "2026-06-27T07:30:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "干燥环境有什么要求？",
+    "step": "干燥",
+    "stepIndex": 6,
+    "role": "student",
+    "timestamp": "2026-06-28T08:11:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "干燥时坯体开裂了怎么办？",
+    "step": "干燥",
+    "stepIndex": 6,
+    "role": "student",
+    "timestamp": "2026-06-29T09:14:00.000Z"
+  },
+  {
+    "studentId": "S2024037",
+    "studentName": "葛天宇",
+    "question": "拉高时内外手怎么协调？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-10T00:44:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "造型时口部开裂怎么办？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-11T01:05:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "收口总是做不好有什么技巧？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-12T02:10:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "扩腹时泥壁塌陷了怎么补救？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-13T03:14:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "造型不对称一边大一边小怎么办？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-14T04:22:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "做瓶口有什么技巧？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-15T05:20:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "造型时转速应该调快还是调慢？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-16T06:39:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "做弧线造型手势应该怎么变化？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-17T07:19:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "底部留多少修坯余量合适？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-18T08:54:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "造型太复杂超出能力范围怎么办？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-19T09:17:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "怎么判断造型是否美观协调？",
+    "step": "造型",
+    "stepIndex": 4,
+    "role": "student",
+    "timestamp": "2026-06-20T00:54:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯应该修多薄？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-21T01:40:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯时坯体固定在转盘上晃动怎么办？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-22T02:01:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯刀用哪种比较好？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-23T03:17:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯时用力不均匀导致坑洼怎么办？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-24T04:02:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯时坯体干湿度怎么判断？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-25T05:55:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯的转速和拉坯转速一样吗？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-26T06:41:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修圈足有什么技巧？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-27T07:31:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯时发现底部有裂纹怎么办？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-28T08:32:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯和拉坯有什么不同？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-29T09:17:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "修坯时如何感知壁厚是否均匀？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-10T00:45:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "坯体没干透就入窑会怎么样？",
+    "step": "干燥",
+    "stepIndex": 6,
+    "role": "student",
+    "timestamp": "2026-06-11T01:40:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "干燥过程中坯体变形了怎么预防？",
+    "step": "干燥",
+    "stepIndex": 6,
+    "role": "student",
+    "timestamp": "2026-06-12T02:08:00.000Z"
+  },
+  {
+    "studentId": "S2024039",
+    "studentName": "彭思远",
+    "question": "为什么釉烧后釉面有针孔？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-13T03:26:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔时深度怎么控制？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-14T04:06:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔总是偏斜不在中心怎么办？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-15T05:51:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔底部要留多厚？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-16T06:02:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔时拇指要用多大力度？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-17T07:10:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔后底部发现有气泡怎么办？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-18T08:51:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔和定中心之间要衔接多快？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-19T09:53:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔时泥壁崩了是什么原因？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-20T00:09:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔的形状有什么讲究？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-21T01:00:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔的直径怎么确定？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-22T02:38:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "开孔到底是垂直压还是斜着压？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-23T03:30:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高时泥壁总是塌下来怎么办？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-24T04:30:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高提拉不均匀壁厚不一致怎么解决？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-25T05:50:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高时手指应该怎么配合？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-26T06:52:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高到多高比较合适？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-27T07:51:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高过程中泥料变软塌了怎么办？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-28T08:29:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高转速应该是多少？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-29T09:21:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高时底部总是越拉越薄怎么办？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-10T00:42:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高一次提拉多少高度最好？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-11T01:13:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高时内外手怎么协调？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-12T02:44:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "拉高后直筒不垂直怎么修正？",
+    "step": "拉高",
+    "stepIndex": 3,
+    "role": "student",
+    "timestamp": "2026-06-13T03:44:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "上釉后能再补釉吗？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-14T04:30:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "釉烧温度一般控制在多少度？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-15T05:10:00.000Z"
+  },
+  {
+    "studentId": "S2024041",
+    "studentName": "马天宇",
+    "question": "修坯的转速和拉坯转速一样吗？",
+    "step": "修坯",
+    "stepIndex": 5,
+    "role": "student",
+    "timestamp": "2026-06-16T06:02:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉料浓度怎么调配？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-17T07:48:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "上釉前坯体需要处理吗？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-18T08:33:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "荡釉法具体怎么操作？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-19T09:51:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "浸釉法要注意什么？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-20T00:24:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "喷釉时距离多远合适？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-21T01:58:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "底部釉没擦干净粘板了怎么办？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-22T02:01:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "上釉不均匀怎么补救？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-23T03:37:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉烧后颜色和釉料颜色不一样？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-24T04:51:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "素坯吸釉太快怎么办？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-25T05:12:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "上釉后能再补釉吗？",
+    "step": "上釉",
+    "stepIndex": 8,
+    "role": "student",
+    "timestamp": "2026-06-26T06:37:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉烧温度一般控制在多少度？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-27T07:36:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉烧升温曲线是怎样的？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-28T08:55:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉烧时作品之间要留空隙吗？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-29T09:06:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "为什么釉烧后釉面有针孔？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-10T00:55:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉烧后釉面流釉了是什么原因？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-11T01:57:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉烧和素烧的升温速度一样吗？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-12T02:15:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉烧后开窑温度多少合适？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-13T03:07:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "窑内不同位置烧制效果不同怎么办？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-14T04:45:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "釉烧失败的作品能重烧吗？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-15T05:28:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "如何判断釉烧是否成功？",
+    "step": "釉烧",
+    "stepIndex": 9,
+    "role": "student",
+    "timestamp": "2026-06-16T06:32:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "坯体没干透就入窑会怎么样？",
+    "step": "干燥",
+    "stepIndex": 6,
+    "role": "student",
+    "timestamp": "2026-06-17T07:40:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "开孔和定中心之间要衔接多快？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-18T08:20:00.000Z"
+  },
+  {
+    "studentId": "S2024043",
+    "studentName": "谭志远",
+    "question": "开孔时拇指要用多大力度？",
+    "step": "开孔",
+    "stepIndex": 2,
+    "role": "student",
+    "timestamp": "2026-06-19T09:08:00.000Z"
+  }
+]
